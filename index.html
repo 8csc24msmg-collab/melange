@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Melange</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header>
+    <h1>Melange</h1>
+    <p>Кофе, который хочется повторить ☕</p>
+  </header>
+
+  <main>
+    <h2>Меню</h2>
+
+    <div class="products">
+
+      <div class="card">
+        <div class="emoji">☕</div>
+        <h3>Капучино</h3>
+        <p>1200 ₸</p>
+        <button onclick="addToCart('Капучино', 1200)">
+          Добавить
+        </button>
+      </div>
+
+      <div class="card">
+        <div class="emoji">🥛</div>
+        <h3>Латте</h3>
+        <p>1300 ₸</p>
+        <button onclick="addToCart('Латте', 1300)">
+          Добавить
+        </button>
+      </div>
+
+      <div class="card">
+        <div class="emoji">🍵</div>
+        <h3>Матча</h3>
+        <p>1400 ₸</p>
+        <button onclick="addToCart('Матча', 1400)">
+          Добавить
+        </button>
+      </div>
+
+    </div>
+
+    <section class="cart">
+      <h2>🛒 Корзина</h2>
+      <div id="cart"></div>
+      <h3 id="total">Итого: 0 ₸</h3>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+
+</body>
+</html>
