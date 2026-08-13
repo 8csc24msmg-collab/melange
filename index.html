@@ -1,538 +1,999 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#8B5E3C">
-  <title>Melange</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#8B5E3C">
+<title>Melange</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #f8f1e9;
-      color: #3d2b21;
-      padding-bottom: 30px;
-    }
+:root{
+  --brown:#8b5e3c;
+  --dark:#3d2b21;
+  --milk:#f8f1e9;
+  --cream:#fffaf5;
+  --beige:#ead8c5;
+  --muted:#927b6c;
+  --line:#eee2d8;
+}
 
-    .header {
-      background: #8b5e3c;
-      color: white;
-      padding: 32px 20px;
-      border-radius: 0 0 30px 30px;
-    }
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:var(--milk);
+  color:var(--dark);
+  padding-bottom:90px;
+}
 
-    .brand {
-      font-family: Georgia, serif;
-      font-size: 38px;
-      font-weight: bold;
-    }
+button,input,select{
+  font:inherit;
+}
 
-    .subtitle {
-      margin-top: 6px;
-      opacity: .85;
-    }
+button{
+  border:0;
+  cursor:pointer;
+}
 
-    main {
-      max-width: 600px;
-      margin: auto;
-      padding: 22px 16px;
-    }
+.header{
+  background:var(--brown);
+  color:white;
+  padding:30px 20px 34px;
+  border-radius:0 0 30px 30px;
+}
 
-    h2 {
-      font-family: Georgia, serif;
-      margin-bottom: 16px;
-    }
+.logo{
+  font-family:Georgia,serif;
+  font-size:40px;
+  font-weight:bold;
+}
 
-    .card,
-    .checkout {
-      background: #fffaf5;
-      border-radius: 22px;
-      padding: 18px;
-      margin-bottom: 18px;
-      box-shadow: 0 5px 20px rgba(70, 45, 25, .07);
-    }
+.header p{
+  margin-top:6px;
+  opacity:.85;
+  font-size:14px;
+}
 
-    .product {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
+main{
+  max-width:600px;
+  margin:auto;
+  padding:22px 16px;
+}
 
-    .product-icon {
-      width: 75px;
-      height: 75px;
-      background: #ead8c5;
-      border-radius: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 38px;
-    }
+.page{
+  display:none;
+}
 
-    .product-info {
-      flex: 1;
-    }
+.page.active{
+  display:block;
+}
 
-    .product-info h3 {
-      font-family: Georgia, serif;
-      font-size: 19px;
-      margin-bottom: 5px;
-    }
+.welcome{
+  margin-bottom:22px;
+}
 
-    .price {
-      color: #8b5e3c;
-      font-weight: bold;
-    }
+.welcome p{
+  color:var(--brown);
+  font-size:14px;
+  font-weight:600;
+}
 
-    button {
-      border: none;
-      cursor: pointer;
-      font-size: 15px;
-      font-weight: 600;
-    }
+.welcome h2{
+  font-family:Georgia,serif;
+  font-size:25px;
+  margin-top:5px;
+}
 
-    .add-button {
-      width: 42px;
-      height: 42px;
-      border-radius: 14px;
-      background: #8b5e3c;
-      color: white;
-      font-size: 25px;
-    }
+.categories{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  margin-bottom:25px;
+}
 
-    .cart {
-      margin-top: 25px;
-    }
+.categories::-webkit-scrollbar{
+  display:none;
+}
 
-    .cart-line,
-    .summary-line {
-      display: flex;
-      justify-content: space-between;
-      padding: 11px 0;
-      border-bottom: 1px solid #eee2d8;
-    }
+.category{
+  white-space:nowrap;
+  padding:10px 15px;
+  border-radius:25px;
+  background:var(--cream);
+  color:var(--brown);
+  border:1px solid var(--beige);
+}
 
-    .total {
-      display: flex;
-      justify-content: space-between;
-      font-size: 19px;
-      font-weight: bold;
-      padding: 18px 0;
-    }
+.category.active{
+  background:var(--brown);
+  color:white;
+}
 
-    .total strong {
-      color: #8b5e3c;
-    }
+.section-title{
+  font-family:Georgia,serif;
+  margin-bottom:14px;
+}
 
-    .checkout-button,
-    .pay-button {
-      width: 100%;
-      padding: 16px;
-      border-radius: 15px;
-      background: #8b5e3c;
-      color: white;
-    }
+.products{
+  display:flex;
+  flex-direction:column;
+  gap:13px;
+}
 
-    .checkout {
-      display: none;
-    }
+.product{
+  background:var(--cream);
+  border-radius:22px;
+  padding:14px;
+  display:flex;
+  gap:14px;
+  box-shadow:0 5px 20px rgba(70,45,25,.06);
+}
 
-    .checkout.show {
-      display: block;
-    }
+.product-img{
+  width:85px;
+  height:85px;
+  border-radius:18px;
+  background:var(--beige);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:40px;
+  flex-shrink:0;
+}
 
-    .back {
-      background: transparent;
-      color: #8b5e3c;
-      margin-bottom: 18px;
-    }
+.product-info{
+  flex:1;
+}
 
-    .checkout h2 {
-      font-size: 27px;
-    }
+.product-info h3{
+  font-family:Georgia,serif;
+  font-size:18px;
+  margin-bottom:5px;
+}
 
-    .field {
-      margin-top: 16px;
-    }
+.product-info p{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.35;
+}
 
-    .field label {
-      display: block;
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 7px;
-    }
+.product-bottom{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-top:9px;
+}
 
-    input,
-    select {
-      width: 100%;
-      padding: 14px;
-      border: 1px solid #decab8;
-      border-radius: 13px;
-      background: white;
-      font-size: 15px;
-      outline: none;
-    }
+.price{
+  color:var(--brown);
+  font-weight:bold;
+}
 
-    input:focus,
-    select:focus {
-      border-color: #8b5e3c;
-    }
+.add{
+  width:38px;
+  height:38px;
+  border-radius:13px;
+  background:var(--brown);
+  color:white;
+  font-size:23px;
+}
 
-    .payment {
-      margin-top: 20px;
-      padding: 16px;
-      border-radius: 15px;
-      background: #ead8c5;
-    }
+.favorite{
+  background:transparent;
+  font-size:22px;
+  color:#a88c79;
+  margin-left:5px;
+}
 
-    .payment-title {
-      font-size: 13px;
-      color: #765b49;
-      margin-bottom: 5px;
-    }
+.card{
+  background:var(--cream);
+  border-radius:22px;
+  padding:19px;
+  margin-bottom:15px;
+  box-shadow:0 5px 20px rgba(70,45,25,.06);
+}
 
-    .payment-method {
-      font-weight: bold;
-    }
+.cart-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 0;
+  border-bottom:1px solid var(--line);
+}
 
-    .empty {
-      color: #927b6c;
-      padding: 10px 0;
-    }
+.cart-left{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
 
-    .success {
-      display: none;
-      text-align: center;
-      padding: 25px 10px;
-    }
+.quantity{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
 
-    .success.show {
-      display: block;
-    }
+.quantity button{
+  width:29px;
+  height:29px;
+  border-radius:9px;
+  background:var(--beige);
+  color:var(--brown);
+}
 
-    .success-icon {
-      font-size: 55px;
-      margin-bottom: 15px;
-    }
+.total{
+  display:flex;
+  justify-content:space-between;
+  padding:18px 0;
+  font-size:18px;
+  font-weight:bold;
+}
 
-    .success h2 {
-      margin-bottom: 10px;
-    }
+.total strong{
+  color:var(--brown);
+}
 
-    .success p {
-      color: #765b49;
-      line-height: 1.5;
-    }
+.primary{
+  width:100%;
+  padding:15px;
+  border-radius:15px;
+  background:var(--brown);
+  color:white;
+  font-weight:700;
+}
 
-    .back-home {
-      margin-top: 20px;
-      width: 100%;
-      padding: 15px;
-      border-radius: 15px;
-      background: #8b5e3c;
-      color: white;
-    }
-  </style>
+.secondary{
+  width:100%;
+  padding:14px;
+  border-radius:15px;
+  background:var(--beige);
+  color:var(--brown);
+  font-weight:600;
+}
+
+.empty{
+  text-align:center;
+  color:var(--muted);
+  padding:30px 10px;
+}
+
+.field{
+  margin-top:15px;
+}
+
+.field label{
+  display:block;
+  font-size:13px;
+  font-weight:600;
+  margin-bottom:7px;
+}
+
+input,select{
+  width:100%;
+  padding:14px;
+  border:1px solid var(--beige);
+  border-radius:13px;
+  background:white;
+  outline:none;
+}
+
+input:focus,select:focus{
+  border-color:var(--brown);
+}
+
+.payment{
+  background:var(--beige);
+  padding:15px;
+  border-radius:15px;
+  margin:18px 0;
+}
+
+.payment small{
+  display:block;
+  color:var(--muted);
+  margin-bottom:5px;
+}
+
+.payment strong{
+  color:var(--brown);
+}
+
+.order-item{
+  display:flex;
+  justify-content:space-between;
+  padding:9px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.profile-icon{
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  background:var(--beige);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:35px;
+  margin-bottom:14px;
+}
+
+.order-history{
+  margin-top:15px;
+}
+
+.history-item{
+  padding:14px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.history-item strong{
+  color:var(--brown);
+}
+
+.success{
+  text-align:center;
+  padding:35px 10px;
+}
+
+.success-icon{
+  font-size:65px;
+  margin-bottom:15px;
+}
+
+.success h2{
+  font-family:Georgia,serif;
+  margin-bottom:10px;
+}
+
+.success p{
+  color:var(--muted);
+  line-height:1.5;
+}
+
+.bottom{
+  position:fixed;
+  z-index:100;
+  left:10px;
+  right:10px;
+  bottom:10px;
+  height:66px;
+  background:rgba(255,250,245,.97);
+  border:1px solid var(--beige);
+  border-radius:22px;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  box-shadow:0 7px 25px rgba(60,40,25,.13);
+}
+
+.nav{
+  background:transparent;
+  color:var(--muted);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:3px;
+  font-size:20px;
+}
+
+.nav small{
+  font-size:10px;
+}
+
+.nav.active{
+  color:var(--brown);
+}
+
+.badge{
+  background:var(--brown);
+  color:white;
+  font-size:9px;
+  min-width:16px;
+  height:16px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:absolute;
+  margin-left:20px;
+  margin-top:-5px;
+}
+
+.back{
+  background:transparent;
+  color:var(--brown);
+  margin-bottom:18px;
+}
+
+@media(max-width:380px){
+  main{
+    padding-left:12px;
+    padding-right:12px;
+  }
+
+  .logo{
+    font-size:36px;
+  }
+
+  .product-img{
+    width:75px;
+    height:75px;
+    font-size:34px;
+  }
+}
+</style>
 </head>
 
 <body>
 
 <header class="header">
-  <div class="brand">Melange</div>
-  <div class="subtitle">Кофе, который хочется повторить ☕</div>
+  <div class="logo">Melange</div>
+  <p>Кофе, который хочется повторить ☕</p>
 </header>
 
 <main>
 
-  <!-- МЕНЮ -->
-  <section id="menu">
+<!-- ГЛАВНАЯ -->
 
-    <h2>Наше меню</h2>
+<section id="home" class="page active">
 
-    <div class="card">
-      <div class="product">
+  <div class="welcome">
+    <p>Добро пожаловать 🤎</p>
+    <h2>Что будем пить сегодня?</h2>
+  </div>
 
-        <div class="product-icon">☕</div>
+  <div class="categories">
+    <button class="category active">☕ Кофе</button>
+    <button class="category">🍵 Чай</button>
+    <button class="category">🍰 Десерты</button>
+  </div>
 
-        <div class="product-info">
-          <h3>Капучино</h3>
-          <div class="price">1 200 ₸</div>
-        </div>
+  <h2 class="section-title">Популярное</h2>
 
-        <button class="add-button" onclick="addToCart()">
-          +
-        </button>
+  <div class="products" id="products"></div>
 
-      </div>
+</section>
+
+
+<!-- КОРЗИНА -->
+
+<section id="cartPage" class="page">
+
+  <button class="back" onclick="showPage('home')">
+    ← Назад
+  </button>
+
+  <h2 class="section-title">🛒 Корзина</h2>
+
+  <div class="card">
+
+    <div id="cartItems"></div>
+
+    <div class="total">
+      <span>Итого</span>
+      <strong id="cartTotal">0 ₸</strong>
     </div>
 
-    <div class="card">
-      <div class="product">
-
-        <div class="product-icon">🥛</div>
-
-        <div class="product-info">
-          <h3>Латте</h3>
-          <div class="price">1 300 ₸</div>
-        </div>
-
-        <button class="add-button"
-          onclick="addProduct('Латте', 1300)">
-          +
-        </button>
-
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="product">
-
-        <div class="product-icon">🍵</div>
-
-        <div class="product-info">
-          <h3>Матча</h3>
-          <div class="price">1 400 ₸</div>
-        </div>
-
-        <button class="add-button"
-          onclick="addProduct('Матча', 1400)">
-          +
-        </button>
-
-      </div>
-    </div>
-
-    <!-- КОРЗИНА -->
-    <div class="card cart">
-
-      <h2>🛒 Корзина</h2>
-
-      <div id="cart">
-        <div class="empty">
-          Корзина пуста
-        </div>
-      </div>
-
-      <div class="total">
-        <span>Итого</span>
-        <strong id="total">0 ₸</strong>
-      </div>
-
-      <button class="checkout-button"
-        onclick="openCheckout()">
-        Оформить заказ
-      </button>
-
-    </div>
-
-  </section>
-
-
-  <!-- ОФОРМЛЕНИЕ -->
-  <section id="checkout" class="checkout">
-
-    <button class="back" onclick="backToMenu()">
-      ← Вернуться в меню
+    <button class="primary" onclick="openCheckout()">
+      Оформить заказ
     </button>
+
+  </div>
+
+</section>
+
+
+<!-- ИЗБРАННОЕ -->
+
+<section id="favorites" class="page">
+
+  <h2 class="section-title">♡ Избранное</h2>
+
+  <div id="favoriteItems"></div>
+
+</section>
+
+
+<!-- ПРОФИЛЬ -->
+
+<section id="profile" class="page">
+
+  <div class="card">
+
+    <div class="profile-icon">👤</div>
+
+    <h2>Мой профиль</h2>
+
+    <div class="field">
+      <label>Имя</label>
+      <input id="profileName" placeholder="Ваше имя">
+    </div>
+
+    <div class="field">
+      <label>Телефон</label>
+      <input id="profilePhone" placeholder="+7 700 000 00 00">
+    </div>
+
+    <br>
+
+    <button class="primary" onclick="saveProfile()">
+      Сохранить
+    </button>
+
+  </div>
+
+  <div class="card order-history">
+
+    <h2>История заказов</h2>
+
+    <div id="history"></div>
+
+  </div>
+
+</section>
+
+
+<!-- ОФОРМЛЕНИЕ -->
+
+<section id="checkout" class="page">
+
+  <button class="back" onclick="showPage('cartPage')">
+    ← Вернуться в корзину
+  </button>
+
+  <div class="card">
 
     <h2>Оформление заказа 🤎</h2>
 
     <div class="field">
-      <label>Ваше имя</label>
-      <input
-        id="name"
-        type="text"
-        placeholder="Например, Элина">
+      <label>Имя</label>
+      <input id="name" placeholder="Введите имя">
     </div>
 
     <div class="field">
-      <label>Номер телефона</label>
-      <input
-        id="phone"
-        type="tel"
-        placeholder="+7 700 000 00 00">
+      <label>Телефон</label>
+      <input id="phone" type="tel" placeholder="+7 700 000 00 00">
     </div>
 
     <div class="field">
       <label>Способ получения</label>
 
-      <select id="delivery"
-        onchange="deliveryChanged()">
-
-        <option value="Самовывоз">
-          Самовывоз
-        </option>
-
-        <option value="Доставка">
-          Доставка
-        </option>
-
+      <select id="delivery" onchange="deliveryChanged()">
+        <option value="Самовывоз">Самовывоз</option>
+        <option value="Доставка">Доставка</option>
       </select>
+
     </div>
 
-    <div class="field" id="addressField"
-      style="display:none;">
-
+    <div class="field" id="addressField" style="display:none">
       <label>Адрес доставки</label>
-
-      <input
-        id="address"
-        type="text"
-        placeholder="Введите адрес">
-
+      <input id="address" placeholder="Введите адрес">
     </div>
 
-    <div class="card">
+  </div>
 
-      <h2 style="font-size:21px;">
-        Ваш заказ
-      </h2>
 
-      <div id="checkoutItems"></div>
+  <div class="card">
 
-      <div class="total">
-        <span>К оплате</span>
-        <strong id="checkoutTotal">
-          0 ₸
-        </strong>
-      </div>
+    <h2>Ваш заказ</h2>
 
+    <div id="checkoutItems"></div>
+
+    <div class="total">
+      <span>К оплате</span>
+      <strong id="checkoutTotal">0 ₸</strong>
     </div>
 
-    <div class="payment">
+  </div>
 
-      <div class="payment-title">
-        Способ оплаты
-      </div>
 
-      <div class="payment-method">
-        💳 Банковская карта
-      </div>
+  <div class="payment">
 
-    </div>
+    <small>Способ оплаты</small>
+
+    <strong>💳 Банковская карта</strong>
+
+  </div>
+
+  <button class="primary" onclick="pay()">
+    💳 Оплатить картой
+  </button>
+
+</section>
+
+
+<!-- УСПЕШНО -->
+
+<section id="success" class="page">
+
+  <div class="card success">
+
+    <div class="success-icon">🤎</div>
+
+    <h2>Заказ оформлен!</h2>
+
+    <p id="successText">
+      Спасибо за заказ в Melange.
+    </p>
 
     <br>
 
-    <button class="pay-button"
-      onclick="placeOrder()">
-
-      💳 Перейти к оплате
-
+    <button class="primary" onclick="showPage('home')">
+      Вернуться в меню
     </button>
 
-  </section>
+  </div>
 
-
-  <!-- УСПЕШНЫЙ ЗАКАЗ -->
-  <section id="success" class="checkout">
-
-    <div class="success show">
-
-      <div class="success-icon">
-        🤎
-      </div>
-
-      <h2>Заказ создан!</h2>
-
-      <p id="successText">
-        Спасибо за заказ в Melange.
-      </p>
-
-      <button class="back-home"
-        onclick="backToMenu()">
-
-        Вернуться в меню
-
-      </button>
-
-    </div>
-
-  </section>
+</section>
 
 </main>
 
 
+<!-- НИЖНЕЕ МЕНЮ -->
+
+<nav class="bottom">
+
+  <button class="nav active" onclick="showPage('home')">
+    <span>⌂</span>
+    <small>Главная</small>
+  </button>
+
+  <button class="nav" onclick="showPage('cartPage')">
+    <span>
+      🛍
+      <i id="badge" class="badge">0</i>
+    </span>
+    <small>Корзина</small>
+  </button>
+
+  <button class="nav" onclick="showPage('favorites')">
+    <span>♡</span>
+    <small>Избранное</small>
+  </button>
+
+  <button class="nav" onclick="showPage('profile')">
+    <span>♙</span>
+    <small>Профиль</small>
+  </button>
+
+</nav>
+
+
 <script>
 
-let cartItems = [];
+const products = [
+
+  {
+    id:1,
+    name:"Капучино",
+    description:"Нежный кофе с молочной пенкой",
+    price:1200,
+    icon:"☕"
+  },
+
+  {
+    id:2,
+    name:"Латте",
+    description:"Мягкий кофе с большим количеством молока",
+    price:1300,
+    icon:"🥛"
+  },
+
+  {
+    id:3,
+    name:"Матча",
+    description:"Нежный японский чай с молоком",
+    price:1400,
+    icon:"🍵"
+  },
+
+  {
+    id:4,
+    name:"Американо",
+    description:"Классический крепкий кофе",
+    price:1000,
+    icon:"☕"
+  },
+
+  {
+    id:5,
+    name:"Чизкейк",
+    description:"Нежный сливочный десерт",
+    price:1500,
+    icon:"🍰"
+  }
+
+];
 
 
-/* ДОБАВЛЕНИЕ КАПУЧИНО */
+let cart = [];
+let favorites = [];
+let orders = [];
 
-function addToCart() {
 
-  addProduct("Капучино", 1200);
+/* ТОВАРЫ */
+
+function renderProducts(){
+
+  const container =
+    document.getElementById("products");
+
+  container.innerHTML = "";
+
+  products.forEach(function(product){
+
+    const favorite =
+      favorites.includes(product.id);
+
+    container.innerHTML += `
+
+      <div class="product">
+
+        <div class="product-img">
+          ${product.icon}
+        </div>
+
+        <div class="product-info">
+
+          <h3>${product.name}</h3>
+
+          <p>${product.description}</p>
+
+          <div class="product-bottom">
+
+            <span class="price">
+              ${product.price.toLocaleString("ru-RU")} ₸
+            </span>
+
+            <div>
+
+              <button
+                class="favorite"
+                onclick="toggleFavorite(${product.id})">
+
+                ${favorite ? "♥" : "♡"}
+
+              </button>
+
+              <button
+                class="add"
+                onclick="addToCart(${product.id})">
+
+                +
+
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    `;
+
+  });
 
 }
 
 
-/* ДОБАВЛЕНИЕ ЛЮБОГО ТОВАРА */
+/* КОРЗИНА */
 
-function addProduct(name, price) {
+function addToCart(id){
 
-  cartItems.push({
-    name: name,
-    price: price
-  });
+  const product =
+    products.find(p => p.id === id);
+
+  const existing =
+    cart.find(item => item.id === id);
+
+  if(existing){
+
+    existing.quantity++;
+
+  }else{
+
+    cart.push({
+      ...product,
+      quantity:1
+    });
+
+  }
 
   updateCart();
 
 }
 
 
-/* ОБНОВЛЕНИЕ КОРЗИНЫ */
+function changeQuantity(id, amount){
 
-function updateCart() {
+  const item =
+    cart.find(item => item.id === id);
 
-  const cart = document.getElementById("cart");
+  if(!item) return;
+
+  item.quantity += amount;
+
+  if(item.quantity <= 0){
+
+    cart =
+      cart.filter(item => item.id !== id);
+
+  }
+
+  updateCart();
+
+}
+
+
+function updateCart(){
+
+  const container =
+    document.getElementById("cartItems");
+
+  const badge =
+    document.getElementById("badge");
 
   let total = 0;
+  let count = 0;
 
-  if (cartItems.length === 0) {
+  if(cart.length === 0){
 
-    cart.innerHTML =
-      '<div class="empty">Корзина пуста</div>';
+    container.innerHTML =
+      `<div class="empty">
+        Корзина пока пустая ☕
+      </div>`;
 
-  } else {
+  }else{
 
-    cart.innerHTML = "";
+    container.innerHTML = "";
 
-    cartItems.forEach(function(item) {
+    cart.forEach(function(item){
 
-      total += item.price;
+      const sum =
+        item.price * item.quantity;
 
-      const line =
-        document.createElement("div");
+      total += sum;
+      count += item.quantity;
 
-      line.className = "cart-line";
+      container.innerHTML += `
 
-      line.innerHTML =
-        `<span>${item.name}</span>
-         <strong>${item.price.toLocaleString("ru-RU")} ₸</strong>`;
+        <div class="cart-item">
 
-      cart.appendChild(line);
+          <div class="cart-left">
+
+            <span>${item.icon}</span>
+
+            <div>
+              <strong>${item.name}</strong>
+              <div>${item.price.toLocaleString("ru-RU")} ₸</div>
+            </div>
+
+          </div>
+
+          <div class="quantity">
+
+            <button onclick="changeQuantity(${item.id},-1)">
+              −
+            </button>
+
+            <span>${item.quantity}</span>
+
+            <button onclick="changeQuantity(${item.id},1)">
+              +
+            </button>
+
+          </div>
+
+        </div>
+      `;
 
     });
 
   }
 
-  document.getElementById("total").textContent =
+  document.getElementById("cartTotal").textContent =
     total.toLocaleString("ru-RU") + " ₸";
+
+  badge.textContent = count;
+
+  updateCheckout();
 
 }
 
 
-/* ОТКРЫТЬ ОФОРМЛЕНИЕ */
+/* ИЗБРАННОЕ */
 
-function openCheckout() {
+function toggleFavorite(id){
 
-  if (cartItems.length === 0) {
+  if(favorites.includes(id)){
+
+    favorites =
+      favorites.filter(item => item !== id);
+
+  }else{
+
+    favorites.push(id);
+
+  }
+
+  renderProducts();
+  renderFavorites();
+
+}
+
+
+function renderFavorites(){
+
+  const container =
+    document.getElementById("favoriteItems");
+
+  const list =
+    products.filter(p => favorites.includes(p.id));
+
+  if(list.length === 0){
+
+    container.innerHTML =
+      `<div class="card empty">
+        Здесь пока ничего нет 🤎
+      </div>`;
+
+    return;
+
+  }
+
+  container.innerHTML = "";
+
+  list.forEach(function(product){
+
+    container.innerHTML += `
+
+      <div class="product">
+
+        <div class="product-img">
+          ${product.icon}
+        </div>
+
+        <div class="product-info">
+
+          <h3>${product.name}</h3>
+
+          <p>${product.description}</p>
+
+          <div class="product-bottom">
+
+            <span class="price">
+              ${product.price.toLocaleString("ru-RU")} ₸
+            </span>
+
+            <button
+              class="add"
+              onclick="addToCart(${product.id})">
+              +
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+}
+
+
+/* ОФОРМЛЕНИЕ */
+
+function openCheckout(){
+
+  if(cart.length === 0){
 
     alert("Сначала добавьте товар в корзину ☕");
 
@@ -540,85 +1001,72 @@ function openCheckout() {
 
   }
 
-  document.getElementById("menu").style.display = "none";
-
-  document.getElementById("checkout").classList.add("show");
-
-  document.getElementById("success").classList.remove("show");
-
   updateCheckout();
 
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
+  showPage("checkout");
 
 }
 
 
-/* ЗАКАЗ В ФОРМЕ */
+function updateCheckout(){
 
-function updateCheckout() {
-
-  const items =
+  const container =
     document.getElementById("checkoutItems");
 
-  const total =
+  const totalElement =
     document.getElementById("checkoutTotal");
 
-  items.innerHTML = "";
+  if(!container) return;
 
-  let sum = 0;
+  container.innerHTML = "";
 
-  cartItems.forEach(function(item) {
+  let total = 0;
 
-    sum += item.price;
+  cart.forEach(function(item){
 
-    const line =
-      document.createElement("div");
+    const sum =
+      item.price * item.quantity;
 
-    line.className = "summary-line";
+    total += sum;
 
-    line.innerHTML =
-      `<span>${item.name}</span>
-       <strong>${item.price.toLocaleString("ru-RU")} ₸</strong>`;
+    container.innerHTML += `
 
-    items.appendChild(line);
+      <div class="order-item">
+
+        <span>
+          ${item.name} × ${item.quantity}
+        </span>
+
+        <strong>
+          ${sum.toLocaleString("ru-RU")} ₸
+        </strong>
+
+      </div>
+
+    `;
 
   });
 
-  total.textContent =
-    sum.toLocaleString("ru-RU") + " ₸";
+  totalElement.textContent =
+    total.toLocaleString("ru-RU") + " ₸";
 
 }
 
 
-/* ДОСТАВКА */
+function deliveryChanged(){
 
-function deliveryChanged() {
-
-  const value =
+  const delivery =
     document.getElementById("delivery").value;
 
-  const address =
-    document.getElementById("addressField");
-
-  if (value === "Доставка") {
-
-    address.style.display = "block";
-
-  } else {
-
-    address.style.display = "none";
-
-  }
+  document.getElementById("addressField").style.display =
+    delivery === "Доставка" ? "block" : "none";
 
 }
 
 
-/* СОЗДАНИЕ ЗАКАЗА */
+/* ОПЛАТА */
 
-function placeOrder() {
+function pay(){
 
   const name =
     document.getElementById("name").value.trim();
@@ -633,76 +1081,173 @@ function placeOrder() {
     document.getElementById("address").value.trim();
 
 
-  if (!name) {
+  if(!name){
 
-    alert("Введите ваше имя 🤎");
-
+    alert("Введите имя 🤎");
     return;
 
   }
 
 
-  if (!phone) {
+  if(!phone){
 
     alert("Введите номер телефона 📱");
-
     return;
 
   }
 
 
-  if (
-    delivery === "Доставка" &&
-    !address
-  ) {
+  if(delivery === "Доставка" && !address){
 
     alert("Введите адрес доставки 📍");
-
     return;
 
   }
 
 
   const total =
-    cartItems.reduce(
-      (sum, item) => sum + item.price,
+    cart.reduce(
+      (sum,item) =>
+        sum + item.price * item.quantity,
       0
     );
 
 
-  document.getElementById("checkout").classList.remove("show");
+  orders.push({
+    name:name,
+    phone:phone,
+    total:total,
+    date:new Date().toLocaleDateString("ru-RU")
+  });
 
-  document.getElementById("success").classList.add("show");
 
   document.getElementById("successText").textContent =
-    `Спасибо, ${name}! Заказ на ${total.toLocaleString("ru-RU")} ₸ подготовлен.`;
+    `Спасибо, ${name}! Заказ на ${total.toLocaleString("ru-RU")} ₸ создан.`;
 
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
+  cart = [];
+
+  updateCart();
+  renderHistory();
+
+  showPage("success");
+
+}
+
+
+/* ПРОФИЛЬ */
+
+function saveProfile(){
+
+  const name =
+    document.getElementById("profileName").value;
+
+  const phone =
+    document.getElementById("profilePhone").value;
+
+  localStorage.setItem(
+    "melangeName",
+    name
+  );
+
+  localStorage.setItem(
+    "melangePhone",
+    phone
+  );
+
+  alert("Профиль сохранён 🤎");
+
+}
+
+
+function loadProfile(){
+
+  document.getElementById("profileName").value =
+    localStorage.getItem("melangeName") || "";
+
+  document.getElementById("profilePhone").value =
+    localStorage.getItem("melangePhone") || "";
+
+}
+
+
+/* ИСТОРИЯ */
+
+function renderHistory(){
+
+  const container =
+    document.getElementById("history");
+
+  if(orders.length === 0){
+
+    container.innerHTML =
+      `<div class="empty">
+        Заказов пока нет
+      </div>`;
+
+    return;
+
+  }
+
+  container.innerHTML = "";
+
+  orders.slice().reverse().forEach(function(order){
+
+    container.innerHTML += `
+
+      <div class="history-item">
+
+        <strong>
+          ${order.total.toLocaleString("ru-RU")} ₸
+        </strong>
+
+        <div>
+          ${order.date}
+        </div>
+
+        <small>
+          ${order.name}
+        </small>
+
+      </div>
+
+    `;
+
   });
 
 }
 
 
-/* НАЗАД */
+/* НАВИГАЦИЯ */
 
-function backToMenu() {
+function showPage(id){
 
-  document.getElementById("checkout").classList.remove("show");
+  document
+    .querySelectorAll(".page")
+    .forEach(page =>
+      page.classList.remove("active")
+    );
 
-  document.getElementById("success").classList.remove("show");
-
-  document.getElementById("menu").style.display = "block";
+  document
+    .getElementById(id)
+    .classList.add("active");
 
   window.scrollTo({
-    top: 0,
-    behavior: "smooth"
+    top:0,
+    behavior:"smooth"
   });
 
 }
+
+
+/* ЗАПУСК */
+
+renderProducts();
+renderFavorites();
+updateCart();
+renderHistory();
+loadProfile();
 
 </script>
 
 </body>
-</html> 
+</html>
