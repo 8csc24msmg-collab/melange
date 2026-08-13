@@ -12,182 +12,359 @@
 
 <body>
 
-  <header class="header">
-    <div>
-      <p class="small-title">COFFEE & DESSERTS</p>
-      <h1>Melange</h1>
-      <p class="subtitle">Твой любимый кофе рядом ☕</p>
-    </div>
-  </header>
+<header class="header">
+  <div>
+    <p class="small-title">COFFEE & DESSERTS</p>
+    <h1>Melange</h1>
+    <p class="subtitle">Твой любимый кофе рядом ☕</p>
+  </div>
+</header>
 
-  <main>
+<main>
 
-    <section class="welcome">
-      <p>Добро пожаловать 🤎</p>
-      <h2>Что будем пить сегодня?</h2>
-    </section>
+  <section class="welcome">
+    <p>Добро пожаловать 🤎</p>
+    <h2>Что будем пить сегодня?</h2>
+  </section>
 
-    <div class="categories">
-      <button class="category active">☕ Кофе</button>
-      <button class="category">🍵 Чай</button>
-      <button class="category">🍰 Десерты</button>
-    </div>
+  <div class="categories">
+    <button class="category active">☕ Кофе</button>
+    <button class="category">🍵 Чай</button>
+    <button class="category">🍰 Десерты</button>
+  </div>
 
-    <h2 class="section-title">Популярное</h2>
+  <h2 class="section-title">Популярное</h2>
 
-    <div class="products">
+  <div class="products">
 
-      <div class="card">
-        <div class="product-image">☕</div>
+    <div class="card">
+      <div class="product-image">☕</div>
 
-        <div class="product-info">
-          <h3>Капучино</h3>
-          <p>Нежный кофе с молочной пенкой</p>
+      <div class="product-info">
+        <h3>Капучино</h3>
+        <p>Нежный кофе с молочной пенкой</p>
 
-          <div class="product-bottom">
-            <strong>1 200 ₸</strong>
+        <div class="product-bottom">
+          <strong>1 200 ₸</strong>
 
-            <button
-              class="add-button"
-              onclick="addToCart('Капучино', 1200)">
-              +
-            </button>
-          </div>
+          <button class="add-button"
+            onclick="addToCart('Капучино', 1200)">
+            +
+          </button>
         </div>
       </div>
-
-      <div class="card">
-        <div class="product-image">🥛</div>
-
-        <div class="product-info">
-          <h3>Латте</h3>
-          <p>Мягкий кофе с большим количеством молока</p>
-
-          <div class="product-bottom">
-            <strong>1 300 ₸</strong>
-
-            <button
-              class="add-button"
-              onclick="addToCart('Латте', 1300)">
-              +
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="product-image">🍵</div>
-
-        <div class="product-info">
-          <h3>Матча</h3>
-          <p>Нежный японский чай с молоком</p>
-
-          <div class="product-bottom">
-            <strong>1 400 ₸</strong>
-
-            <button
-              class="add-button"
-              onclick="addToCart('Матча', 1400)">
-              +
-            </button>
-          </div>
-        </div>
-      </div>
-
     </div>
 
-    <section class="cart-section">
+    <div class="card">
+      <div class="product-image">🥛</div>
 
-      <div class="cart-header">
-        <h2>Корзина</h2>
-        <span id="cartCount">0</span>
+      <div class="product-info">
+        <h3>Латте</h3>
+        <p>Мягкий кофе с большим количеством молока</p>
+
+        <div class="product-bottom">
+          <strong>1 300 ₸</strong>
+
+          <button class="add-button"
+            onclick="addToCart('Латте', 1300)">
+            +
+          </button>
+        </div>
       </div>
+    </div>
 
-      <div id="cart"></div>
+    <div class="card">
+      <div class="product-image">🍵</div>
 
-      <div class="total">
-        <span>Итого</span>
-        <strong id="total">0 ₸</strong>
+      <div class="product-info">
+        <h3>Матча</h3>
+        <p>Нежный японский чай с молоком</p>
+
+        <div class="product-bottom">
+          <strong>1 400 ₸</strong>
+
+          <button class="add-button"
+            onclick="addToCart('Матча', 1400)">
+            +
+          </button>
+        </div>
       </div>
+    </div>
 
-      <button class="checkout-button" onclick="openCheckout()">
-        Оформить заказ
-      </button>
+  </div>
 
-    </section>
+  <section class="cart-section">
 
-    <section id="checkout" class="checkout hidden">
+    <div class="cart-header">
+      <h2>Корзина</h2>
+      <span id="cartCount">0</span>
+    </div>
 
-      <button class="back-button" onclick="closeCheckout()">
-        ← Назад
-      </button>
+    <div id="cart"></div>
 
-      <h2>Оформление заказа</h2>
-
-      <label>Имя</label>
-      <input id="name" type="text" placeholder="Введите имя">
-
-      <label>Телефон</label>
-      <input id="phone" type="tel" placeholder="+7 (___) ___-__-__">
-
-      <label>Способ получения</label>
-
-      <select id="delivery">
-        <option>Самовывоз</option>
-        <option>Доставка</option>
-      </select>
-
-      <label>Адрес</label>
-      <input id="address" type="text" placeholder="Введите адрес">
-
-      <div class="payment-box">
-        <span>Способ оплаты</span>
-        <strong>💳 Банковская карта</strong>
-      </div>
-
-      <div class="checkout-total">
-        <span>К оплате</span>
-        <strong id="checkoutTotal">0 ₸</strong>
-      </div>
-
-      <button class="pay-button" onclick="payByCard()">
-        💳 Оплатить картой
-      </button>
-
-    </section>
-
-  </main>
-
-  <nav class="bottom-nav">
-
-    <button class="nav-item active">
-      <span>⌂</span>
-      <small>Главная</small>
-    </button>
+    <div class="total">
+      <span>Итого</span>
+      <strong id="total">0 ₸</strong>
+    </div>
 
     <button
-      class="nav-item"
-      onclick="document.querySelector('.cart-section').scrollIntoView({behavior:'smooth'})">
-
-      <span>🛍</span>
-      <small>Корзина</small>
+      class="checkout-button"
+      onclick="openCheckout()">
+      Оформить заказ
     </button>
 
-    <button class="nav-item">
-      <span>♡</span>
-      <small>Избранное</small>
+  </section>
+
+  <section id="checkout" class="checkout hidden">
+
+    <button class="back-button"
+      onclick="closeCheckout()">
+      ← Назад
     </button>
 
-    <button class="nav-item">
-      <span>♙</span>
-      <small>Профиль</small>
+    <h2>Оформление заказа</h2>
+
+    <label>Имя</label>
+    <input id="name" type="text" placeholder="Введите имя">
+
+    <label>Телефон</label>
+    <input id="phone" type="tel" placeholder="+7 (___) ___-__-__">
+
+    <label>Способ получения</label>
+
+    <select id="delivery">
+      <option>Самовывоз</option>
+      <option>Доставка</option>
+    </select>
+
+    <label>Адрес</label>
+    <input id="address" type="text" placeholder="Введите адрес">
+
+    <div class="payment-box">
+      <span>Способ оплаты</span>
+      <strong>💳 Банковская карта</strong>
+    </div>
+
+    <div class="checkout-total">
+      <span>К оплате</span>
+      <strong id="checkoutTotal">0 ₸</strong>
+    </div>
+
+    <button class="pay-button"
+      onclick="payByCard()">
+      💳 Оплатить картой
     </button>
 
-  </nav>
+  </section>
 
-<button class="checkout-button" onclick="openCheckout()">
-  Оформить заказ
-</button>
+</main>
+
+<nav class="bottom-nav">
+
+  <button class="nav-item active">
+    <span>⌂</span>
+    <small>Главная</small>
+  </button>
+
+  <button class="nav-item"
+    onclick="document.querySelector('.cart-section').scrollIntoView({behavior:'smooth'})">
+    <span>🛍</span>
+    <small>Корзина</small>
+  </button>
+
+  <button class="nav-item">
+    <span>♡</span>
+    <small>Избранное</small>
+  </button>
+
+  <button class="nav-item">
+    <span>♙</span>
+    <small>Профиль</small>
+  </button>
+
+</nav>
+
+
+<script>
+
+let cart = [];
+
+
+function addToCart(name, price) {
+
+  cart.push({
+    name: name,
+    price: price
+  });
+
+  updateCart();
+
+}
+
+
+function updateCart() {
+
+  const cartElement =
+    document.getElementById("cart");
+
+  const totalElement =
+    document.getElementById("total");
+
+  const countElement =
+    document.getElementById("cartCount");
+
+  const checkoutTotal =
+    document.getElementById("checkoutTotal");
+
+
+  cartElement.innerHTML = "";
+
+  let total = 0;
+
+
+  cart.forEach(function(item) {
+
+    total += item.price;
+
+
+    const itemElement =
+      document.createElement("div");
+
+    itemElement.className =
+      "cart-item";
+
+
+    itemElement.innerHTML = `
+      <span>${item.name}</span>
+      <strong>
+        ${item.price.toLocaleString("ru-RU")} ₸
+      </strong>
+    `;
+
+
+    cartElement.appendChild(itemElement);
+
+  });
+
+
+  totalElement.textContent =
+    total.toLocaleString("ru-RU") + " ₸";
+
+
+  countElement.textContent =
+    cart.length;
+
+
+  checkoutTotal.textContent =
+    total.toLocaleString("ru-RU") + " ₸";
+
+}
+
+
+
+function openCheckout() {
+
+  if (cart.length === 0) {
+
+    alert("Сначала добавьте товар в корзину ☕");
+
+    return;
+
+  }
+
+
+  const checkout =
+    document.getElementById("checkout");
+
+
+  checkout.classList.remove("hidden");
+
+
+  checkout.scrollIntoView({
+    behavior: "smooth"
+  });
+
+
+  updateCart();
+
+}
+
+
+
+function closeCheckout() {
+
+  const checkout =
+    document.getElementById("checkout");
+
+
+  checkout.classList.add("hidden");
+
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
+
+
+
+function payByCard() {
+
+  const name =
+    document.getElementById("name").value.trim();
+
+
+  const phone =
+    document.getElementById("phone").value.trim();
+
+
+  const delivery =
+    document.getElementById("delivery").value;
+
+
+  const address =
+    document.getElementById("address").value.trim();
+
+
+  if (!name) {
+
+    alert("Введите ваше имя");
+
+    return;
+
+  }
+
+
+  if (!phone) {
+
+    alert("Введите номер телефона");
+
+    return;
+
+  }
+
+
+  if (
+    delivery === "Доставка" &&
+    !address
+  ) {
+
+    alert("Введите адрес доставки");
+
+    return;
+
+  }
+
+
+  alert(
+    "Заказ подготовлен 🤎\n\n" +
+    "Настоящую оплату картой подключим следующим этапом."
+  );
+
+}
+
+</script>
 
 </body>
 </html>
