@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Melange — Админка</title>
+
+<style>
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background: #f8f1e9;
+  color: #3d2b21;
+}
+
+.container {
+  max-width: 700px;
+  margin: auto;
+}
+
+h1 {
+  color: #8b5e3c;
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  color: #927b6c;
+  margin-bottom: 20px;
+}
+
+.refresh {
+  width: 100%;
+  padding: 15px;
+  border: 0;
+  border-radius: 14px;
+  background: #8b5e3c;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.order {
+  background: #fffaf5;
+  border-radius: 20px;
+  padding: 18px;
+  margin-bottom: 15px;
+  box-shadow: 0 5px 20px rgba(70,45,25,.08);
+}
+
+.order h2 {
+  margin-top: 0;
+  color: #8b5e3c;
+}
+
+.info {
+  line-height: 1.7;
+}
+
+.items {
+  border-top: 1px solid #ead8c5;
+  border-bottom: 1px solid #ead8c5;
+  margin: 15px 0;
+  padding: 10px 0;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.total strong {
+  color: #8b5e3c;
+}
+
+.status {
+  display: inline-block;
+  background: #ead8c5;
+  color: #8b5e3c;
+  padding: 7px 10px;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.buttons {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+.buttons button {
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: #8b5e3c;
+  color: white;
+}
+
+.empty {
+  text-align: center;
+  padding: 40px;
+  background: #fffaf5;
+  border-radius: 20px;
+}
+
+.error {
+  background: #ffe4df;
+  color: #a33b2b;
+  padding: 15px;
+  border-radius: 15px;
+  margin-bottom: 15px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Melange 🤎</h1>
+
+<div class="subtitle">
+Панель заказов
+</div>
+
+<button class="refresh" onclick="loadOrders()">
+🔄 Обновить заказы
+</button>
+
+<div id="orders">
+Загрузка заказов...
+</div>
+
+</div>
+
+
+<script>
+
+const API =
+"https://melange-3.onrender.com";
+
+
+async function loadOrders() {
+
+  const container =
+    document.getElementById("orders");
+
+  container.innerHTML =
+    "<div class='empty'>Загрузка...</div>";
+
+
+  try {
+
+    const response =
+      await fetch(
+        API + "/api/orders"
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        data.error || "Ошибка сервера"
+      );
+
+    }
+
+
+    if (
+      !Array.isArray(data) ||
+      data.length === 0
+    ) {
+
+      container.innerHTML = `
+        <div class="empty">
+          🛒<br><br>
+          Заказов пока нет
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    data.forEach(order => {
+
+      let itemsHTML = "";
+
+
+      if (
+        Array.isArray(order.items)
+      ) {
+
+        order.items.forEach(item => {
+
+          const quantity =
+            Number(item.quantity) || 1;
+
+          const price =
+            Number(item.price) || 0;
+
+          const sum =
+            price * quantity;
+
+
+          itemsHTML += `
+
+            <div class="item">
+
+              <span>
+                ${item.icon || "☕"}
+                ${escapeHTML(item.name)}
+                × ${quantity}
+              </span>
+
+              <strong>
+                ${sum.toLocaleString("ru-RU")} ₸
+              </strong>
+
+            </div>
+
+          `;
+
+        });
+
+      }
+
+
+      const date =
+        order.created_at
+        ? new Date(
+            order.created_at
+          ).toLocaleString("ru-RU")
+        : "—";
+
+
+      container.innerHTML += `
+
+        <div class="order">
+
+          <h2>
+            Заказ №${order.id}
+          </h2>
+
+
+          <div class="info">
+
+            👤 <b>Имя:</b>
+            ${escapeHTML(order.name)}
+
+            <br>
+
+            📱 <b>Телефон:</b>
+            ${escapeHTML(order.phone)}
+
+            <br>
+
+            🚚 <b>Получение:</b>
+            ${escapeHTML(order.delivery)}
+
+            ${
+              order.address
+              ? `
+                <br>
+                📍 <b>Адрес:</b>
+                ${escapeHTML(order.address)}
+              `
+              : ""
+            }
+
+            <br>
+
+            🕐 <b>Дата:</b>
+            ${date}
+
+          </div>
+
+
+          <div class="items">
+
+            ${itemsHTML}
+
+          </div>
+
+
+          <div class="total">
+
+            <span>
+              Итого
+            </span>
+
+            <strong>
+              ${Number(order.total)
+                .toLocaleString("ru-RU")} ₸
+            </strong>
+
+          </div>
+
+
+          <div class="status">
+
+            Статус:
+            ${escapeHTML(
+              order.status || "Новый"
+            )}
+
+          </div>
+
+
+          <div class="buttons">
+
+            <button
+              onclick="
+                changeStatus(
+                  ${order.id},
+                  'Новый'
+                )
+              ">
+              🆕 Новый
+            </button>
+
+
+            <button
+              onclick="
+                changeStatus(
+                  ${order.id},
+                  'Готовится'
+                )
+              ">
+              ☕ Готовится
+            </button>
+
+
+            <button
+              onclick="
+                changeStatus(
+                  ${order.id},
+                  'Готов'
+                )
+              ">
+              ✅ Готов
+            </button>
+
+
+            <button
+              onclick="
+                changeStatus(
+                  ${order.id},
+                  'Выдан'
+                )
+              ">
+              🤎 Выдан
+            </button>
+
+          </div>
+
+        </div>
+
+      `;
+
+    });
+
+
+  } catch (error) {
+
+    console.error(error);
+
+
+    container.innerHTML = `
+
+      <div class="error">
+
+        ❌ Не удалось загрузить заказы.
+
+        <br><br>
+
+        ${escapeHTML(error.message)}
+
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+async function changeStatus(
+  id,
+  status
+) {
+
+  try {
+
+    const response =
+      await fetch(
+        API +
+        "/api/orders/" +
+        id +
+        "/status",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body: JSON.stringify({
+            status: status
+          })
+        }
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        data.error ||
+        "Не удалось изменить статус"
+      );
+
+    }
+
+
+    loadOrders();
+
+
+  } catch (error) {
+
+    alert(
+      "Ошибка:\n" +
+      error.message
+    );
+
+  }
+
+}
+
+
+function escapeHTML(value) {
+
+  return String(value || "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+
+}
+
+
+loadOrders();
+
+
+setInterval(
+  loadOrders,
+  10000
+);
+
+</script>
+
+</body>
+</html>
