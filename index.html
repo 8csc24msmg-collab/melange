@@ -310,10 +310,6 @@ input, select {
   margin-bottom: 15px;
 }
 
-.success h2 {
-  margin-bottom: 10px;
-}
-
 .success p {
   color: #927b6c;
   line-height: 1.5;
@@ -379,7 +375,6 @@ input, select {
 
 <main>
 
-<!-- ГЛАВНАЯ -->
 <section id="home" class="page active">
 
   <div class="welcome">
@@ -399,8 +394,6 @@ input, select {
 
 </section>
 
-
-<!-- КОРЗИНА -->
 <section id="cartPage" class="page">
 
   <button class="back" onclick="showPage('home')">
@@ -426,8 +419,6 @@ input, select {
 
 </section>
 
-
-<!-- ИЗБРАННОЕ -->
 <section id="favorites" class="page">
 
   <h2>♡ Избранное</h2>
@@ -436,8 +427,6 @@ input, select {
 
 </section>
 
-
-<!-- ПРОФИЛЬ -->
 <section id="profile" class="page">
 
   <div class="card">
@@ -474,8 +463,6 @@ input, select {
 
 </section>
 
-
-<!-- ОФОРМЛЕНИЕ -->
 <section id="checkout" class="page">
 
   <button class="back" onclick="showPage('cartPage')">
@@ -502,13 +489,9 @@ input, select {
 
       <select id="delivery" onchange="deliveryChanged()">
 
-        <option value="Самовывоз">
-          Самовывоз
-        </option>
+        <option value="Самовывоз">Самовывоз</option>
 
-        <option value="Доставка">
-          Доставка
-        </option>
+        <option value="Доставка">Доставка</option>
 
       </select>
 
@@ -524,7 +507,6 @@ input, select {
 
   </div>
 
-
   <div class="card">
 
     <h2>Ваш заказ</h2>
@@ -535,14 +517,11 @@ input, select {
 
       <span>К оплате</span>
 
-      <strong id="checkoutTotal">
-        0 ₸
-      </strong>
+      <strong id="checkoutTotal">0 ₸</strong>
 
     </div>
 
   </div>
-
 
   <div class="payment">
 
@@ -555,11 +534,10 @@ input, select {
     </div>
 
     <p style="font-size:13px;margin-top:6px;color:#58705f;">
-      Безопасная оплата через Kaspi
+      Заказ будет отправлен в Melange
     </p>
 
   </div>
-
 
   <button class="kaspi" onclick="payWithKaspi()">
     🟢 Оплатить через Kaspi
@@ -567,15 +545,11 @@ input, select {
 
 </section>
 
-
-<!-- УСПЕШНЫЙ ЗАКАЗ -->
 <section id="success" class="page">
 
   <div class="card success">
 
-    <div class="success-icon">
-      🤎
-    </div>
+    <div class="success-icon">🤎</div>
 
     <h2>Заказ оформлен!</h2>
 
@@ -595,8 +569,6 @@ input, select {
 
 </main>
 
-
-<!-- НИЖНЕЕ МЕНЮ -->
 <nav class="bottom">
 
   <button class="nav active" onclick="showPage('home')">
@@ -624,11 +596,9 @@ input, select {
 
 </nav>
 
-
 <script>
 
 const products = [
-
   {
     id: 1,
     name: "Капучино",
@@ -636,7 +606,6 @@ const products = [
     price: 1200,
     icon: "☕"
   },
-
   {
     id: 2,
     name: "Латте",
@@ -644,7 +613,6 @@ const products = [
     price: 1300,
     icon: "🥛"
   },
-
   {
     id: 3,
     name: "Матча",
@@ -652,7 +620,6 @@ const products = [
     price: 1400,
     icon: "🍵"
   },
-
   {
     id: 4,
     name: "Американо",
@@ -660,7 +627,6 @@ const products = [
     price: 1000,
     icon: "☕"
   },
-
   {
     id: 5,
     name: "Чизкейк",
@@ -668,9 +634,7 @@ const products = [
     price: 1500,
     icon: "🍰"
   }
-
 ];
-
 
 let cart = [];
 let favorites = [];
@@ -681,18 +645,15 @@ let orders = [];
 
 function renderProducts() {
 
-  const container =
-    document.getElementById("products");
+  const container = document.getElementById("products");
 
   container.innerHTML = "";
 
   products.forEach(product => {
 
-    const liked =
-      favorites.includes(product.id);
+    const liked = favorites.includes(product.id);
 
     container.innerHTML += `
-
       <div class="product">
 
         <div class="product-icon">
@@ -716,17 +677,13 @@ function renderProducts() {
               <button
                 class="favorite"
                 onclick="toggleFavorite(${product.id})">
-
                 ${liked ? "♥" : "♡"}
-
               </button>
 
               <button
                 class="add"
                 onclick="addToCart(${product.id})">
-
                 +
-
               </button>
 
             </div>
@@ -743,66 +700,47 @@ function renderProducts() {
 }
 
 
-/* ДОБАВИТЬ В КОРЗИНУ */
+/* КОРЗИНА */
 
 function addToCart(id) {
 
-  const product =
-    products.find(item => item.id === id);
+  const product = products.find(item => item.id === id);
 
-  const existing =
-    cart.find(item => item.id === id);
+  const existing = cart.find(item => item.id === id);
 
   if (existing) {
-
     existing.quantity++;
-
   } else {
-
     cart.push({
       ...product,
       quantity: 1
     });
-
   }
 
   updateCart();
-
 }
 
 
-/* КОЛИЧЕСТВО */
-
 function changeQuantity(id, amount) {
 
-  const item =
-    cart.find(item => item.id === id);
+  const item = cart.find(item => item.id === id);
 
   if (!item) return;
 
   item.quantity += amount;
 
   if (item.quantity <= 0) {
-
-    cart =
-      cart.filter(item => item.id !== id);
-
+    cart = cart.filter(item => item.id !== id);
   }
 
   updateCart();
-
 }
 
 
-/* КОРЗИНА */
-
 function updateCart() {
 
-  const container =
-    document.getElementById("cartItems");
-
-  const badge =
-    document.getElementById("badge");
+  const container = document.getElementById("cartItems");
+  const badge = document.getElementById("badge");
 
   let total = 0;
   let count = 0;
@@ -810,9 +748,7 @@ function updateCart() {
   if (cart.length === 0) {
 
     container.innerHTML =
-      `<div class="empty">
-        Корзина пока пустая ☕
-      </div>`;
+      `<div class="empty">Корзина пока пустая ☕</div>`;
 
   } else {
 
@@ -820,14 +756,12 @@ function updateCart() {
 
     cart.forEach(item => {
 
-      const sum =
-        item.price * item.quantity;
+      const sum = item.price * item.quantity;
 
       total += sum;
       count += item.quantity;
 
       container.innerHTML += `
-
         <div class="cart-item">
 
           <div>
@@ -836,22 +770,19 @@ function updateCart() {
 
           <div class="quantity">
 
-            <button
-              onclick="changeQuantity(${item.id},-1)">
+            <button onclick="changeQuantity(${item.id},-1)">
               −
             </button>
 
             <span>${item.quantity}</span>
 
-            <button
-              onclick="changeQuantity(${item.id},1)">
+            <button onclick="changeQuantity(${item.id},1)">
               +
             </button>
 
           </div>
 
         </div>
-
       `;
 
     });
@@ -864,7 +795,6 @@ function updateCart() {
   badge.textContent = count;
 
   updateCheckout();
-
 }
 
 
@@ -885,7 +815,6 @@ function toggleFavorite(id) {
 
   renderProducts();
   renderFavorites();
-
 }
 
 
@@ -907,7 +836,6 @@ function renderFavorites() {
       </div>`;
 
     return;
-
   }
 
   container.innerHTML = "";
@@ -915,7 +843,6 @@ function renderFavorites() {
   list.forEach(product => {
 
     container.innerHTML += `
-
       <div class="product">
 
         <div class="product-icon">
@@ -945,7 +872,6 @@ function renderFavorites() {
         </div>
 
       </div>
-
     `;
 
   });
@@ -962,13 +888,10 @@ function openCheckout() {
     alert("Сначала добавьте товар в корзину ☕");
 
     return;
-
   }
 
   updateCheckout();
-
   showPage("checkout");
-
 }
 
 
@@ -994,7 +917,6 @@ function updateCheckout() {
     total += sum;
 
     container.innerHTML += `
-
       <div class="order-item">
 
         <span>
@@ -1006,14 +928,12 @@ function updateCheckout() {
         </strong>
 
       </div>
-
     `;
 
   });
 
   totalElement.textContent =
     total.toLocaleString("ru-RU") + " ₸";
-
 }
 
 
@@ -1026,38 +946,65 @@ function deliveryChanged() {
 
   document.getElementById("addressField").style.display =
     value === "Доставка" ? "block" : "none";
-
 }
 
 
-/* KASPI */
+/* ОТПРАВКА ЗАКАЗА */
 
 async function payWithKaspi() {
 
-  const name = document.getElementById("name").value.trim();
-  const phone = document.getElementById("phone").value.trim();
-  const delivery = document.getElementById("delivery").value;
-  const address = document.getElementById("address").value.trim();
+  if (cart.length === 0) {
+
+    alert("Корзина пуста ☕");
+
+    return;
+  }
+
+  const name =
+    document.getElementById("name").value.trim();
+
+  const phone =
+    document.getElementById("phone").value.trim();
+
+  const delivery =
+    document.getElementById("delivery").value;
+
+  const address =
+    document.getElementById("address").value.trim();
 
   if (!name) {
+
     alert("Введите имя 🤎");
+
     return;
   }
 
   if (!phone) {
+
     alert("Введите номер телефона 📱");
+
     return;
   }
 
   if (delivery === "Доставка" && !address) {
+
     alert("Введите адрес доставки 📍");
+
     return;
   }
 
-  const total = cart.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  );
+  const total =
+    cart.reduce(
+      (sum, item) =>
+        sum + item.price * item.quantity,
+      0
+    );
+
+  const button =
+    document.querySelector(".kaspi");
+
+  button.disabled = true;
+  button.textContent = "Отправляем заказ…";
 
   try {
 
@@ -1084,8 +1031,20 @@ async function payWithKaspi() {
     const result = await response.json();
 
     if (!response.ok) {
-      throw new Error(result.error || "Ошибка");
+
+      throw new Error(
+        result.error || "Ошибка сервера"
+      );
+
     }
+
+    orders.push({
+      name: name,
+      phone: phone,
+      total: total,
+      delivery: delivery,
+      date: new Date().toLocaleDateString("ru-RU")
+    });
 
     document.getElementById("successText").textContent =
       `Спасибо, ${name}! Заказ №${result.orderId} на ${total.toLocaleString("ru-RU")} ₸ принят 🤎`;
@@ -1099,75 +1058,19 @@ async function payWithKaspi() {
 
   } catch (error) {
 
-    alert(
-      "Не удалось отправить заказ 😔\n\n" +
-      "Попробуйте ещё раз."
-    );
-
     console.error(error);
 
-  }
-
-}
-
-
-  if (!phone) {
-
-    alert("Введите номер телефона 📱");
-
-    return;
-
-  }
-
-
-  if (
-    delivery === "Доставка" &&
-    !address
-  ) {
-
-    alert("Введите адрес доставки 📍");
-
-    return;
-
-  }
-
-
-  const total =
-    cart.reduce(
-      (sum, item) =>
-        sum + item.price * item.quantity,
-      0
+    alert(
+      "Не удалось отправить заказ 😔\n\n" +
+      "Проверьте соединение и попробуйте ещё раз."
     );
 
+  } finally {
 
-  /*
-    Здесь позже подключим
-    официальную оплату Kaspi.
+    button.disabled = false;
+    button.textContent = "🟢 Оплатить через Kaspi";
 
-    Пока создаём заказ.
-  */
-
-  orders.push({
-
-    name: name,
-    phone: phone,
-    total: total,
-    delivery: delivery,
-    date: new Date().toLocaleDateString("ru-RU")
-
-  });
-
-
-  document.getElementById("successText").textContent =
-    `Спасибо, ${name}! Заказ на ${total.toLocaleString("ru-RU")} ₸ принят.`;
-
-
-  cart = [];
-
-  updateCart();
-  renderHistory();
-
-  showPage("success");
+  }
 
 }
 
@@ -1193,7 +1096,6 @@ function saveProfile() {
   );
 
   alert("Профиль сохранён 🤎");
-
 }
 
 
@@ -1204,7 +1106,6 @@ function loadProfile() {
 
   document.getElementById("profilePhone").value =
     localStorage.getItem("melangePhone") || "";
-
 }
 
 
@@ -1223,7 +1124,6 @@ function renderHistory() {
       </div>`;
 
     return;
-
   }
 
   container.innerHTML = "";
@@ -1231,7 +1131,6 @@ function renderHistory() {
   orders.slice().reverse().forEach(order => {
 
     container.innerHTML += `
-
       <div class="history-item">
 
         <strong>
@@ -1247,11 +1146,9 @@ function renderHistory() {
         </small>
 
       </div>
-
     `;
 
   });
-
 }
 
 
@@ -1265,15 +1162,23 @@ function showPage(id) {
       page.classList.remove("active")
     );
 
+  const page =
+    document.getElementById(id);
+
+  if (page) {
+    page.classList.add("active");
+  }
+
   document
-    .getElementById(id)
-    .classList.add("active");
+    .querySelectorAll(".nav")
+    .forEach(nav =>
+      nav.classList.remove("active")
+    );
 
   window.scrollTo({
     top: 0,
     behavior: "smooth"
   });
-
 }
 
 
