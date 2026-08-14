@@ -1,14 +1,13 @@
 {
   "name": "melange",
   "version": "1.0.0",
-  "description": "Melange coffee app",
-  "main": "server.js",
+  "private": true,
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^5.1.0",
+    "express": "^4.21.2",
     "cors": "^2.8.5",
-    "better-sqlite3": "^12.4.1"
+    "better-sqlite3": "^11.10.0"
   }
 }
