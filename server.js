@@ -1,6 +1,5 @@
 const express = require("express");
 const Database = require("better-sqlite3");
-const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -11,20 +10,29 @@ app.use(express.static("public"));
 const db = new Database("melange.db");
 
 db.exec(`
-  CREATE TABLE IF NOT EXISTS orders (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    phone TEXT NOT NULL,
-    items TEXT NOT NULL,
-    total INTEGER NOT NULL,
-    delivery TEXT NOT NULL,
-    address TEXT,
-    status TEXT DEFAULT 'Новый',
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  )
+CREATE TABLE IF NOT EXISTS orders (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  phone TEXT NOT NULL,
+  items TEXT NOT NULL,
+  total INTEGER NOT NULL,
+  delivery TEXT NOT NULL,
+  address TEXT,
+  status TEXT DEFAULT 'Новый',
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+)
 `);
 
+app.get("/", (req, res) => {
+  res.send(`
+    <h1>Melange 🤎</h1>
+    <p>Сервер работает.</p>
+    <p><a href="/admin.html">Открыть админ-панель</a></p>
+  `);
+});
+
 app.post("/api/orders", (req, res) => {
+
   const {
     name,
     phone,
@@ -86,5 +94,5 @@ app.patch("/api/orders/:id", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Melange server started on port ${PORT}`);
+  console.log("Melange server started on port " + PORT);
 });
