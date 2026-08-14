@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Melange — Админка</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #f7f1eb;
+  color: #3d2b21;
+  padding: 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+}
+
+.header {
+  background: #8b5e3c;
+  color: white;
+  padding: 25px;
+  border-radius: 24px;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  font-family: Georgia, serif;
+  font-size: 30px;
+}
+
+.header p {
+  margin-top: 5px;
+  opacity: .85;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.stat {
+  background: white;
+  padding: 18px;
+  border-radius: 18px;
+}
+
+.stat small {
+  color: #927b6c;
+}
+
+.stat strong {
+  display: block;
+  font-size: 25px;
+  margin-top: 5px;
+  color: #8b5e3c;
+}
+
+.order {
+  background: white;
+  border-radius: 20px;
+  padding: 18px;
+  margin-bottom: 14px;
+  box-shadow: 0 4px 15px rgba(60,40,25,.06);
+}
+
+.order-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.order-number {
+  font-weight: bold;
+}
+
+.status {
+  padding: 6px 10px;
+  border-radius: 10px;
+  font-size: 12px;
+  background: #eee;
+}
+
+.order-info {
+  line-height: 1.7;
+  color: #665044;
+}
+
+.order-total {
+  font-size: 20px;
+  font-weight: bold;
+  color: #8b5e3c;
+  margin: 12px 0;
+}
+
+.actions {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+
+.actions button {
+  border: none;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #ead8c5;
+  color: #5c3d29;
+  cursor: pointer;
+}
+
+.refresh {
+  width: 100%;
+  border: none;
+  padding: 15px;
+  border-radius: 15px;
+  background: #8b5e3c;
+  color: white;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.empty {
+  text-align: center;
+  padding: 50px 20px;
+  color: #927b6c;
+  background: white;
+  border-radius: 20px;
+}
+
+@media(max-width:500px) {
+  body {
+    padding: 12px;
+  }
+
+  .stats {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <h1>Melange 🤎</h1>
+    <p>Панель управления заказами</p>
+  </div>
+
+  <div class="stats">
+
+    <div class="stat">
+      <small>Всего заказов</small>
+      <strong id="ordersCount">0</strong>
+    </div>
+
+    <div class="stat">
+      <small>Выручка</small>
+      <strong id="revenue">0 ₸</strong>
+    </div>
+
+  </div>
+
+  <button class="refresh" onclick="loadOrders()">
+    🔄 Обновить заказы
+  </button>
+
+  <div id="orders"></div>
+
+</div>
+
+<script>
+
+async function loadOrders() {
+
+  const container =
+    document.getElementById("orders");
+
+  container.innerHTML =
+    '<div class="empty">Загрузка заказов...</div>';
+
+  try {
+
+    const response =
+      await fetch("/api/orders");
+
+    if (!response.ok) {
+      throw new Error();
+    }
+
+    const orders =
+      await response.json();
+
+    renderOrders(orders);
+
+  } catch (error) {
+
+    container.innerHTML = `
+      <div class="empty">
+        Не удалось загрузить заказы.<br><br>
+        Сервер ещё не подключён.
+      </div>
+    `;
+
+  }
+
+}
+
+
+function renderOrders(orders) {
+
+  const container =
+    document.getElementById("orders");
+
+  document.getElementById("ordersCount")
+    .textContent = orders.length;
+
+  const revenue =
+    orders.reduce(
+      (sum, order) => sum + Number(order.total),
+      0
+    );
+
+  document.getElementById("revenue")
+    .textContent =
+    revenue.toLocaleString("ru-RU") + " ₸";
+
+
+  if (orders.length === 0) {
+
+    container.innerHTML = `
+      <div class="empty">
+        📦 Заказов пока нет
+      </div>
+    `;
+
+    return;
+  }
+
+
+  container.innerHTML = "";
+
+
+  orders.forEach(order => {
+
+    let items = [];
+
+    try {
+      items = JSON.parse(order.items);
+    } catch {}
+
+    const itemsText =
+      items.map(item =>
+        `${item.name} × ${item.quantity || 1}`
+      ).join(", ");
+
+
+    const orderElement =
+      document.createElement("div");
+
+    orderElement.className = "order";
+
+    orderElement.innerHTML = `
+
+      <div class="order-top">
+
+        <div class="order-number">
+          Заказ #${order.id}
+        </div>
+
+        <div class="status">
+          ${order.status}
+        </div>
+
+      </div>
+
+      <div class="order-info">
+
+        👤 ${order.name}<br>
+
+        📱 ${order.phone}<br>
+
+        ☕ ${itemsText}<br>
+
+        📍 ${order.delivery}
+
+        ${
+          order.address
+            ? "<br>🏠 " + order.address
+            : ""
+        }
+
+      </div>
+
+      <div class="order-total">
+        ${Number(order.total)
+          .toLocaleString("ru-RU")} ₸
+      </div>
+
+      <div class="actions">
+
+        <button onclick="changeStatus(${order.id}, 'Новый')">
+          🆕 Новый
+        </button>
+
+        <button onclick="changeStatus(${order.id}, 'Готовится')">
+          ☕ Готовится
+        </button>
+
+        <button onclick="changeStatus(${order.id}, 'Готов')">
+          ✅ Готов
+        </button>
+
+        <button onclick="changeStatus(${order.id}, 'Выдан')">
+          📦 Выдан
+        </button>
+
+      </div>
+
+    `;
+
+    container.appendChild(orderElement);
+
+  });
+
+}
+
+
+async function changeStatus(id, status) {
+
+  try {
+
+    await fetch("/api/orders/" + id, {
+
+      method: "PATCH",
+
+      headers: {
+        "Content-Type": "application/json"
+      },
+
+      body: JSON.stringify({
+        status: status
+      })
+
+    });
+
+    loadOrders();
+
+  } catch {
+
+    alert("Не удалось изменить статус");
+
+  }
+
+}
+
+
+loadOrders();
+
+</script>
+
+</body>
+</html>
