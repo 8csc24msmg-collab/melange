@@ -2,1385 +2,916 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#8B5E3C">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#8b5e3c">
 <title>Melange</title>
-
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
+*{box-sizing:border-box;margin:0;padding:0}
 body{
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  background:#f8f1e9;
-  color:#3d2b21;
-  padding-bottom:100px;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+background:#f8f1e9;
+color:#3d2b21;
+padding-bottom:100px
 }
-
-button,input,select{
-  font:inherit;
-}
-
-button{
-  border:0;
-  cursor:pointer;
-}
-
+button,input,select{font:inherit}
+button{border:0;cursor:pointer}
 .header{
-  background:#8b5e3c;
-  color:white;
-  padding:30px 20px;
-  border-radius:0 0 30px 30px;
+background:#8b5e3c;
+color:white;
+padding:30px 20px;
+border-radius:0 0 30px 30px
 }
-
 .logo{
-  font-family:Georgia,serif;
-  font-size:40px;
-  font-weight:bold;
+font-family:Georgia,serif;
+font-size:40px;
+font-weight:bold
 }
-
-.header p{
-  margin-top:6px;
-  opacity:.85;
-}
-
+.header p{margin-top:6px;opacity:.85}
 main{
-  max-width:600px;
-  margin:auto;
-  padding:22px 16px;
+max-width:600px;
+margin:auto;
+padding:22px 16px
 }
-
-.page{
-  display:none;
-}
-
-.page.active{
-  display:block;
-}
-
+.page{display:none}
+.page.active{display:block}
 h2{
-  font-family:Georgia,serif;
-  margin-bottom:16px;
+font-family:Georgia,serif;
+margin-bottom:16px
 }
-
-.welcome{
-  margin-bottom:22px;
-}
-
+.welcome{margin-bottom:22px}
 .welcome p{
-  color:#8b5e3c;
-  font-weight:600;
-  margin-bottom:5px;
+color:#8b5e3c;
+font-weight:600;
+margin-bottom:5px
 }
-
 .categories{
-  display:flex;
-  gap:8px;
-  overflow-x:auto;
-  margin-bottom:25px;
+display:flex;
+gap:8px;
+overflow-x:auto;
+margin-bottom:25px
 }
-
 .category{
-  white-space:nowrap;
-  padding:10px 15px;
-  border-radius:25px;
-  background:#fffaf5;
-  color:#8b5e3c;
-  border:1px solid #ead8c5;
+white-space:nowrap;
+padding:10px 15px;
+border-radius:25px;
+background:#fffaf5;
+color:#8b5e3c;
+border:1px solid #ead8c5
 }
-
 .category.active{
-  background:#8b5e3c;
-  color:white;
+background:#8b5e3c;
+color:white
 }
-
 .products{
-  display:flex;
-  flex-direction:column;
-  gap:14px;
+display:flex;
+flex-direction:column;
+gap:14px
 }
-
 .product{
-  background:#fffaf5;
-  border-radius:22px;
-  padding:14px;
-  display:flex;
-  gap:14px;
-  box-shadow:0 5px 20px rgba(70,45,25,.06);
+background:#fffaf5;
+border-radius:22px;
+padding:14px;
+display:flex;
+gap:14px;
+box-shadow:0 5px 20px rgba(70,45,25,.06)
 }
-
 .product-icon{
-  width:82px;
-  height:82px;
-  background:#ead8c5;
-  border-radius:18px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:40px;
-  flex-shrink:0;
+width:82px;
+height:82px;
+background:#ead8c5;
+border-radius:18px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:40px;
+flex-shrink:0
 }
-
-.product-info{
-  flex:1;
-}
-
+.product-info{flex:1}
 .product-info h3{
-  font-family:Georgia,serif;
-  font-size:18px;
-  margin-bottom:5px;
+font-family:Georgia,serif;
+font-size:18px;
+margin-bottom:5px
 }
-
 .product-info p{
-  color:#927b6c;
-  font-size:12px;
+color:#927b6c;
+font-size:12px
 }
-
 .product-bottom{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-top:10px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-top:10px
 }
-
 .price{
-  color:#8b5e3c;
-  font-weight:bold;
+color:#8b5e3c;
+font-weight:bold
 }
-
 .add{
-  width:40px;
-  height:40px;
-  border-radius:13px;
-  background:#8b5e3c;
-  color:white;
-  font-size:24px;
+width:40px;
+height:40px;
+border-radius:13px;
+background:#8b5e3c;
+color:white;
+font-size:24px
 }
-
 .favorite{
-  background:transparent;
-  font-size:22px;
-  color:#8b5e3c;
-  margin-right:8px;
+background:transparent;
+font-size:22px;
+color:#8b5e3c;
+margin-right:8px
 }
-
 .card{
-  background:#fffaf5;
-  border-radius:22px;
-  padding:19px;
-  margin-bottom:16px;
-  box-shadow:0 5px 20px rgba(70,45,25,.06);
+background:#fffaf5;
+border-radius:22px;
+padding:19px;
+margin-bottom:16px;
+box-shadow:0 5px 20px rgba(70,45,25,.06)
 }
-
-.cart-item,
-.order-item{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:12px 0;
-  border-bottom:1px solid #eee2d8;
+.cart-item,.order-item{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:12px 0;
+border-bottom:1px solid #eee2d8
 }
-
 .quantity{
-  display:flex;
-  align-items:center;
-  gap:8px;
+display:flex;
+align-items:center;
+gap:8px
 }
-
 .quantity button{
-  width:30px;
-  height:30px;
-  border-radius:9px;
-  background:#ead8c5;
-  color:#8b5e3c;
+width:30px;
+height:30px;
+border-radius:9px;
+background:#ead8c5;
+color:#8b5e3c
 }
-
 .total{
-  display:flex;
-  justify-content:space-between;
-  padding:18px 0;
-  font-size:18px;
-  font-weight:bold;
+display:flex;
+justify-content:space-between;
+padding:18px 0;
+font-size:18px;
+font-weight:bold
 }
-
-.total strong{
-  color:#8b5e3c;
+.total strong{color:#8b5e3c}
+.primary,.kaspi{
+width:100%;
+padding:16px;
+border-radius:15px;
+color:white;
+font-weight:700
 }
-
-.primary{
-  width:100%;
-  padding:16px;
-  border-radius:15px;
-  background:#8b5e3c;
-  color:white;
-  font-weight:700;
-}
-
+.primary{background:#8b5e3c}
 .kaspi{
-  width:100%;
-  padding:16px;
-  border-radius:15px;
-  background:#00a83b;
-  color:white;
-  font-weight:700;
-  font-size:16px;
+background:#00a83b;
+font-size:16px
 }
-
-.kaspi:disabled{
-  opacity:.6;
-}
-
+.kaspi:disabled{opacity:.6}
 .back{
-  background:transparent;
-  color:#8b5e3c;
-  margin-bottom:18px;
+background:transparent;
+color:#8b5e3c;
+margin-bottom:18px
 }
-
 .empty{
-  text-align:center;
-  color:#927b6c;
-  padding:30px 10px;
+text-align:center;
+color:#927b6c;
+padding:30px 10px
 }
-
-.field{
-  margin-top:16px;
-}
-
+.field{margin-top:16px}
 .field label{
-  display:block;
-  font-size:13px;
-  font-weight:600;
-  margin-bottom:7px;
+display:block;
+font-size:13px;
+font-weight:600;
+margin-bottom:7px
 }
-
 input,select{
-  width:100%;
-  padding:14px;
-  border:1px solid #decab8;
-  border-radius:13px;
-  background:white;
-  outline:none;
+width:100%;
+padding:14px;
+border:1px solid #decab8;
+border-radius:13px;
+background:white;
+outline:none
 }
-
 .payment{
-  background:#e8f7ed;
-  padding:16px;
-  border-radius:16px;
-  margin:18px 0;
+background:#e8f7ed;
+padding:16px;
+border-radius:16px;
+margin:18px 0
 }
-
 .payment-title{
-  font-size:13px;
-  color:#58705f;
-  margin-bottom:5px;
+font-size:13px;
+color:#58705f;
+margin-bottom:5px
 }
-
 .payment-name{
-  font-weight:bold;
-  color:#008c32;
+font-weight:bold;
+color:#008c32
 }
-
 .profile-icon{
-  width:70px;
-  height:70px;
-  border-radius:50%;
-  background:#ead8c5;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:35px;
-  margin-bottom:15px;
+width:70px;
+height:70px;
+border-radius:50%;
+background:#ead8c5;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:35px;
+margin-bottom:15px
 }
-
 .history-item{
-  padding:14px 0;
-  border-bottom:1px solid #eee2d8;
+padding:14px 0;
+border-bottom:1px solid #eee2d8
 }
-
-.history-item strong{
-  color:#8b5e3c;
-}
-
+.history-item strong{color:#8b5e3c}
 .success{
-  text-align:center;
-  padding:35px 10px;
+text-align:center;
+padding:35px 10px
 }
-
 .success-icon{
-  font-size:65px;
-  margin-bottom:15px;
+font-size:65px;
+margin-bottom:15px
 }
-
 .success p{
-  color:#927b6c;
-  line-height:1.5;
+color:#927b6c;
+line-height:1.5
 }
-
 .bottom{
-  position:fixed;
-  z-index:100;
-  left:10px;
-  right:10px;
-  bottom:10px;
-  height:66px;
-  background:#fffaf5;
-  border:1px solid #ead8c5;
-  border-radius:22px;
-  display:flex;
-  justify-content:space-around;
-  align-items:center;
-  box-shadow:0 7px 25px rgba(60,40,25,.13);
+position:fixed;
+z-index:100;
+left:10px;
+right:10px;
+bottom:10px;
+height:66px;
+background:#fffaf5;
+border:1px solid #ead8c5;
+border-radius:22px;
+display:flex;
+justify-content:space-around;
+align-items:center;
+box-shadow:0 7px 25px rgba(60,40,25,.13)
 }
-
 .nav{
-  background:transparent;
-  color:#927b6c;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:3px;
-  font-size:20px;
+background:transparent;
+color:#927b6c;
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:3px;
+font-size:20px
 }
-
-.nav small{
-  font-size:10px;
-}
-
-.nav.active{
-  color:#8b5e3c;
-}
-
+.nav small{font-size:10px}
+.nav.active{color:#8b5e3c}
 .badge{
-  background:#8b5e3c;
-  color:white;
-  font-size:9px;
-  min-width:16px;
-  height:16px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  position:absolute;
-  margin-left:20px;
-  margin-top:-5px;
+background:#8b5e3c;
+color:white;
+font-size:9px;
+min-width:16px;
+height:16px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+position:absolute;
+margin-left:20px;
+margin-top:-5px
 }
 </style>
 </head>
-
 <body>
-
 <header class="header">
-  <div class="logo">Melange</div>
-  <p>Кофе, который хочется повторить ☕</p>
+<div class="logo">Melange</div>
+<p>Кофе, который хочется повторить ☕</p>
 </header>
-
 <main>
-
 <section id="home" class="page active">
-
-  <div class="welcome">
-    <p>Добро пожаловать 🤎</p>
-    <h2>Что будем пить сегодня?</h2>
-  </div>
-
-  <div class="categories">
-    <button class="category active">☕ Кофе</button>
-    <button class="category">🍵 Чай</button>
-    <button class="category">🍰 Десерты</button>
-  </div>
-
-  <h2>Наше меню</h2>
-
-  <div id="products" class="products"></div>
-
+<div class="welcome">
+<p>Добро пожаловать 🤎</p>
+<h2>Что будем пить сегодня?</h2>
+</div>
+<div class="categories">
+<button class="category active">☕ Кофе</button>
+<button class="category">🍵 Чай</button>
+<button class="category">🍰 Десерты</button>
+</div>
+<h2>Наше меню</h2>
+<div id="products" class="products"></div>
 </section>
-
-
 <section id="cartPage" class="page">
-
-  <button class="back" onclick="showPage('home')">
-    ← Назад
-  </button>
-
-  <div class="card">
-
-    <h2>🛒 Корзина</h2>
-
-    <div id="cartItems"></div>
-
-    <div class="total">
-      <span>Итого</span>
-      <strong id="cartTotal">0 ₸</strong>
-    </div>
-
-    <button class="primary" onclick="openCheckout()">
-      Оформить заказ
-    </button>
-
-  </div>
-
+<button class="back" onclick="showPage('home')">
+← Назад
+</button>
+<div class="card">
+<h2>🛒 Корзина</h2>
+<div id="cartItems"></div>
+<div class="total">
+<span>Итого</span>
+<strong id="cartTotal">0 ₸</strong>
+</div>
+<button class="primary" onclick="openCheckout()">
+Оформить заказ
+</button>
+</div>
 </section>
-
-
 <section id="favorites" class="page">
-
-  <h2>♡ Избранное</h2>
-
-  <div id="favoriteItems"></div>
-
+<h2>♡ Избранное</h2>
+<div id="favoriteItems"></div>
 </section>
-
-
 <section id="profile" class="page">
-
-  <div class="card">
-
-    <div class="profile-icon">👤</div>
-
-    <h2>Мой профиль</h2>
-
-    <div class="field">
-      <label>Имя</label>
-      <input id="profileName" placeholder="Ваше имя">
-    </div>
-
-    <div class="field">
-      <label>Телефон</label>
-      <input id="profilePhone" placeholder="+7 700 000 00 00">
-    </div>
-
-    <br>
-
-    <button class="primary" onclick="saveProfile()">
-      Сохранить
-    </button>
-
-  </div>
-
-  <div class="card">
-
-    <h2>История заказов</h2>
-
-    <div id="history"></div>
-
-  </div>
-
+<div class="card">
+<div class="profile-icon">👤</div>
+<h2>Мой профиль</h2>
+<div class="field">
+<label>Имя</label>
+<input id="profileName" placeholder="Ваше имя">
+</div>
+<div class="field">
+<label>Телефон</label>
+<input id="profilePhone" placeholder="+7 700 000 00 00">
+</div>
+<br>
+<button class="primary" onclick="saveProfile()">
+Сохранить
+</button>
+</div>
+<div class="card">
+<h2>История заказов</h2>
+<div id="history"></div>
+</div>
 </section>
-
-
 <section id="checkout" class="page">
-
-  <button class="back" onclick="showPage('cartPage')">
-    ← Вернуться в корзину
-  </button>
-
-  <div class="card">
-
-    <h2>Оформление заказа 🤎</h2>
-
-    <div class="field">
-      <label>Ваше имя</label>
-      <input id="name" placeholder="Введите имя">
-    </div>
-
-    <div class="field">
-      <label>Номер телефона</label>
-      <input id="phone" type="tel" placeholder="+7 700 000 00 00">
-    </div>
-
-    <div class="field">
-
-      <label>Способ получения</label>
-
-      <select id="delivery" onchange="deliveryChanged()">
-        <option value="Самовывоз">Самовывоз</option>
-        <option value="Доставка">Доставка</option>
-      </select>
-
-    </div>
-
-    <div class="field" id="addressField" style="display:none">
-
-      <label>Адрес доставки</label>
-
-      <input id="address" placeholder="Введите адрес">
-
-    </div>
-
-  </div>
-
-
-  <div class="card">
-
-    <h2>Ваш заказ</h2>
-
-    <div id="checkoutItems"></div>
-
-    <div class="total">
-
-      <span>К оплате</span>
-
-      <strong id="checkoutTotal">
-        0 ₸
-      </strong>
-
-    </div>
-
-  </div>
-
-
-  <div class="payment">
-
-    <div class="payment-title">
-      Способ оплаты
-    </div>
-
-    <div class="payment-name">
-      🟢 Kaspi
-    </div>
-
-    <p style="font-size:13px;margin-top:6px;color:#58705f;">
-      Заказ будет отправлен в систему Melange
-    </p>
-
-  </div>
-
-
-  <button class="kaspi" onclick="payWithKaspi()">
-    🟢 Оплатить через Kaspi
-  </button>
-
+<button class="back" onclick="showPage('cartPage')">
+← Вернуться в корзину
+</button>
+<div class="card">
+<h2>Оформление заказа 🤎</h2>
+<div class="field">
+<label>Ваше имя</label>
+<input id="name" placeholder="Введите имя">
+</div>
+<div class="field">
+<label>Номер телефона</label>
+<input id="phone" type="tel" placeholder="+7 700 000 00 00">
+</div>
+<div class="field">
+<label>Способ получения</label>
+<select id="delivery" onchange="deliveryChanged()">
+<option value="Самовывоз">Самовывоз</option>
+<option value="Доставка">Доставка</option>
+</select>
+</div>
+<div class="field" id="addressField" style="display:none">
+<label>Адрес доставки</label>
+<input id="address" placeholder="Введите адрес">
+</div>
+</div>
+<div class="card">
+<h2>Ваш заказ</h2>
+<div id="checkoutItems"></div>
+<div class="total">
+<span>К оплате</span>
+<strong id="checkoutTotal">0 ₸</strong>
+</div>
+</div>
+<div class="payment">
+<div class="payment-title">
+Способ оплаты
+</div>
+<div class="payment-name">
+🟢 Kaspi
+</div>
+<p style="font-size:13px;margin-top:6px;color:#58705f">
+После оформления заказ появится у администратора.
+</p>
+</div>
+<button id="orderButton" class="kaspi" onclick="payWithKaspi()">
+🟢 Оформить заказ
+</button>
 </section>
-
-
 <section id="success" class="page">
-
-  <div class="card success">
-
-    <div class="success-icon">
-      🤎
-    </div>
-
-    <h2>Заказ оформлен!</h2>
-
-    <p id="successText">
-      Спасибо за заказ в Melange.
-    </p>
-
-    <br>
-
-    <button class="primary" onclick="showPage('home')">
-      Вернуться в меню
-    </button>
-
-  </div>
-
+<div class="card success">
+<div class="success-icon">
+🤎
+</div>
+<h2>Заказ оформлен!</h2>
+<p id="successText">
+Спасибо за заказ в Melange.
+</p>
+<br>
+<button class="primary" onclick="showPage('home')">
+Вернуться в меню
+</button>
+</div>
 </section>
-
 </main>
-
-
 <nav class="bottom">
-
-  <button class="nav active" onclick="showPage('home')">
-    <span>⌂</span>
-    <small>Главная</small>
-  </button>
-
-  <button class="nav" onclick="showPage('cartPage')">
-    <span>
-      🛍
-      <i id="badge" class="badge">0</i>
-    </span>
-    <small>Корзина</small>
-  </button>
-
-  <button class="nav" onclick="showPage('favorites')">
-    <span>♡</span>
-    <small>Избранное</small>
-  </button>
-
-  <button class="nav" onclick="showPage('profile')">
-    <span>♙</span>
-    <small>Профиль</small>
-  </button>
-
+<button class="nav active" onclick="showPage('home')">
+<span>⌂</span>
+<small>Главная</small>
+</button>
+<button class="nav" onclick="showPage('cartPage')">
+<span>
+🛍
+<i id="badge" class="badge">0</i>
+</span>
+<small>Корзина</small>
+</button>
+<button class="nav" onclick="showPage('favorites')">
+<span>♡</span>
+<small>Избранное</small>
+</button>
+<button class="nav" onclick="showPage('profile')">
+<span>♙</span>
+<small>Профиль</small>
+</button>
 </nav>
-
-
 <script>
-
-const SERVER_URL =
-  "https://melange-hzxt.onrender.com";
-
-
+/* ==================================
+   ГЛАВНЫЙ АДРЕС СЕРВЕРА
+================================== */
+const SERVER =
+"https://melange-3.onrender.com";
+/* ==================================
+   ТОВАРЫ
+================================== */
 const products = [
-
-  {
-    id:1,
-    name:"Капучино",
-    description:"Нежный кофе с молочной пенкой",
-    price:1200,
-    icon:"☕"
-  },
-
-  {
-    id:2,
-    name:"Латте",
-    description:"Мягкий кофе с большим количеством молока",
-    price:1300,
-    icon:"🥛"
-  },
-
-  {
-    id:3,
-    name:"Матча",
-    description:"Нежный японский чай с молоком",
-    price:1400,
-    icon:"🍵"
-  },
-
-  {
-    id:4,
-    name:"Американо",
-    description:"Классический крепкий кофе",
-    price:1000,
-    icon:"☕"
-  },
-
-  {
-    id:5,
-    name:"Чизкейк",
-    description:"Нежный сливочный десерт",
-    price:1500,
-    icon:"🍰"
-  }
-
+{
+id:1,
+name:"Капучино",
+description:"Нежный кофе с молочной пенкой",
+price:1200,
+icon:"☕"
+},
+{
+id:2,
+name:"Латте",
+description:"Мягкий кофе с большим количеством молока",
+price:1300,
+icon:"🥛"
+},
+{
+id:3,
+name:"Матча",
+description:"Нежный японский чай с молоком",
+price:1400,
+icon:"🍵"
+},
+{
+id:4,
+name:"Американо",
+description:"Классический крепкий кофе",
+price:1000,
+icon:"☕"
+},
+{
+id:5,
+name:"Чизкейк",
+description:"Нежный сливочный десерт",
+price:1500,
+icon:"🍰"
+}
 ];
-
-
-let cart = [];
-let favorites = [];
-let orders = [];
-
-
-/* МЕНЮ */
-
+let cart=[];
+let favorites=[];
+let orders=[];
+/* ==================================
+   МЕНЮ
+================================== */
 function renderProducts(){
-
-  const container =
-    document.getElementById("products");
-
-  container.innerHTML = "";
-
-  products.forEach(product => {
-
-    const liked =
-      favorites.includes(product.id);
-
-    container.innerHTML += `
-
-      <div class="product">
-
-        <div class="product-icon">
-          ${product.icon}
-        </div>
-
-        <div class="product-info">
-
-          <h3>${product.name}</h3>
-
-          <p>${product.description}</p>
-
-          <div class="product-bottom">
-
-            <span class="price">
-              ${product.price.toLocaleString("ru-RU")} ₸
-            </span>
-
-            <div>
-
-              <button
-                class="favorite"
-                onclick="toggleFavorite(${product.id})">
-                ${liked ? "♥" : "♡"}
-              </button>
-
-              <button
-                class="add"
-                onclick="addToCart(${product.id})">
-                +
-              </button>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    `;
-
-  });
-
+const box=document.getElementById("products");
+box.innerHTML="";
+products.forEach(product=>{
+const liked=favorites.includes(product.id);
+box.innerHTML+=`
+<div class="product">
+<div class="product-icon">
+${product.icon}
+</div>
+<div class="product-info">
+<h3>${product.name}</h3>
+<p>${product.description}</p>
+<div class="product-bottom">
+<span class="price">
+${product.price.toLocaleString("ru-RU")} ₸
+</span>
+<div>
+<button
+class="favorite"
+onclick="toggleFavorite(${product.id})">
+${liked?"♥":"♡"}
+</button>
+<button
+class="add"
+onclick="addToCart(${product.id})">
++
+</button>
+</div>
+</div>
+</div>
+</div>
+`;
+});
 }
-
-
-/* КОРЗИНА */
-
+/* ==================================
+   КОРЗИНА
+================================== */
 function addToCart(id){
-
-  const product =
-    products.find(item => item.id === id);
-
-  if(!product) return;
-
-  const existing =
-    cart.find(item => item.id === id);
-
-  if(existing){
-
-    existing.quantity++;
-
-  }else{
-
-    cart.push({
-      ...product,
-      quantity:1
-    });
-
-  }
-
-  updateCart();
-
+const product=
+products.find(x=>x.id===id);
+if(!product)return;
+const item=
+cart.find(x=>x.id===id);
+if(item){
+item.quantity++;
+}else{
+cart.push({
+...product,
+quantity:1
+});
 }
-
-
+updateCart();
+}
 function changeQuantity(id,amount){
-
-  const item =
-    cart.find(item => item.id === id);
-
-  if(!item) return;
-
-  item.quantity += amount;
-
-  if(item.quantity <= 0){
-
-    cart =
-      cart.filter(item => item.id !== id);
-
-  }
-
-  updateCart();
-
+const item=
+cart.find(x=>x.id===id);
+if(!item)return;
+item.quantity+=amount;
+if(item.quantity<=0){
+cart=
+cart.filter(x=>x.id!==id);
 }
-
-
+updateCart();
+}
 function updateCart(){
-
-  const container =
-    document.getElementById("cartItems");
-
-  const badge =
-    document.getElementById("badge");
-
-  let total = 0;
-  let count = 0;
-
-
-  if(cart.length === 0){
-
-    container.innerHTML =
-      `<div class="empty">
-        Корзина пока пустая ☕
-      </div>`;
-
-  }else{
-
-    container.innerHTML = "";
-
-    cart.forEach(item => {
-
-      const sum =
-        item.price * item.quantity;
-
-      total += sum;
-      count += item.quantity;
-
-      container.innerHTML += `
-
-        <div class="cart-item">
-
-          <div>
-            ${item.icon} ${item.name}
-          </div>
-
-          <div class="quantity">
-
-            <button
-              onclick="changeQuantity(${item.id},-1)">
-              −
-            </button>
-
-            <span>${item.quantity}</span>
-
-            <button
-              onclick="changeQuantity(${item.id},1)">
-              +
-            </button>
-
-          </div>
-
-        </div>
-
-      `;
-
-    });
-
-  }
-
-
-  document.getElementById("cartTotal").textContent =
-    total.toLocaleString("ru-RU") + " ₸";
-
-  badge.textContent = count;
-
-  updateCheckout();
-
+const box=
+document.getElementById("cartItems");
+const badge=
+document.getElementById("badge");
+let total=0;
+let count=0;
+if(cart.length===0){
+box.innerHTML=`
+<div class="empty">
+Корзина пока пустая ☕
+</div>
+`;
+}else{
+box.innerHTML="";
+cart.forEach(item=>{
+const sum=
+item.price*item.quantity;
+total+=sum;
+count+=item.quantity;
+box.innerHTML+=`
+<div class="cart-item">
+<div>
+${item.icon} ${item.name}
+</div>
+<div class="quantity">
+<button
+onclick="changeQuantity(${item.id},-1)">
+−
+</button>
+<span>
+${item.quantity}
+</span>
+<button
+onclick="changeQuantity(${item.id},1)">
++
+</button>
+</div>
+</div>
+`;
+});
 }
-
-
-/* ИЗБРАННОЕ */
-
+document.getElementById("cartTotal")
+.textContent=
+total.toLocaleString("ru-RU")+" ₸";
+badge.textContent=count;
+updateCheckout();
+}
+/* ==================================
+   ИЗБРАННОЕ
+================================== */
 function toggleFavorite(id){
-
-  if(favorites.includes(id)){
-
-    favorites =
-      favorites.filter(item => item !== id);
-
-  }else{
-
-    favorites.push(id);
-
-  }
-
-  renderProducts();
-  renderFavorites();
-
+if(favorites.includes(id)){
+favorites=
+favorites.filter(x=>x!==id);
+}else{
+favorites.push(id);
 }
-
-
+renderProducts();
+renderFavorites();
+}
 function renderFavorites(){
-
-  const container =
-    document.getElementById("favoriteItems");
-
-  const list =
-    products.filter(item =>
-      favorites.includes(item.id)
-    );
-
-
-  if(list.length === 0){
-
-    container.innerHTML =
-      `<div class="card empty">
-        Здесь пока ничего нет 🤎
-      </div>`;
-
-    return;
-
-  }
-
-
-  container.innerHTML = "";
-
-
-  list.forEach(product => {
-
-    container.innerHTML += `
-
-      <div class="product">
-
-        <div class="product-icon">
-          ${product.icon}
-        </div>
-
-        <div class="product-info">
-
-          <h3>${product.name}</h3>
-
-          <p>${product.description}</p>
-
-          <div class="product-bottom">
-
-            <span class="price">
-              ${product.price.toLocaleString("ru-RU")} ₸
-            </span>
-
-            <button
-              class="add"
-              onclick="addToCart(${product.id})">
-              +
-            </button>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    `;
-
-  });
-
+const box=
+document.getElementById("favoriteItems");
+const list=
+products.filter(x=>
+favorites.includes(x.id)
+);
+if(list.length===0){
+box.innerHTML=`
+<div class="card empty">
+Здесь пока ничего нет 🤎
+</div>
+`;
+return;
 }
-
-
-/* ОФОРМЛЕНИЕ */
-
+box.innerHTML="";
+list.forEach(product=>{
+box.innerHTML+=`
+<div class="product">
+<div class="product-icon">
+${product.icon}
+</div>
+<div class="product-info">
+<h3>${product.name}</h3>
+<p>${product.description}</p>
+<div class="product-bottom">
+<span class="price">
+${product.price.toLocaleString("ru-RU")} ₸
+</span>
+<button
+class="add"
+onclick="addToCart(${product.id})">
++
+</button>
+</div>
+</div>
+</div>
+`;
+});
+}
+/* ==================================
+   CHECKOUT
+================================== */
 function openCheckout(){
-
-  if(cart.length === 0){
-
-    alert("Сначала добавьте товар в корзину ☕");
-
-    return;
-
-  }
-
-  updateCheckout();
-
-  showPage("checkout");
-
+if(cart.length===0){
+alert("Сначала добавьте товар ☕");
+return;
 }
-
-
+updateCheckout();
+showPage("checkout");
+}
 function updateCheckout(){
-
-  const container =
-    document.getElementById("checkoutItems");
-
-  const totalElement =
-    document.getElementById("checkoutTotal");
-
-  if(!container) return;
-
-  container.innerHTML = "";
-
-  let total = 0;
-
-
-  cart.forEach(item => {
-
-    const sum =
-      item.price * item.quantity;
-
-    total += sum;
-
-    container.innerHTML += `
-
-      <div class="order-item">
-
-        <span>
-          ${item.name} × ${item.quantity}
-        </span>
-
-        <strong>
-          ${sum.toLocaleString("ru-RU")} ₸
-        </strong>
-
-      </div>
-
-    `;
-
-  });
-
-
-  totalElement.textContent =
-    total.toLocaleString("ru-RU") + " ₸";
-
+const box=
+document.getElementById("checkoutItems");
+const totalBox=
+document.getElementById("checkoutTotal");
+if(!box)return;
+box.innerHTML="";
+let total=0;
+cart.forEach(item=>{
+const sum=
+item.price*item.quantity;
+total+=sum;
+box.innerHTML+=`
+<div class="order-item">
+<span>
+${item.name} × ${item.quantity}
+</span>
+<strong>
+${sum.toLocaleString("ru-RU")} ₸
+</strong>
+</div>
+`;
+});
+totalBox.textContent=
+total.toLocaleString("ru-RU")+" ₸";
 }
-
-
-/* ДОСТАВКА */
-
+/* ==================================
+   ДОСТАВКА
+================================== */
 function deliveryChanged(){
-
-  const value =
-    document.getElementById("delivery").value;
-
-  document.getElementById("addressField").style.display =
-    value === "Доставка"
-      ? "block"
-      : "none";
-
+const delivery=
+document.getElementById("delivery").value;
+document.getElementById("addressField")
+.style.display=
+delivery==="Доставка"
+?"block"
+:"none";
 }
-
-
-/* ОТПРАВКА ЗАКАЗА */
-
+/* ==================================
+   ОТПРАВКА ЗАКАЗА
+================================== */
 async function payWithKaspi(){
-
-  if(cart.length === 0){
-
-    alert("Корзина пуста ☕");
-
-    return;
-
-  }
-
-
-  const name =
-    document.getElementById("name").value.trim();
-
-  const phone =
-    document.getElementById("phone").value.trim();
-
-  const delivery =
-    document.getElementById("delivery").value;
-
-  const address =
-    document.getElementById("address").value.trim();
-
-
-  if(!name){
-
-    alert("Введите имя 🤎");
-
-    return;
-
-  }
-
-
-  if(!phone){
-
-    alert("Введите номер телефона 📱");
-
-    return;
-
-  }
-
-
-  if(
-    delivery === "Доставка" &&
-    !address
-  ){
-
-    alert("Введите адрес доставки 📍");
-
-    return;
-
-  }
-
-
-  const total =
-    cart.reduce(
-      (sum,item) =>
-        sum + item.price * item.quantity,
-      0
-    );
-
-
-  const button =
-    document.querySelector(".kaspi");
-
-
-  button.disabled = true;
-  button.textContent =
-    "Отправляем заказ…";
-
-
-  try{
-
-    console.log(
-      "Отправляем заказ на:",
-      SERVER_URL + "/api/orders"
-    );
-
-
-    const response =
-      await fetch(
-        SERVER_URL + "/api/orders",
-        {
-          method:"POST",
-
-          headers:{
-            "Content-Type":"application/json"
-          },
-
-          body:JSON.stringify({
-
-            name:name,
-
-            phone:phone,
-
-            items:cart,
-
-            total:total,
-
-            delivery:delivery,
-
-            address:address
-
-          })
-
-        }
-      );
-
-
-    const text =
-      await response.text();
-
-
-    console.log(
-      "Ответ сервера:",
-      response.status,
-      text
-    );
-
-
-    if(!response.ok){
-
-      throw new Error(
-        "HTTP " +
-        response.status +
-        ": " +
-        text
-      );
-
-    }
-
-
-    let result;
-
-
-    try{
-
-      result =
-        JSON.parse(text);
-
-    }catch{
-
-      throw new Error(
-        "Сервер вернул неправильный ответ: " +
-        text
-      );
-
-    }
-
-
-    if(!result.orderId){
-
-      throw new Error(
-        "Сервер не вернул номер заказа"
-      );
-
-    }
-
-
-    orders.push({
-
-      name:name,
-
-      phone:phone,
-
-      total:total,
-
-      delivery:delivery,
-
-      date:
-        new Date()
-          .toLocaleDateString("ru-RU")
-
-    });
-
-
-    document
-      .getElementById("successText")
-      .textContent =
-        `Спасибо, ${name}! Заказ №${result.orderId} на ${total.toLocaleString("ru-RU")} ₸ принят 🤎`;
-
-
-    cart = [];
-
-
-    updateCart();
-
-    renderHistory();
-
-    showPage("success");
-
-
-  }catch(error){
-
-    console.error(
-      "ОШИБКА ЗАКАЗА:",
-      error
-    );
-
-
-    alert(
-      "Ошибка отправки заказа:\n\n" +
-      error.message
-    );
-
-
-  }finally{
-
-    button.disabled = false;
-
-    button.textContent =
-      "🟢 Оплатить через Kaspi";
-
-  }
-
+if(cart.length===0){
+alert("Корзина пуста ☕");
+return;
 }
-
-
-/* ПРОФИЛЬ */
-
+const name=
+document.getElementById("name")
+.value.trim();
+const phone=
+document.getElementById("phone")
+.value.trim();
+const delivery=
+document.getElementById("delivery")
+.value;
+const address=
+document.getElementById("address")
+.value.trim();
+if(!name){
+alert("Введите имя 🤎");
+return;
+}
+if(!phone){
+alert("Введите номер телефона 📱");
+return;
+}
+if(
+delivery==="Доставка" &&
+!address
+){
+alert("Введите адрес доставки 📍");
+return;
+}
+const total=
+cart.reduce(
+(sum,item)=>
+sum+
+item.price*item.quantity,
+0
+);
+const button=
+document.getElementById("orderButton");
+button.disabled=true;
+button.textContent=
+"Отправляем заказ…";
+try{
+const response=
+await fetch(
+SERVER+"/api/orders",
+{
+method:"POST",
+headers:{
+"Content-Type":
+"application/json"
+},
+body:JSON.stringify({
+name:name,
+phone:phone,
+items:cart,
+total:total,
+delivery:delivery,
+address:address
+})
+}
+);
+const text=
+await response.text();
+console.log(
+"SERVER RESPONSE:",
+response.status,
+text
+);
+if(!response.ok){
+throw new Error(
+"Сервер: "+
+response.status+
+" "+
+text
+);
+}
+let result;
+try{
+result=
+JSON.parse(text);
+}catch{
+throw new Error(
+"Сервер вернул неправильный ответ"
+);
+}
+if(!result.success){
+throw new Error(
+result.error||
+"Заказ не создан"
+);
+}
+document.getElementById(
+"successText"
+).textContent=
+`Спасибо, ${name}! Заказ №${result.orderId} на ${total.toLocaleString("ru-RU")} ₸ принят 🤎`;
+orders.push({
+name:name,
+phone:phone,
+total:total,
+delivery:delivery,
+date:new Date()
+.toLocaleDateString("ru-RU")
+});
+cart=[];
+updateCart();
+renderHistory();
+showPage("success");
+}catch(error){
+console.error(error);
+alert(
+"Ошибка отправки заказа:\n\n"+
+error.message
+);
+}finally{
+button.disabled=false;
+button.textContent=
+"🟢 Оформить заказ";
+}
+}
+/* ==================================
+   ПРОФИЛЬ
+================================== */
 function saveProfile(){
-
-  const name =
-    document.getElementById("profileName").value;
-
-  const phone =
-    document.getElementById("profilePhone").value;
-
-
-  localStorage.setItem(
-    "melangeName",
-    name
-  );
-
-  localStorage.setItem(
-    "melangePhone",
-    phone
-  );
-
-
-  alert("Профиль сохранён 🤎");
-
+const name=
+document.getElementById("profileName")
+.value;
+const phone=
+document.getElementById("profilePhone")
+.value;
+localStorage.setItem(
+"melangeName",
+name
+);
+localStorage.setItem(
+"melangePhone",
+phone
+);
+alert("Профиль сохранён 🤎");
 }
-
-
 function loadProfile(){
-
-  document.getElementById("profileName").value =
-    localStorage.getItem("melangeName") || "";
-
-  document.getElementById("profilePhone").value =
-    localStorage.getItem("melangePhone") || "";
-
+document.getElementById(
+"profileName"
+).value=
+localStorage.getItem(
+"melangeName"
+)||"";
+document.getElementById(
+"profilePhone"
+).value=
+localStorage.getItem(
+"melangePhone"
+)||"";
 }
-
-
-/* ИСТОРИЯ */
-
+/* ==================================
+   ИСТОРИЯ
+================================== */
 function renderHistory(){
-
-  const container =
-    document.getElementById("history");
-
-
-  if(orders.length === 0){
-
-    container.innerHTML =
-      `<div class="empty">
-        Заказов пока нет
-      </div>`;
-
-    return;
-
-  }
-
-
-  container.innerHTML = "";
-
-
-  orders
-    .slice()
-    .reverse()
-    .forEach(order => {
-
-      container.innerHTML += `
-
-        <div class="history-item">
-
-          <strong>
-            ${order.total.toLocaleString("ru-RU")} ₸
-          </strong>
-
-          <div>
-            ${order.date}
-          </div>
-
-          <small>
-            ${order.name} · ${order.delivery}
-          </small>
-
-        </div>
-
-      `;
-
-    });
-
+const box=
+document.getElementById("history");
+if(orders.length===0){
+box.innerHTML=
+`
+<div class="empty">
+Заказов пока нет
+</div>
+`;
+return;
 }
-
-
-/* НАВИГАЦИЯ */
-
+box.innerHTML="";
+orders
+.slice()
+.reverse()
+.forEach(order=>{
+box.innerHTML+=`
+<div class="history-item">
+<strong>
+${order.total.toLocaleString("ru-RU")} ₸
+</strong>
+<div>
+${order.date}
+</div>
+<small>
+${order.name} · ${order.delivery}
+</small>
+</div>
+`;
+});
+}
+/* ==================================
+   НАВИГАЦИЯ
+================================== */
 function showPage(id){
-
-  document
-    .querySelectorAll(".page")
-    .forEach(page =>
-      page.classList.remove("active")
-    );
-
-
-  const page =
-    document.getElementById(id);
-
-
-  if(page){
-
-    page.classList.add("active");
-
-  }
-
-
-  document
-    .querySelectorAll(".nav")
-    .forEach(nav =>
-      nav.classList.remove("active")
-    );
-
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-
+document
+.querySelectorAll(".page")
+.forEach(page=>
+page.classList.remove("active")
+);
+const page=
+document.getElementById(id);
+if(page){
+page.classList.add("active");
 }
-
-
-/* ЗАПУСК */
-
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+}
+/* ==================================
+   ЗАПУСК
+================================== */
 renderProducts();
 renderFavorites();
 updateCart();
 renderHistory();
 loadProfile();
-
 </script>
-
 </body>
 </html>
