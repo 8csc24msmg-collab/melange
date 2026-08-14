@@ -10,10 +10,10 @@ const DB_FILE = process.env.DB_FILE || "melange.db";
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static(path.join(__dirname)));
 
-// Раздаём index.html, admin.html и остальные файлы
-app.use(express.static(__dirname));
-
+console.log("SERVER FILE:", __filename);
+console.log("SERVER DIRECTORY:", __dirname);
 const db = new Database(DB_FILE);
 
 db.pragma("journal_mode = WAL");
