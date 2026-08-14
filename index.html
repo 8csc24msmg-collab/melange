@@ -2,428 +2,370 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#8B5E3C">
 <title>Melange</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-:root{
-  --brown:#8b5e3c;
-  --dark:#3d2b21;
-  --milk:#f8f1e9;
-  --cream:#fffaf5;
-  --beige:#ead8c5;
-  --muted:#927b6c;
-  --line:#eee2d8;
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #f8f1e9;
+  color: #3d2b21;
+  padding-bottom: 90px;
 }
 
-body{
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  background:var(--milk);
-  color:var(--dark);
-  padding-bottom:90px;
+button, input, select {
+  font: inherit;
 }
 
-button,input,select{
-  font:inherit;
+button {
+  border: none;
+  cursor: pointer;
 }
 
-button{
-  border:0;
-  cursor:pointer;
+.header {
+  background: #8b5e3c;
+  color: white;
+  padding: 30px 20px;
+  border-radius: 0 0 30px 30px;
 }
 
-.header{
-  background:var(--brown);
-  color:white;
-  padding:30px 20px 34px;
-  border-radius:0 0 30px 30px;
+.logo {
+  font-family: Georgia, serif;
+  font-size: 40px;
+  font-weight: bold;
 }
 
-.logo{
-  font-family:Georgia,serif;
-  font-size:40px;
-  font-weight:bold;
+.header p {
+  margin-top: 6px;
+  opacity: .85;
 }
 
-.header p{
-  margin-top:6px;
-  opacity:.85;
-  font-size:14px;
+main {
+  max-width: 600px;
+  margin: auto;
+  padding: 22px 16px;
 }
 
-main{
-  max-width:600px;
-  margin:auto;
-  padding:22px 16px;
+.page {
+  display: none;
 }
 
-.page{
-  display:none;
+.page.active {
+  display: block;
 }
 
-.page.active{
-  display:block;
+h2 {
+  font-family: Georgia, serif;
+  margin-bottom: 16px;
 }
 
-.welcome{
-  margin-bottom:22px;
+.welcome {
+  margin-bottom: 22px;
 }
 
-.welcome p{
-  color:var(--brown);
-  font-size:14px;
-  font-weight:600;
+.welcome p {
+  color: #8b5e3c;
+  font-weight: 600;
+  margin-bottom: 5px;
 }
 
-.welcome h2{
-  font-family:Georgia,serif;
-  font-size:25px;
-  margin-top:5px;
+.categories {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  margin-bottom: 25px;
 }
 
-.categories{
-  display:flex;
-  gap:8px;
-  overflow-x:auto;
-  margin-bottom:25px;
+.category {
+  white-space: nowrap;
+  padding: 10px 15px;
+  border-radius: 25px;
+  background: #fffaf5;
+  color: #8b5e3c;
+  border: 1px solid #ead8c5;
 }
 
-.categories::-webkit-scrollbar{
-  display:none;
+.category.active {
+  background: #8b5e3c;
+  color: white;
 }
 
-.category{
-  white-space:nowrap;
-  padding:10px 15px;
-  border-radius:25px;
-  background:var(--cream);
-  color:var(--brown);
-  border:1px solid var(--beige);
+.products {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
-.category.active{
-  background:var(--brown);
-  color:white;
+.product {
+  background: #fffaf5;
+  border-radius: 22px;
+  padding: 14px;
+  display: flex;
+  gap: 14px;
+  box-shadow: 0 5px 20px rgba(70,45,25,.06);
 }
 
-.section-title{
-  font-family:Georgia,serif;
-  margin-bottom:14px;
+.product-icon {
+  width: 82px;
+  height: 82px;
+  background: #ead8c5;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  flex-shrink: 0;
 }
 
-.products{
-  display:flex;
-  flex-direction:column;
-  gap:13px;
+.product-info {
+  flex: 1;
 }
 
-.product{
-  background:var(--cream);
-  border-radius:22px;
-  padding:14px;
-  display:flex;
-  gap:14px;
-  box-shadow:0 5px 20px rgba(70,45,25,.06);
+.product-info h3 {
+  font-family: Georgia, serif;
+  font-size: 18px;
+  margin-bottom: 5px;
 }
 
-.product-img{
-  width:85px;
-  height:85px;
-  border-radius:18px;
-  background:var(--beige);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:40px;
-  flex-shrink:0;
+.product-info p {
+  color: #927b6c;
+  font-size: 12px;
 }
 
-.product-info{
-  flex:1;
+.product-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
 }
 
-.product-info h3{
-  font-family:Georgia,serif;
-  font-size:18px;
-  margin-bottom:5px;
+.price {
+  color: #8b5e3c;
+  font-weight: bold;
 }
 
-.product-info p{
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.35;
+.add {
+  width: 40px;
+  height: 40px;
+  border-radius: 13px;
+  background: #8b5e3c;
+  color: white;
+  font-size: 24px;
 }
 
-.product-bottom{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-top:9px;
+.favorite {
+  background: transparent;
+  font-size: 22px;
+  color: #8b5e3c;
+  margin-right: 8px;
 }
 
-.price{
-  color:var(--brown);
-  font-weight:bold;
+.card {
+  background: #fffaf5;
+  border-radius: 22px;
+  padding: 19px;
+  margin-bottom: 16px;
+  box-shadow: 0 5px 20px rgba(70,45,25,.06);
 }
 
-.add{
-  width:38px;
-  height:38px;
-  border-radius:13px;
-  background:var(--brown);
-  color:white;
-  font-size:23px;
+.cart-item,
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee2d8;
 }
 
-.favorite{
-  background:transparent;
-  font-size:22px;
-  color:#a88c79;
-  margin-left:5px;
+.quantity {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.card{
-  background:var(--cream);
-  border-radius:22px;
-  padding:19px;
-  margin-bottom:15px;
-  box-shadow:0 5px 20px rgba(70,45,25,.06);
+.quantity button {
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: #ead8c5;
+  color: #8b5e3c;
 }
 
-.cart-item{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:12px 0;
-  border-bottom:1px solid var(--line);
+.total {
+  display: flex;
+  justify-content: space-between;
+  padding: 18px 0;
+  font-size: 18px;
+  font-weight: bold;
 }
 
-.cart-left{
-  display:flex;
-  align-items:center;
-  gap:10px;
+.total strong {
+  color: #8b5e3c;
 }
 
-.quantity{
-  display:flex;
-  align-items:center;
-  gap:8px;
+.primary {
+  width: 100%;
+  padding: 16px;
+  border-radius: 15px;
+  background: #8b5e3c;
+  color: white;
+  font-weight: 700;
 }
 
-.quantity button{
-  width:29px;
-  height:29px;
-  border-radius:9px;
-  background:var(--beige);
-  color:var(--brown);
+.kaspi {
+  width: 100%;
+  padding: 16px;
+  border-radius: 15px;
+  background: #00a83b;
+  color: white;
+  font-weight: 700;
+  font-size: 16px;
 }
 
-.total{
-  display:flex;
-  justify-content:space-between;
-  padding:18px 0;
-  font-size:18px;
-  font-weight:bold;
+.back {
+  background: transparent;
+  color: #8b5e3c;
+  margin-bottom: 18px;
 }
 
-.total strong{
-  color:var(--brown);
+.empty {
+  text-align: center;
+  color: #927b6c;
+  padding: 30px 10px;
 }
 
-.primary{
-  width:100%;
-  padding:15px;
-  border-radius:15px;
-  background:var(--brown);
-  color:white;
-  font-weight:700;
+.field {
+  margin-top: 16px;
 }
 
-.secondary{
-  width:100%;
-  padding:14px;
-  border-radius:15px;
-  background:var(--beige);
-  color:var(--brown);
-  font-weight:600;
+.field label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 7px;
 }
 
-.empty{
-  text-align:center;
-  color:var(--muted);
-  padding:30px 10px;
+input, select {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #decab8;
+  border-radius: 13px;
+  background: white;
+  outline: none;
 }
 
-.field{
-  margin-top:15px;
+.payment {
+  background: #e8f7ed;
+  padding: 16px;
+  border-radius: 16px;
+  margin: 18px 0;
 }
 
-.field label{
-  display:block;
-  font-size:13px;
-  font-weight:600;
-  margin-bottom:7px;
+.payment-title {
+  font-size: 13px;
+  color: #58705f;
+  margin-bottom: 5px;
 }
 
-input,select{
-  width:100%;
-  padding:14px;
-  border:1px solid var(--beige);
-  border-radius:13px;
-  background:white;
-  outline:none;
+.payment-name {
+  font-weight: bold;
+  color: #008c32;
 }
 
-input:focus,select:focus{
-  border-color:var(--brown);
+.profile-icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: #ead8c5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 35px;
+  margin-bottom: 15px;
 }
 
-.payment{
-  background:var(--beige);
-  padding:15px;
-  border-radius:15px;
-  margin:18px 0;
+.history-item {
+  padding: 14px 0;
+  border-bottom: 1px solid #eee2d8;
 }
 
-.payment small{
-  display:block;
-  color:var(--muted);
-  margin-bottom:5px;
+.history-item strong {
+  color: #8b5e3c;
 }
 
-.payment strong{
-  color:var(--brown);
+.success {
+  text-align: center;
+  padding: 35px 10px;
 }
 
-.order-item{
-  display:flex;
-  justify-content:space-between;
-  padding:9px 0;
-  border-bottom:1px solid var(--line);
+.success-icon {
+  font-size: 65px;
+  margin-bottom: 15px;
 }
 
-.profile-icon{
-  width:70px;
-  height:70px;
-  border-radius:50%;
-  background:var(--beige);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:35px;
-  margin-bottom:14px;
+.success h2 {
+  margin-bottom: 10px;
 }
 
-.order-history{
-  margin-top:15px;
+.success p {
+  color: #927b6c;
+  line-height: 1.5;
 }
 
-.history-item{
-  padding:14px 0;
-  border-bottom:1px solid var(--line);
+.bottom {
+  position: fixed;
+  z-index: 100;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  height: 66px;
+  background: #fffaf5;
+  border: 1px solid #ead8c5;
+  border-radius: 22px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 7px 25px rgba(60,40,25,.13);
 }
 
-.history-item strong{
-  color:var(--brown);
+.nav {
+  background: transparent;
+  color: #927b6c;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  font-size: 20px;
 }
 
-.success{
-  text-align:center;
-  padding:35px 10px;
+.nav small {
+  font-size: 10px;
 }
 
-.success-icon{
-  font-size:65px;
-  margin-bottom:15px;
+.nav.active {
+  color: #8b5e3c;
 }
 
-.success h2{
-  font-family:Georgia,serif;
-  margin-bottom:10px;
-}
-
-.success p{
-  color:var(--muted);
-  line-height:1.5;
-}
-
-.bottom{
-  position:fixed;
-  z-index:100;
-  left:10px;
-  right:10px;
-  bottom:10px;
-  height:66px;
-  background:rgba(255,250,245,.97);
-  border:1px solid var(--beige);
-  border-radius:22px;
-  display:flex;
-  justify-content:space-around;
-  align-items:center;
-  box-shadow:0 7px 25px rgba(60,40,25,.13);
-}
-
-.nav{
-  background:transparent;
-  color:var(--muted);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:3px;
-  font-size:20px;
-}
-
-.nav small{
-  font-size:10px;
-}
-
-.nav.active{
-  color:var(--brown);
-}
-
-.badge{
-  background:var(--brown);
-  color:white;
-  font-size:9px;
-  min-width:16px;
-  height:16px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  position:absolute;
-  margin-left:20px;
-  margin-top:-5px;
-}
-
-.back{
-  background:transparent;
-  color:var(--brown);
-  margin-bottom:18px;
-}
-
-@media(max-width:380px){
-  main{
-    padding-left:12px;
-    padding-right:12px;
-  }
-
-  .logo{
-    font-size:36px;
-  }
-
-  .product-img{
-    width:75px;
-    height:75px;
-    font-size:34px;
-  }
+.badge {
+  background: #8b5e3c;
+  color: white;
+  font-size: 9px;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  margin-left: 20px;
+  margin-top: -5px;
 }
 </style>
 </head>
@@ -438,7 +380,6 @@ input:focus,select:focus{
 <main>
 
 <!-- ГЛАВНАЯ -->
-
 <section id="home" class="page active">
 
   <div class="welcome">
@@ -452,24 +393,23 @@ input:focus,select:focus{
     <button class="category">🍰 Десерты</button>
   </div>
 
-  <h2 class="section-title">Популярное</h2>
+  <h2>Наше меню</h2>
 
-  <div class="products" id="products"></div>
+  <div id="products" class="products"></div>
 
 </section>
 
 
 <!-- КОРЗИНА -->
-
 <section id="cartPage" class="page">
 
   <button class="back" onclick="showPage('home')">
     ← Назад
   </button>
 
-  <h2 class="section-title">🛒 Корзина</h2>
-
   <div class="card">
+
+    <h2>🛒 Корзина</h2>
 
     <div id="cartItems"></div>
 
@@ -488,10 +428,9 @@ input:focus,select:focus{
 
 
 <!-- ИЗБРАННОЕ -->
-
 <section id="favorites" class="page">
 
-  <h2 class="section-title">♡ Избранное</h2>
+  <h2>♡ Избранное</h2>
 
   <div id="favoriteItems"></div>
 
@@ -499,7 +438,6 @@ input:focus,select:focus{
 
 
 <!-- ПРОФИЛЬ -->
-
 <section id="profile" class="page">
 
   <div class="card">
@@ -526,7 +464,7 @@ input:focus,select:focus{
 
   </div>
 
-  <div class="card order-history">
+  <div class="card">
 
     <h2>История заказов</h2>
 
@@ -538,7 +476,6 @@ input:focus,select:focus{
 
 
 <!-- ОФОРМЛЕНИЕ -->
-
 <section id="checkout" class="page">
 
   <button class="back" onclick="showPage('cartPage')">
@@ -550,28 +487,39 @@ input:focus,select:focus{
     <h2>Оформление заказа 🤎</h2>
 
     <div class="field">
-      <label>Имя</label>
+      <label>Ваше имя</label>
       <input id="name" placeholder="Введите имя">
     </div>
 
     <div class="field">
-      <label>Телефон</label>
+      <label>Номер телефона</label>
       <input id="phone" type="tel" placeholder="+7 700 000 00 00">
     </div>
 
     <div class="field">
+
       <label>Способ получения</label>
 
       <select id="delivery" onchange="deliveryChanged()">
-        <option value="Самовывоз">Самовывоз</option>
-        <option value="Доставка">Доставка</option>
+
+        <option value="Самовывоз">
+          Самовывоз
+        </option>
+
+        <option value="Доставка">
+          Доставка
+        </option>
+
       </select>
 
     </div>
 
     <div class="field" id="addressField" style="display:none">
+
       <label>Адрес доставки</label>
+
       <input id="address" placeholder="Введите адрес">
+
     </div>
 
   </div>
@@ -584,8 +532,13 @@ input:focus,select:focus{
     <div id="checkoutItems"></div>
 
     <div class="total">
+
       <span>К оплате</span>
-      <strong id="checkoutTotal">0 ₸</strong>
+
+      <strong id="checkoutTotal">
+        0 ₸
+      </strong>
+
     </div>
 
   </div>
@@ -593,26 +546,36 @@ input:focus,select:focus{
 
   <div class="payment">
 
-    <small>Способ оплаты</small>
+    <div class="payment-title">
+      Способ оплаты
+    </div>
 
-    <strong>💳 Банковская карта</strong>
+    <div class="payment-name">
+      🟢 Kaspi
+    </div>
+
+    <p style="font-size:13px;margin-top:6px;color:#58705f;">
+      Безопасная оплата через Kaspi
+    </p>
 
   </div>
 
-  <button class="primary" onclick="pay()">
-    💳 Оплатить картой
+
+  <button class="kaspi" onclick="payWithKaspi()">
+    🟢 Оплатить через Kaspi
   </button>
 
 </section>
 
 
-<!-- УСПЕШНО -->
-
+<!-- УСПЕШНЫЙ ЗАКАЗ -->
 <section id="success" class="page">
 
   <div class="card success">
 
-    <div class="success-icon">🤎</div>
+    <div class="success-icon">
+      🤎
+    </div>
 
     <h2>Заказ оформлен!</h2>
 
@@ -634,7 +597,6 @@ input:focus,select:focus{
 
 
 <!-- НИЖНЕЕ МЕНЮ -->
-
 <nav class="bottom">
 
   <button class="nav active" onclick="showPage('home')">
@@ -668,43 +630,43 @@ input:focus,select:focus{
 const products = [
 
   {
-    id:1,
-    name:"Капучино",
-    description:"Нежный кофе с молочной пенкой",
-    price:1200,
-    icon:"☕"
+    id: 1,
+    name: "Капучино",
+    description: "Нежный кофе с молочной пенкой",
+    price: 1200,
+    icon: "☕"
   },
 
   {
-    id:2,
-    name:"Латте",
-    description:"Мягкий кофе с большим количеством молока",
-    price:1300,
-    icon:"🥛"
+    id: 2,
+    name: "Латте",
+    description: "Мягкий кофе с большим количеством молока",
+    price: 1300,
+    icon: "🥛"
   },
 
   {
-    id:3,
-    name:"Матча",
-    description:"Нежный японский чай с молоком",
-    price:1400,
-    icon:"🍵"
+    id: 3,
+    name: "Матча",
+    description: "Нежный японский чай с молоком",
+    price: 1400,
+    icon: "🍵"
   },
 
   {
-    id:4,
-    name:"Американо",
-    description:"Классический крепкий кофе",
-    price:1000,
-    icon:"☕"
+    id: 4,
+    name: "Американо",
+    description: "Классический крепкий кофе",
+    price: 1000,
+    icon: "☕"
   },
 
   {
-    id:5,
-    name:"Чизкейк",
-    description:"Нежный сливочный десерт",
-    price:1500,
-    icon:"🍰"
+    id: 5,
+    name: "Чизкейк",
+    description: "Нежный сливочный десерт",
+    price: 1500,
+    icon: "🍰"
   }
 
 ];
@@ -715,25 +677,25 @@ let favorites = [];
 let orders = [];
 
 
-/* ТОВАРЫ */
+/* МЕНЮ */
 
-function renderProducts(){
+function renderProducts() {
 
   const container =
     document.getElementById("products");
 
   container.innerHTML = "";
 
-  products.forEach(function(product){
+  products.forEach(product => {
 
-    const favorite =
+    const liked =
       favorites.includes(product.id);
 
     container.innerHTML += `
 
       <div class="product">
 
-        <div class="product-img">
+        <div class="product-icon">
           ${product.icon}
         </div>
 
@@ -755,7 +717,7 @@ function renderProducts(){
                 class="favorite"
                 onclick="toggleFavorite(${product.id})">
 
-                ${favorite ? "♥" : "♡"}
+                ${liked ? "♥" : "♡"}
 
               </button>
 
@@ -781,25 +743,25 @@ function renderProducts(){
 }
 
 
-/* КОРЗИНА */
+/* ДОБАВИТЬ В КОРЗИНУ */
 
-function addToCart(id){
+function addToCart(id) {
 
   const product =
-    products.find(p => p.id === id);
+    products.find(item => item.id === id);
 
   const existing =
     cart.find(item => item.id === id);
 
-  if(existing){
+  if (existing) {
 
     existing.quantity++;
 
-  }else{
+  } else {
 
     cart.push({
       ...product,
-      quantity:1
+      quantity: 1
     });
 
   }
@@ -809,16 +771,18 @@ function addToCart(id){
 }
 
 
-function changeQuantity(id, amount){
+/* КОЛИЧЕСТВО */
+
+function changeQuantity(id, amount) {
 
   const item =
     cart.find(item => item.id === id);
 
-  if(!item) return;
+  if (!item) return;
 
   item.quantity += amount;
 
-  if(item.quantity <= 0){
+  if (item.quantity <= 0) {
 
     cart =
       cart.filter(item => item.id !== id);
@@ -830,7 +794,9 @@ function changeQuantity(id, amount){
 }
 
 
-function updateCart(){
+/* КОРЗИНА */
+
+function updateCart() {
 
   const container =
     document.getElementById("cartItems");
@@ -841,18 +807,18 @@ function updateCart(){
   let total = 0;
   let count = 0;
 
-  if(cart.length === 0){
+  if (cart.length === 0) {
 
     container.innerHTML =
       `<div class="empty">
         Корзина пока пустая ☕
       </div>`;
 
-  }else{
+  } else {
 
     container.innerHTML = "";
 
-    cart.forEach(function(item){
+    cart.forEach(item => {
 
       const sum =
         item.price * item.quantity;
@@ -864,32 +830,28 @@ function updateCart(){
 
         <div class="cart-item">
 
-          <div class="cart-left">
-
-            <span>${item.icon}</span>
-
-            <div>
-              <strong>${item.name}</strong>
-              <div>${item.price.toLocaleString("ru-RU")} ₸</div>
-            </div>
-
+          <div>
+            ${item.icon} ${item.name}
           </div>
 
           <div class="quantity">
 
-            <button onclick="changeQuantity(${item.id},-1)">
+            <button
+              onclick="changeQuantity(${item.id},-1)">
               −
             </button>
 
             <span>${item.quantity}</span>
 
-            <button onclick="changeQuantity(${item.id},1)">
+            <button
+              onclick="changeQuantity(${item.id},1)">
               +
             </button>
 
           </div>
 
         </div>
+
       `;
 
     });
@@ -908,14 +870,14 @@ function updateCart(){
 
 /* ИЗБРАННОЕ */
 
-function toggleFavorite(id){
+function toggleFavorite(id) {
 
-  if(favorites.includes(id)){
+  if (favorites.includes(id)) {
 
     favorites =
       favorites.filter(item => item !== id);
 
-  }else{
+  } else {
 
     favorites.push(id);
 
@@ -927,15 +889,17 @@ function toggleFavorite(id){
 }
 
 
-function renderFavorites(){
+function renderFavorites() {
 
   const container =
     document.getElementById("favoriteItems");
 
   const list =
-    products.filter(p => favorites.includes(p.id));
+    products.filter(item =>
+      favorites.includes(item.id)
+    );
 
-  if(list.length === 0){
+  if (list.length === 0) {
 
     container.innerHTML =
       `<div class="card empty">
@@ -948,13 +912,13 @@ function renderFavorites(){
 
   container.innerHTML = "";
 
-  list.forEach(function(product){
+  list.forEach(product => {
 
     container.innerHTML += `
 
       <div class="product">
 
-        <div class="product-img">
+        <div class="product-icon">
           ${product.icon}
         </div>
 
@@ -991,9 +955,9 @@ function renderFavorites(){
 
 /* ОФОРМЛЕНИЕ */
 
-function openCheckout(){
+function openCheckout() {
 
-  if(cart.length === 0){
+  if (cart.length === 0) {
 
     alert("Сначала добавьте товар в корзину ☕");
 
@@ -1008,7 +972,7 @@ function openCheckout(){
 }
 
 
-function updateCheckout(){
+function updateCheckout() {
 
   const container =
     document.getElementById("checkoutItems");
@@ -1016,13 +980,13 @@ function updateCheckout(){
   const totalElement =
     document.getElementById("checkoutTotal");
 
-  if(!container) return;
+  if (!container) return;
 
   container.innerHTML = "";
 
   let total = 0;
 
-  cart.forEach(function(item){
+  cart.forEach(item => {
 
     const sum =
       item.price * item.quantity;
@@ -1053,20 +1017,22 @@ function updateCheckout(){
 }
 
 
-function deliveryChanged(){
+/* ДОСТАВКА */
 
-  const delivery =
+function deliveryChanged() {
+
+  const value =
     document.getElementById("delivery").value;
 
   document.getElementById("addressField").style.display =
-    delivery === "Доставка" ? "block" : "none";
+    value === "Доставка" ? "block" : "none";
 
 }
 
 
-/* ОПЛАТА */
+/* KASPI */
 
-function pay(){
+function payWithKaspi() {
 
   const name =
     document.getElementById("name").value.trim();
@@ -1081,25 +1047,31 @@ function pay(){
     document.getElementById("address").value.trim();
 
 
-  if(!name){
+  if (!name) {
 
     alert("Введите имя 🤎");
+
     return;
 
   }
 
 
-  if(!phone){
+  if (!phone) {
 
     alert("Введите номер телефона 📱");
+
     return;
 
   }
 
 
-  if(delivery === "Доставка" && !address){
+  if (
+    delivery === "Доставка" &&
+    !address
+  ) {
 
     alert("Введите адрес доставки 📍");
+
     return;
 
   }
@@ -1107,22 +1079,33 @@ function pay(){
 
   const total =
     cart.reduce(
-      (sum,item) =>
+      (sum, item) =>
         sum + item.price * item.quantity,
       0
     );
 
 
+  /*
+    Здесь позже подключим
+    официальную оплату Kaspi.
+
+    Пока создаём заказ.
+  */
+
   orders.push({
-    name:name,
-    phone:phone,
-    total:total,
-    date:new Date().toLocaleDateString("ru-RU")
+
+    name: name,
+    phone: phone,
+    total: total,
+    delivery: delivery,
+    date: new Date().toLocaleDateString("ru-RU")
+
   });
 
 
   document.getElementById("successText").textContent =
-    `Спасибо, ${name}! Заказ на ${total.toLocaleString("ru-RU")} ₸ создан.`;
+    `Спасибо, ${name}! Заказ на ${total.toLocaleString("ru-RU")} ₸ принят.`;
+
 
   cart = [];
 
@@ -1136,7 +1119,7 @@ function pay(){
 
 /* ПРОФИЛЬ */
 
-function saveProfile(){
+function saveProfile() {
 
   const name =
     document.getElementById("profileName").value;
@@ -1159,7 +1142,7 @@ function saveProfile(){
 }
 
 
-function loadProfile(){
+function loadProfile() {
 
   document.getElementById("profileName").value =
     localStorage.getItem("melangeName") || "";
@@ -1172,12 +1155,12 @@ function loadProfile(){
 
 /* ИСТОРИЯ */
 
-function renderHistory(){
+function renderHistory() {
 
   const container =
     document.getElementById("history");
 
-  if(orders.length === 0){
+  if (orders.length === 0) {
 
     container.innerHTML =
       `<div class="empty">
@@ -1190,7 +1173,7 @@ function renderHistory(){
 
   container.innerHTML = "";
 
-  orders.slice().reverse().forEach(function(order){
+  orders.slice().reverse().forEach(order => {
 
     container.innerHTML += `
 
@@ -1205,7 +1188,7 @@ function renderHistory(){
         </div>
 
         <small>
-          ${order.name}
+          ${order.name} · ${order.delivery}
         </small>
 
       </div>
@@ -1219,7 +1202,7 @@ function renderHistory(){
 
 /* НАВИГАЦИЯ */
 
-function showPage(id){
+function showPage(id) {
 
   document
     .querySelectorAll(".page")
@@ -1232,8 +1215,8 @@ function showPage(id){
     .classList.add("active");
 
   window.scrollTo({
-    top:0,
-    behavior:"smooth"
+    top: 0,
+    behavior: "smooth"
   });
 
 }
