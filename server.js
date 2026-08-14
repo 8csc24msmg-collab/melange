@@ -7,13 +7,27 @@ const app = express();
 const PORT = process.env.PORT || 10000;
 const DB_FILE = process.env.DB_FILE || "melange.db";
 
+/* =========================
+   CORS
+========================= */
+
 app.use(cors({
-  origin: "*",
+  origin: true,
   methods: ["GET", "POST", "OPTIONS"],
   allowedHeaders: ["Content-Type"]
 }));
 
+app.options("*", cors());
+
+/* =========================
+   JSON
+========================= */
+
 app.use(express.json());
+
+/* =========================
+   DATABASE
+========================= */
 
 const db = new Database(DB_FILE);
 
@@ -27,74 +41,136 @@ db.exec(`
     items TEXT NOT NULL,
     total INTEGER NOT NULL,
     delivery TEXT NOT NULL,
-    address TEXT,
+    address TEXT DEFAULT '',
     status TEXT DEFAULT 'Новый',
     created_at TEXT NOT NULL
   )
 `);
 
-
-/* ГЛАВНАЯ */
+/* =========================
+   ГЛАВНАЯ
+========================= */
 
 app.get("/", (req, res) => {
+
   res.send(`
-    <html>
-      <head>
-        <meta charset="UTF-8">
-        <title>Melange Server</title>
-      </head>
-      <body style="
-        font-family:Arial;
-        padding:30px;
-        background:#f8f1e9;
-        color:#3d2b21;
-      ">
-        <h1>Melange 🤎</h1>
-        <p>Сервер работает.</p>
-        <p>Заказы: <a href="/api/orders">/api/orders</a></p>
-      </body>
+    <!DOCTYPE html>
+    <html lang="ru">
+    <head>
+      <meta charset="UTF-8">
+      <title>Melange Server</title>
+    </head>
+
+    <body style="
+      font-family:Arial,sans-serif;
+      background:#f8f1e9;
+      color:#3d2b21;
+      padding:30px;
+    ">
+
+      <h1>Melange 🤎</h1>
+
+      <p>
+        Сервер работает.
+      </p>
+
+      <p>
+        API заказов:
+        <a href="/api/orders">
+          открыть
+        </a>
+      </p>
+
+      <p>
+        Проверка:
+        <a href="/api/health">
+          /api/health
+        </a>
+      </p>
+
+    </body>
     </html>
   `);
+
 });
 
 
-/* ПРОВЕРКА СЕРВЕРА */
+/* =========================
+   HEALTH
+========================= */
 
 app.get("/api/health", (req, res) => {
 
   res.json({
     ok: true,
-    message: "Melange server работает"
+    service: "Melange",
+    message: "Сервер работает",
+    time: new Date().toISOString()
   });
 
 });
 
 
-/* ПОЛУЧИТЬ ЗАКАЗЫ */
+/* =========================
+   GET ORDERS
+========================= */
 
 app.get("/api/orders", (req, res) => {
 
   try {
 
     const orders = db.prepare(`
-      SELECT *
+      SELECT
+        id,
+        name,
+        phone,
+        items,
+        total,
+        delivery,
+        address,
+        status,
+        created_at
       FROM orders
       ORDER BY id DESC
     `).all();
 
-    const result = orders.map(order => ({
-      ...order,
-      items: JSON.parse(order.items)
-    }));
+    const result = orders.map(order => {
+
+      let items = [];
+
+      try {
+        items = JSON.parse(order.items);
+      } catch {
+        items = [];
+      }
+
+      return {
+        id: order.id,
+        name: order.name,
+        phone: order.phone,
+        items: items,
+        total: order.total,
+        delivery: order.delivery,
+        address: order.address,
+        status: order.status,
+        created_at: order.created_at
+      };
+
+    });
 
     res.json(result);
 
   } catch (error) {
 
-    console.error(error);
+    console.error(
+      "Ошибка получения заказов:",
+      error
+    );
 
     res.status(500).json({
-      error: "Не удалось получить заказы"
+      success: false,
+      error: "Не удалось получить заказы",
+      details: error.message
     });
 
   }
@@ -102,9 +178,18 @@ app.get("/api/orders", (req, res) => {
 });
 
 
-/* СОЗДАТЬ ЗАКАЗ */
+/* =========================
+   CREATE ORDER
+========================= */
 
 app.post("/api/orders", (req, res) => {
+
+  console.log("Получен POST /api/orders");
+
+  console.log(
+    "Данные:",
+    JSON.stringify(req.body, null, 2)
+  );
 
   try {
 
@@ -115,53 +200,96 @@ app.post("/api/orders", (req, res) => {
       total,
       delivery,
       address
-    } = req.body;
+    } = req.body || {};
 
 
-    /* ПРОВЕРКА */
+    /* ИМЯ */
 
-    if (!name) {
+    if (
+      typeof name !== "string" ||
+      name.trim() === ""
+    ) {
 
       return res.status(400).json({
-        error: "Не указано имя"
+        success: false,
+        error: "Введите имя"
       });
 
     }
 
-    if (!phone) {
+
+    /* ТЕЛЕФОН */
+
+    if (
+      typeof phone !== "string" ||
+      phone.trim() === ""
+    ) {
 
       return res.status(400).json({
-        error: "Не указан телефон"
+        success: false,
+        error: "Введите номер телефона"
       });
 
     }
 
-    if (!Array.isArray(items) || items.length === 0) {
+
+    /* ТОВАРЫ */
+
+    if (
+      !Array.isArray(items) ||
+      items.length === 0
+    ) {
 
       return res.status(400).json({
+        success: false,
         error: "Корзина пуста"
       });
 
     }
 
-    if (!Number.isFinite(Number(total))) {
+
+    /* СУММА */
+
+    const numericTotal =
+      Number(total);
+
+    if (
+      !Number.isFinite(numericTotal) ||
+      numericTotal <= 0
+    ) {
 
       return res.status(400).json({
-        error: "Неверная сумма"
+        success: false,
+        error: "Неверная сумма заказа"
       });
 
     }
 
-    if (!delivery) {
+
+    /* ДОСТАВКА */
+
+    if (
+      typeof delivery !== "string" ||
+      delivery.trim() === ""
+    ) {
 
       return res.status(400).json({
+        success: false,
         error: "Не указан способ получения"
       });
 
     }
 
 
-    /* СОХРАНЯЕМ */
+    /* АДРЕС */
+
+    const finalAddress =
+      typeof address === "string"
+        ? address.trim()
+        : "";
+
+
+    /* СОЗДАЁМ ЗАКАЗ */
 
     const createdAt =
       new Date().toISOString();
@@ -182,20 +310,25 @@ app.post("/api/orders", (req, res) => {
     `);
 
 
-    const result = statement.run(
-      String(name),
-      String(phone),
-      JSON.stringify(items),
-      Number(total),
-      String(delivery),
-      address ? String(address) : "",
-      "Новый",
-      createdAt
-    );
+    const result =
+      statement.run(
+        name.trim(),
+        phone.trim(),
+        JSON.stringify(items),
+        numericTotal,
+        delivery.trim(),
+        finalAddress,
+        "Новый",
+        createdAt
+      );
+
+
+    const orderId =
+      Number(result.lastInsertRowid);
 
 
     console.log(
-      `Новый заказ №${result.lastInsertRowid}`
+      `Новый заказ №${orderId}`
     );
 
 
@@ -203,75 +336,31 @@ app.post("/api/orders", (req, res) => {
 
       success: true,
 
-      orderId: result.lastInsertRowid,
+      orderId: orderId,
 
-      message: "Заказ успешно создан"
+      message:
+        "Заказ успешно создан"
 
     });
 
 
   } catch (error) {
 
-    console.error("Ошибка создания заказа:", error);
-
-    res.status(500).json({
-      error: "Ошибка сервера"
-    });
-
-  }
-
-});
-
-
-/* ИЗМЕНИТЬ СТАТУС ЗАКАЗА */
-
-app.post("/api/orders/:id/status", (req, res) => {
-
-  try {
-
-    const id = Number(req.params.id);
-
-    const status = req.body.status;
-
-    if (!id || !status) {
-
-      return res.status(400).json({
-        error: "Не указан заказ или статус"
-      });
-
-    }
-
-
-    const result = db.prepare(`
-      UPDATE orders
-      SET status = ?
-      WHERE id = ?
-    `).run(
-      String(status),
-      id
+    console.error(
+      "ОШИБКА СОЗДАНИЯ ЗАКАЗА:",
+      error
     );
 
-
-    if (result.changes === 0) {
-
-      return res.status(404).json({
-        error: "Заказ не найден"
-      });
-
-    }
-
-
-    res.json({
-      success: true
-    });
-
-
-  } catch (error) {
-
-    console.error(error);
-
     res.status(500).json({
-      error: "Ошибка сервера"
+
+      success: false,
+
+      error:
+        "Ошибка сервера при создании заказа",
+
+      details:
+        error.message
+
     });
 
   }
@@ -279,12 +368,147 @@ app.post("/api/orders/:id/status", (req, res) => {
 });
 
 
-/* ЗАПУСК */
+/* =========================
+   CHANGE ORDER STATUS
+========================= */
 
-app.listen(PORT, "0.0.0.0", () => {
+app.post(
+  "/api/orders/:id/status",
+  (req, res) => {
 
-  console.log(
-    `Melange server запущен на порту ${PORT}`
-  );
+    try {
+
+      const id =
+        Number(req.params.id);
+
+      const status =
+        req.body?.status;
+
+
+      if (
+        !Number.isInteger(id) ||
+        id <= 0
+      ) {
+
+        return res.status(400).json({
+          success: false,
+          error: "Неверный ID заказа"
+        });
+
+      }
+
+
+      if (
+        typeof status !== "string" ||
+        status.trim() === ""
+      ) {
+
+        return res.status(400).json({
+          success: false,
+          error: "Не указан статус"
+        });
+
+      }
+
+
+      const result =
+        db.prepare(`
+          UPDATE orders
+          SET status = ?
+          WHERE id = ?
+        `).run(
+          status.trim(),
+          id
+        );
+
+
+      if (result.changes === 0) {
+
+        return res.status(404).json({
+          success: false,
+          error: "Заказ не найден"
+        });
+
+      }
+
+
+      res.json({
+        success: true,
+        message: "Статус изменён"
+      });
+
+
+    } catch (error) {
+
+      console.error(
+        "Ошибка изменения статуса:",
+        error
+      );
+
+      res.status(500).json({
+        success: false,
+        error: "Ошибка сервера",
+        details: error.message
+      });
+
+    }
+
+  }
+);
+
+
+/* =========================
+   404
+========================= */
+
+app.use((req, res) => {
+
+  res.status(404).json({
+    success: false,
+    error: "Маршрут не найден",
+    method: req.method,
+    path: req.path
+  });
 
 });
+
+
+/* =========================
+   ERROR HANDLER
+========================= */
+
+app.use((error, req, res, next) => {
+
+  console.error(
+    "Необработанная ошибка:",
+    error
+  );
+
+  res.status(500).json({
+    success: false,
+    error: "Внутренняя ошибка сервера",
+    details: error.message
+  });
+
+});
+
+
+/* =========================
+   START
+========================= */
+
+app.listen(
+  PORT,
+  "0.0.0.0",
+  () => {
+
+    console.log(
+      `Melange server запущен на порту ${PORT}`
+    );
+
+    console.log(
+      `Database: ${DB_FILE}`
+    );
+
+  }
+);
