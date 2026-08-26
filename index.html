@@ -48,7 +48,7 @@ button{
 }
 
 main{
-  max-width:600px;
+  max-width:650px;
   margin:auto;
   padding:22px 16px;
 }
@@ -81,6 +81,7 @@ h2{
   gap:8px;
   overflow-x:auto;
   margin-bottom:25px;
+  padding-bottom:5px;
 }
 
 .category{
@@ -106,21 +107,21 @@ h2{
 .product{
   background:#fffaf5;
   border-radius:22px;
-  padding:14px;
+  padding:15px;
   display:flex;
   gap:14px;
   box-shadow:0 5px 20px rgba(70,45,25,.06);
 }
 
 .product-icon{
-  width:82px;
-  height:82px;
+  width:70px;
+  height:70px;
   background:#ead8c5;
   border-radius:18px;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:40px;
+  font-size:34px;
   flex-shrink:0;
 }
 
@@ -130,25 +131,33 @@ h2{
 
 .product-info h3{
   font-family:Georgia,serif;
-  font-size:18px;
+  font-size:17px;
   margin-bottom:5px;
 }
 
 .product-info p{
   color:#927b6c;
   font-size:12px;
+  line-height:1.4;
 }
 
 .product-bottom{
   display:flex;
   align-items:center;
   justify-content:space-between;
+  gap:8px;
   margin-top:10px;
 }
 
 .price{
   color:#8b5e3c;
   font-weight:bold;
+}
+
+.price-options{
+  color:#8b5e3c;
+  font-weight:bold;
+  font-size:14px;
 }
 
 .add{
@@ -180,8 +189,13 @@ h2{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:12px 0;
+  gap:12px;
+  padding:13px 0;
   border-bottom:1px solid #eee2d8;
+}
+
+.cart-name{
+  flex:1;
 }
 
 .quantity{
@@ -208,6 +222,14 @@ h2{
 
 .total strong{
   color:#8b5e3c;
+}
+
+.fee{
+  display:flex;
+  justify-content:space-between;
+  padding:7px 0;
+  color:#927b6c;
+  font-size:14px;
 }
 
 .primary,
@@ -367,6 +389,18 @@ select{
   margin-left:20px;
   margin-top:-5px;
 }
+
+.category-title{
+  font-family:Georgia,serif;
+  font-size:22px;
+  margin:25px 0 12px;
+}
+
+.note{
+  color:#927b6c;
+  font-size:12px;
+  margin-top:5px;
+}
 </style>
 </head>
 
@@ -379,31 +413,125 @@ select{
 
 <main>
 
-<!-- ГЛАВНАЯ -->
+<!-- =========================
+     ГЛАВНАЯ
+========================= -->
+
 <section id="home" class="page active">
 
   <div class="welcome">
     <p>Добро пожаловать 🤎</p>
-    <h2>Что будем пить сегодня?</h2>
+    <h2>Наше меню</h2>
   </div>
 
   <div class="categories">
-    <button class="category active">☕ Кофе</button>
-    <button class="category">🍵 Чай</button>
-    <button class="category">🍰 Десерты</button>
-  </div>
 
-  <h2>Наше меню</h2>
+    <button
+      class="category active"
+      onclick="filterCategory('all',this)">
+      Всё
+    </button>
+
+    <button
+      class="category"
+      onclick="filterCategory('Кофе',this)">
+      ☕ Кофе
+    </button>
+
+    <button
+      class="category"
+      onclick="filterCategory('Холодный кофе',this)">
+      🧊 Холодный кофе
+    </button>
+
+    <button
+      class="category"
+      onclick="filterCategory('Чай',this)">
+      🍵 Чай
+    </button>
+
+    <button
+      class="category"
+      onclick="filterCategory('Лимонад',this)">
+      🍋 Лимонад
+    </button>
+
+    <button
+      class="category"
+      onclick="filterCategory('Коктейли',this)">
+      🥤 Коктейли
+    </button>
+
+    <button
+      class="category"
+      onclick="filterCategory('Не кофе',this)">
+      🍫 Не кофе
+    </button>
+
+    <button
+      class="category"
+      onclick="filterCategory('Завтраки',this)">
+      🍳 Завтраки
+    </button>
+
+    <button
+      class="category"
+      onclick="filterCategory('Супы',this)">
+      🍲 Супы
+    </button>
+
+    <button
+      class="category"
+      onclick="filterCategory('Салаты',this)">
+      🥗 Салаты
+    </button>
+
+    <button
+      class="category"
+      onclick="filterCategory('Горячие блюда',this)">
+      🍖 Горячее
+    </button>
+
+    <button
+      class="category"
+      onclick="filterCategory('Паста',this)">
+      🍝 Паста
+    </button>
+
+    <button
+      class="category"
+      onclick="filterCategory('Пицца',this)">
+      🍕 Пицца
+    </button>
+
+    <button
+      class="category"
+      onclick="filterCategory('Фастфуд',this)">
+      🍔 Фастфуд
+    </button>
+
+    <button
+      class="category"
+      onclick="filterCategory('Десерты',this)">
+      🍰 Десерты
+    </button>
+
+  </div>
 
   <div id="products" class="products"></div>
 
 </section>
 
 
-<!-- КОРЗИНА -->
+<!-- =========================
+     КОРЗИНА
+========================= -->
+
 <section id="cartPage" class="page">
 
-  <button class="back" onclick="showPage('home')">
+  <button
+    class="back"
+    onclick="showPage('home')">
     ← Назад
   </button>
 
@@ -413,12 +541,24 @@ select{
 
     <div id="cartItems"></div>
 
+    <div class="fee">
+      <span>Товары</span>
+      <strong id="cartSubtotal">0 ₸</strong>
+    </div>
+
+    <div class="fee">
+      <span>Обслуживание 10%</span>
+      <strong id="cartService">0 ₸</strong>
+    </div>
+
     <div class="total">
       <span>Итого</span>
       <strong id="cartTotal">0 ₸</strong>
     </div>
 
-    <button class="primary" onclick="openCheckout()">
+    <button
+      class="primary"
+      onclick="openCheckout()">
       Оформить заказ
     </button>
 
@@ -427,7 +567,10 @@ select{
 </section>
 
 
-<!-- ИЗБРАННОЕ -->
+<!-- =========================
+     ИЗБРАННОЕ
+========================= -->
+
 <section id="favorites" class="page">
 
   <h2>♡ Избранное</h2>
@@ -437,28 +580,39 @@ select{
 </section>
 
 
-<!-- ПРОФИЛЬ -->
+<!-- =========================
+     ПРОФИЛЬ
+========================= -->
+
 <section id="profile" class="page">
 
   <div class="card">
 
-    <div class="profile-icon">👤</div>
+    <div class="profile-icon">
+      👤
+    </div>
 
     <h2>Мой профиль</h2>
 
     <div class="field">
       <label>Имя</label>
-      <input id="profileName" placeholder="Ваше имя">
+      <input
+        id="profileName"
+        placeholder="Ваше имя">
     </div>
 
     <div class="field">
       <label>Телефон</label>
-      <input id="profilePhone" placeholder="+7 700 000 00 00">
+      <input
+        id="profilePhone"
+        placeholder="+7 700 000 00 00">
     </div>
 
     <br>
 
-    <button class="primary" onclick="saveProfile()">
+    <button
+      class="primary"
+      onclick="saveProfile()">
       Сохранить
     </button>
 
@@ -475,10 +629,15 @@ select{
 </section>
 
 
-<!-- ОФОРМЛЕНИЕ -->
+<!-- =========================
+     ОФОРМЛЕНИЕ
+========================= -->
+
 <section id="checkout" class="page">
 
-  <button class="back" onclick="showPage('cartPage')">
+  <button
+    class="back"
+    onclick="showPage('cartPage')">
     ← Вернуться в корзину
   </button>
 
@@ -487,23 +646,33 @@ select{
     <h2>Оформление заказа 🤎</h2>
 
     <div class="field">
+
       <label>Ваше имя</label>
-      <input id="name" placeholder="Введите имя">
+
+      <input
+        id="name"
+        placeholder="Введите имя">
+
     </div>
 
     <div class="field">
+
       <label>Номер телефона</label>
+
       <input
         id="phone"
         type="tel"
-        placeholder="+7 700 000 00 00"
-      >
+        placeholder="+7 700 000 00 00">
+
     </div>
 
     <div class="field">
+
       <label>Способ получения</label>
 
-      <select id="delivery" onchange="deliveryChanged()">
+      <select
+        id="delivery"
+        onchange="deliveryChanged()">
 
         <option value="Самовывоз">
           Самовывоз
@@ -520,15 +689,13 @@ select{
     <div
       class="field"
       id="addressField"
-      style="display:none"
-    >
+      style="display:none">
 
       <label>Адрес доставки</label>
 
       <input
         id="address"
-        placeholder="Введите адрес"
-      >
+        placeholder="Введите адрес">
 
     </div>
 
@@ -540,6 +707,20 @@ select{
     <h2>Ваш заказ</h2>
 
     <div id="checkoutItems"></div>
+
+    <div class="fee">
+      <span>Товары</span>
+      <strong id="checkoutSubtotal">
+        0 ₸
+      </strong>
+    </div>
+
+    <div class="fee">
+      <span>Обслуживание 10%</span>
+      <strong id="checkoutService">
+        0 ₸
+      </strong>
+    </div>
 
     <div class="total">
 
@@ -564,7 +745,7 @@ select{
       🟢 Kaspi
     </div>
 
-    <p style="font-size:13px;margin-top:6px;color:#58705f">
+    <p class="note">
       После создания заказа откроется страница оплаты Kaspi.
     </p>
 
@@ -574,15 +755,19 @@ select{
   <button
     id="orderButton"
     class="kaspi"
-    onclick="payWithKaspi()"
-  >
+    onclick="payWithKaspi()">
+
     🟢 Оплатить через Kaspi
+
   </button>
 
 </section>
 
 
-<!-- УСПЕХ -->
+<!-- =========================
+     УСПЕШНЫЙ ЗАКАЗ
+========================= -->
+
 <section id="success" class="page">
 
   <div class="card success">
@@ -591,7 +776,9 @@ select{
       🤎
     </div>
 
-    <h2>Заказ создан!</h2>
+    <h2>
+      Заказ создан!
+    </h2>
 
     <p id="successText">
       Спасибо за заказ в Melange.
@@ -601,8 +788,7 @@ select{
 
     <button
       class="primary"
-      onclick="showPage('home')"
-    >
+      onclick="showPage('home')">
       Вернуться в меню
     </button>
 
@@ -613,45 +799,60 @@ select{
 </main>
 
 
-<!-- НИЖНЕЕ МЕНЮ -->
+<!-- =========================
+     НИЖНЕЕ МЕНЮ
+========================= -->
+
 <nav class="bottom">
 
   <button
     class="nav active"
-    onclick="showPage('home')"
-  >
+    onclick="showPage('home')">
+
     <span>⌂</span>
     <small>Главная</small>
+
   </button>
 
 
   <button
     class="nav"
-    onclick="showPage('cartPage')"
-  >
+    onclick="showPage('cartPage')">
+
     <span>
+
       🛍
-      <i id="badge" class="badge">0</i>
+
+      <i
+        id="badge"
+        class="badge">
+        0
+      </i>
+
     </span>
+
     <small>Корзина</small>
+
   </button>
 
 
   <button
     class="nav"
-    onclick="showPage('favorites')"
-  >
+    onclick="showPage('favorites')">
+
     <span>♡</span>
     <small>Избранное</small>
+
   </button>
 
 
   <button
     class="nav"
-    onclick="showPage('profile')"
-  >
+    onclick="showPage('profile')">
+
     <span>♙</span>
     <small>Профиль</small>
+
   </button>
 
 </nav>
@@ -681,52 +882,925 @@ const KASPI_PAYMENT_URL =
 
 const products = [
 
+  /* КОФЕ */
+
   {
     id:1,
-    name:"Капучино",
-    description:"Нежный кофе с молочной пенкой",
-    price:1200,
+    category:"Кофе",
+    name:"Эспрессо",
+    description:"Классический крепкий кофе",
+    prices:[450,900],
     icon:"☕"
   },
 
   {
     id:2,
-    name:"Латте",
-    description:"Мягкий кофе с большим количеством молока",
-    price:1300,
-    icon:"🥛"
+    category:"Кофе",
+    name:"Американо",
+    description:"Эспрессо с горячей водой",
+    prices:[900,1100],
+    icon:"☕"
   },
 
   {
     id:3,
-    name:"Матча",
-    description:"Нежный японский чай с молоком",
-    price:1400,
-    icon:"🍵"
+    category:"Кофе",
+    name:"Капучино",
+    description:"Кофе с нежной молочной пенкой",
+    prices:[1100,1200],
+    icon:"☕"
   },
 
   {
     id:4,
-    name:"Американо",
-    description:"Классический крепкий кофе",
-    price:1000,
+    category:"Кофе",
+    name:"Флэт Уайт",
+    description:"Насыщенный кофе с молоком",
+    prices:[1000],
     icon:"☕"
   },
 
   {
     id:5,
-    name:"Чизкейк",
-    description:"Нежный сливочный десерт",
-    price:1500,
+    category:"Кофе",
+    name:"Латте",
+    description:"Мягкий кофе с молоком",
+    prices:[1100,1200],
+    icon:"🥛"
+  },
+
+  {
+    id:6,
+    category:"Кофе",
+    name:"Раф",
+    description:"Нежный сливочный кофейный напиток",
+    prices:[1250,1400],
+    icon:"☕"
+  },
+
+  {
+    id:7,
+    category:"Кофе",
+    name:"Моккачино",
+    description:"Кофе с шоколадным вкусом",
+    prices:[1250,1400],
+    icon:"🍫"
+  },
+
+
+  /* ХОЛОДНЫЙ КОФЕ */
+
+  {
+    id:8,
+    category:"Холодный кофе",
+    name:"Айс Американо",
+    description:"Холодный классический кофе",
+    prices:[850],
+    icon:"🧊"
+  },
+
+  {
+    id:9,
+    category:"Холодный кофе",
+    name:"Айс Латте",
+    description:"Холодный латте с молоком",
+    prices:[1850],
+    icon:"🧊"
+  },
+
+  {
+    id:10,
+    category:"Холодный кофе",
+    name:"Бамбл",
+    description:"Кофе с цитрусовым соком",
+    prices:[1650],
+    icon:"🍊"
+  },
+
+  {
+    id:11,
+    category:"Холодный кофе",
+    name:"Фраппучино",
+    description:"Холодный кофейный напиток",
+    prices:[1650],
+    icon:"🥤"
+  },
+
+  {
+    id:12,
+    category:"Холодный кофе",
+    name:"Эспрессо-тоник",
+    description:"Эспрессо с тоником",
+    prices:[1450],
+    icon:"🧊"
+  },
+
+
+  /* ЧАЙ */
+
+  {
+    id:13,
+    category:"Чай",
+    name:"Чёрный",
+    description:"Классический чёрный чай",
+    prices:[350,1250],
+    icon:"🍵"
+  },
+
+  {
+    id:14,
+    category:"Чай",
+    name:"Зелёный",
+    description:"Лёгкий зелёный чай",
+    prices:[350,1250],
+    icon:"🍵"
+  },
+
+  {
+    id:15,
+    category:"Чай",
+    name:"Молочный улун",
+    description:"Ароматный молочный улун",
+    prices:[650,1550],
+    icon:"🍵"
+  },
+
+  {
+    id:16,
+    category:"Чай",
+    name:"Ташкентский",
+    description:"Ароматный чай с восточными нотами",
+    prices:[850,1650],
+    icon:"🍵"
+  },
+
+  {
+    id:17,
+    category:"Чай",
+    name:"Облепиховый",
+    description:"Ароматный чай с облепихой",
+    prices:[850,1650],
+    icon:"🍊"
+  },
+
+  {
+    id:18,
+    category:"Чай",
+    name:"Малиновый",
+    description:"Чай с малиной",
+    prices:[850,1650],
+    icon:"🍓"
+  },
+
+  {
+    id:19,
+    category:"Чай",
+    name:"Королевский",
+    description:"Фирменный чай",
+    prices:[850,1650],
+    icon:"👑"
+  },
+
+
+  /* ЛИМОНАД */
+
+  {
+    id:20,
+    category:"Лимонад",
+    name:"Гранатовый",
+    description:"Освежающий гранатовый лимонад",
+    prices:[1100,2350],
+    icon:"🍹"
+  },
+
+  {
+    id:21,
+    category:"Лимонад",
+    name:"Персиковый",
+    description:"Сладкий персиковый лимонад",
+    prices:[1100,2350],
+    icon:"🍑"
+  },
+
+  {
+    id:22,
+    category:"Лимонад",
+    name:"Цитрусовый",
+    description:"Освежающий цитрусовый лимонад",
+    prices:[1100,2350],
+    icon:"🍋"
+  },
+
+  {
+    id:23,
+    category:"Лимонад",
+    name:"Манго-маракуйя",
+    description:"Тропический лимонад",
+    prices:[1100,2350],
+    icon:"🥭"
+  },
+
+
+  /* КОКТЕЙЛИ */
+
+  {
+    id:24,
+    category:"Коктейли",
+    name:"Шоколадный",
+    description:"Нежный шоколадный коктейль",
+    prices:[1250],
+    icon:"🍫"
+  },
+
+  {
+    id:25,
+    category:"Коктейли",
+    name:"Молочный",
+    description:"Классический молочный коктейль",
+    prices:[1250],
+    icon:"🥛"
+  },
+
+  {
+    id:26,
+    category:"Коктейли",
+    name:"Клубничный",
+    description:"Коктейль с клубникой",
+    prices:[1350],
+    icon:"🍓"
+  },
+
+  {
+    id:27,
+    category:"Коктейли",
+    name:"Банановый",
+    description:"Коктейль с бананом",
+    prices:[1350],
+    icon:"🍌"
+  },
+
+
+  /* НЕ КОФЕ */
+
+  {
+    id:28,
+    category:"Не кофе",
+    name:"Горячий шоколад",
+    description:"Горячий шоколад",
+    prices:[1250,1400],
+    icon:"🍫"
+  },
+
+  {
+    id:29,
+    category:"Не кофе",
+    name:"Матча",
+    description:"Нежный японский чай",
+    prices:[1250],
+    icon:"🍵"
+  },
+
+
+  /* ЗАВТРАКИ */
+
+  {
+    id:30,
+    category:"Завтраки",
+    name:"Сырники",
+    description:"Домашние сырники",
+    prices:[1550,1750],
+    icon:"🥞"
+  },
+
+  {
+    id:31,
+    category:"Завтраки",
+    name:"Добавки",
+    description:"Дополнение к завтраку",
+    prices:[2150],
+    icon:"🍳"
+  },
+
+  {
+    id:32,
+    category:"Завтраки",
+    name:"Нью-Йорк",
+    description:"Завтрак в стиле Нью-Йорк",
+    prices:[2150],
+    icon:"🍳"
+  },
+
+  {
+    id:33,
+    category:"Завтраки",
+    name:"Итальянский",
+    description:"Итальянский завтрак",
+    prices:[2150],
+    icon:"🍳"
+  },
+
+  {
+    id:34,
+    category:"Завтраки",
+    name:"Турецкий",
+    description:"Традиционный турецкий завтрак",
+    prices:[3150],
+    icon:"🍳"
+  },
+
+  {
+    id:35,
+    category:"Завтраки",
+    name:"Французский",
+    description:"Французский завтрак",
+    prices:[2350],
+    icon:"🥐"
+  },
+
+  {
+    id:36,
+    category:"Завтраки",
+    name:"Деревенский",
+    description:"Сытный домашний завтрак",
+    prices:[2250],
+    icon:"🍳"
+  },
+
+  {
+    id:37,
+    category:"Завтраки",
+    name:"Паккука",
+    description:"Фирменное блюдо",
+    prices:[1650],
+    icon:"🍳"
+  },
+
+  {
+    id:38,
+    category:"Завтраки",
+    name:"Каша овсяная",
+    description:"Овсяная каша",
+    prices:[900],
+    icon:"🥣"
+  },
+
+  {
+    id:39,
+    category:"Завтраки",
+    name:"Каша кукурузная",
+    description:"Кукурузная каша",
+    prices:[900],
+    icon:"🥣"
+  },
+
+  {
+    id:40,
+    category:"Завтраки",
+    name:"Каша рисовая",
+    description:"Рисовая каша",
+    prices:[900],
+    icon:"🥣"
+  },
+
+  {
+    id:41,
+    category:"Завтраки",
+    name:"Блины с творогом",
+    description:"Блины с творожной начинкой",
+    prices:[1000],
+    icon:"🥞"
+  },
+
+  {
+    id:42,
+    category:"Завтраки",
+    name:"Блины с сёмгой",
+    description:"Блины с сёмгой",
+    prices:[1500],
+    icon:"🥞"
+  },
+
+  {
+    id:43,
+    category:"Завтраки",
+    name:"Блины с курицей и грибами",
+    description:"Сытные блины",
+    prices:[1300],
+    icon:"🥞"
+  },
+
+  {
+    id:44,
+    category:"Завтраки",
+    name:"Блины с мясом",
+    description:"Блины с мясной начинкой",
+    prices:[1500],
+    icon:"🥞"
+  },
+
+
+  /* СУПЫ */
+
+  {
+    id:45,
+    category:"Супы",
+    name:"Рамен с говядиной",
+    description:"Рамен с говядиной",
+    prices:[2450],
+    icon:"🍜"
+  },
+
+  {
+    id:46,
+    category:"Супы",
+    name:"Рамен с курицей",
+    description:"Рамен с курицей",
+    prices:[2350],
+    icon:"🍜"
+  },
+
+  {
+    id:47,
+    category:"Супы",
+    name:"Том-ям с морепродуктами",
+    description:"Острый тайский суп",
+    prices:[3200],
+    icon:"🍲"
+  },
+
+  {
+    id:48,
+    category:"Супы",
+    name:"Том-ям с курицей",
+    description:"Тайский суп с курицей",
+    prices:[2900],
+    icon:"🍲"
+  },
+
+  {
+    id:49,
+    category:"Супы",
+    name:"Крем-суп грибной",
+    description:"Нежный грибной крем-суп",
+    prices:[1100],
+    icon:"🍲"
+  },
+
+  {
+    id:50,
+    category:"Супы",
+    name:"Крем-суп тыквенный",
+    description:"Нежный тыквенный крем-суп",
+    prices:[1100],
+    icon:"🎃"
+  },
+
+  {
+    id:51,
+    category:"Супы",
+    name:"Крем-суп чечевичный",
+    description:"Чечевичный крем-суп",
+    prices:[1100],
+    icon:"🍲"
+  },
+
+  {
+    id:52,
+    category:"Супы",
+    name:"Суп с фрикадельками",
+    description:"Домашний суп",
+    prices:[1100],
+    icon:"🍲"
+  },
+
+  {
+    id:53,
+    category:"Супы",
+    name:"Лагман домашний",
+    description:"Домашний лагман",
+    prices:[1100],
+    icon:"🍜"
+  },
+
+  {
+    id:54,
+    category:"Супы",
+    name:"Уха царская",
+    description:"Рыбный суп",
+    prices:[1800],
+    icon:"🐟"
+  },
+
+
+  /* САЛАТЫ */
+
+  {
+    id:55,
+    category:"Салаты",
+    name:"Греческий",
+    description:"Свежий овощной салат",
+    prices:[1650],
+    icon:"🥗"
+  },
+
+  {
+    id:56,
+    category:"Салаты",
+    name:"Цезарь с курицей",
+    description:"Классический Цезарь",
+    prices:[2100],
+    icon:"🥗"
+  },
+
+  {
+    id:57,
+    category:"Салаты",
+    name:"Цезарь с сёмгой",
+    description:"Цезарь с сёмгой",
+    prices:[2500],
+    icon:"🥗"
+  },
+
+  {
+    id:58,
+    category:"Салаты",
+    name:"Хрустящие баклажаны",
+    description:"Хрустящие баклажаны",
+    prices:[2450],
+    icon:"🍆"
+  },
+
+  {
+    id:59,
+    category:"Салаты",
+    name:"Тбилиси",
+    description:"Сытный салат",
+    prices:[3000],
+    icon:"🥗"
+  },
+
+
+  /* ГОРЯЧИЕ БЛЮДА */
+
+  {
+    id:60,
+    category:"Горячие блюда",
+    name:"Бараньи рёбра",
+    description:"Нежные бараньи рёбра",
+    prices:[3450],
+    icon:"🍖"
+  },
+
+  {
+    id:61,
+    category:"Горячие блюда",
+    name:"Турецкие котлетки",
+    description:"Котлетки в турецком стиле",
+    prices:[3150],
+    icon:"🍖"
+  },
+
+  {
+    id:62,
+    category:"Горячие блюда",
+    name:"Стейк из сёмги",
+    description:"Стейк из сёмги",
+    prices:[5000],
+    icon:"🐟"
+  },
+
+  {
+    id:63,
+    category:"Горячие блюда",
+    name:"Курица в кисло-сладком соусе",
+    description:"Курица в кисло-сладком соусе",
+    prices:[2550],
+    icon:"🍗"
+  },
+
+  {
+    id:64,
+    category:"Горячие блюда",
+    name:"Курица в сливочном соусе",
+    description:"Курица в сливочном соусе",
+    prices:[2550],
+    icon:"🍗"
+  },
+
+  {
+    id:65,
+    category:"Горячие блюда",
+    name:"Вареники с творогом",
+    description:"Домашние вареники",
+    prices:[1650],
+    icon:"🥟"
+  },
+
+  {
+    id:66,
+    category:"Горячие блюда",
+    name:"Вареники с вишней",
+    description:"Вареники с вишней",
+    prices:[1650],
+    icon:"🥟"
+  },
+
+  {
+    id:67,
+    category:"Горячие блюда",
+    name:"Вареники с картофелем",
+    description:"Вареники с картофелем",
+    prices:[1650],
+    icon:"🥟"
+  },
+
+  {
+    id:68,
+    category:"Горячие блюда",
+    name:"Пельмени с говядиной",
+    description:"Домашние пельмени",
+    prices:[1500],
+    icon:"🥟"
+  },
+
+
+  /* ПАСТА */
+
+  {
+    id:69,
+    category:"Паста",
+    name:"Фетучини с курицей и грибами",
+    description:"Паста с курицей и грибами",
+    prices:[2400],
+    icon:"🍝"
+  },
+
+  {
+    id:70,
+    category:"Паста",
+    name:"Болоньезе",
+    description:"Паста с мясным соусом",
+    prices:[2300],
+    icon:"🍝"
+  },
+
+  {
+    id:71,
+    category:"Паста",
+    name:"Цуккини с ветчиной",
+    description:"Паста с цуккини и ветчиной",
+    prices:[2100],
+    icon:"🍝"
+  },
+
+  {
+    id:72,
+    category:"Паста",
+    name:"Паста с сёмгой",
+    description:"Паста с сёмгой",
+    prices:[2800],
+    icon:"🍝"
+  },
+
+
+  /* ПИЦЦА */
+
+  {
+    id:73,
+    category:"Пицца",
+    name:"Маргарита",
+    description:"Пицца 30 см",
+    prices:[2300],
+    icon:"🍕"
+  },
+
+  {
+    id:74,
+    category:"Пицца",
+    name:"Пепперони",
+    description:"Пицца 30 см",
+    prices:[2600],
+    icon:"🍕"
+  },
+
+  {
+    id:75,
+    category:"Пицца",
+    name:"4 сезона",
+    description:"Пицца 30 см",
+    prices:[2700],
+    icon:"🍕"
+  },
+
+
+  /* ФАСТФУД */
+
+  {
+    id:76,
+    category:"Фастфуд",
+    name:"Гамбургер",
+    description:"Классический бургер",
+    prices:[1600],
+    icon:"🍔"
+  },
+
+  {
+    id:77,
+    category:"Фастфуд",
+    name:"Чикенбургер",
+    description:"Бургер с курицей",
+    prices:[1550],
+    icon:"🍔"
+  },
+
+  {
+    id:78,
+    category:"Фастфуд",
+    name:"Мини-бургер",
+    description:"Цена уточняется",
+    prices:[],
+    icon:"🍔"
+  },
+
+  {
+    id:79,
+    category:"Фастфуд",
+    name:"Круассан с сёмгой",
+    description:"Круассан с сёмгой",
+    prices:[2450],
+    icon:"🥐"
+  },
+
+  {
+    id:80,
+    category:"Фастфуд",
+    name:"Круассан с курицей",
+    description:"Круассан с курицей",
+    prices:[2150],
+    icon:"🥐"
+  },
+
+  {
+    id:81,
+    category:"Фастфуд",
+    name:"Сэндвич с курицей",
+    description:"Сэндвич с курицей",
+    prices:[950],
+    icon:"🥪"
+  },
+
+  {
+    id:82,
+    category:"Фастфуд",
+    name:"Сэндвич с колбасой",
+    description:"Сэндвич с колбасой",
+    prices:[850],
+    icon:"🥪"
+  },
+
+  {
+    id:83,
+    category:"Фастфуд",
+    name:"Тост с сыром",
+    description:"Хрустящий тост с сыром",
+    prices:[700],
+    icon:"🍞"
+  },
+
+  {
+    id:84,
+    category:"Фастфуд",
+    name:"Картофель фри",
+    description:"Хрустящий картофель",
+    prices:[750],
+    icon:"🍟"
+  },
+
+  {
+    id:85,
+    category:"Фастфуд",
+    name:"Картофельные дольки",
+    description:"Запечённые картофельные дольки",
+    prices:[1000],
+    icon:"🥔"
+  },
+
+  {
+    id:86,
+    category:"Фастфуд",
+    name:"Сырные палочки",
+    description:"7 шт.",
+    prices:[1700],
+    icon:"🧀"
+  },
+
+  {
+    id:87,
+    category:"Фастфуд",
+    name:"Куриные крылышки",
+    description:"7 шт.",
+    prices:[1700],
+    icon:"🍗"
+  },
+
+  {
+    id:88,
+    category:"Фастфуд",
+    name:"Чебуречки",
+    description:"7 шт.",
+    prices:[1650],
+    icon:"🥟"
+  },
+
+  {
+    id:89,
+    category:"Фастфуд",
+    name:"Жареные пельмени",
+    description:"15 шт.",
+    prices:[1500],
+    icon:"🥟"
+  },
+
+
+  /* ДЕСЕРТЫ */
+
+  {
+    id:90,
+    category:"Десерты",
+    name:"Десерт",
+    description:"В ассортименте — уточнять у официанта",
+    prices:[],
     icon:"🍰"
   }
 
 ];
 
 
+/* ==================================
+   ДОБАВКИ
+================================== */
+
+const extras = [
+
+  {
+    id:91,
+    category:"Добавки",
+    name:"Альтернативное молоко",
+    description:"Добавка к напитку",
+    prices:[400],
+    icon:"🥛"
+  },
+
+  {
+    id:92,
+    category:"Добавки",
+    name:"Сироп",
+    description:"Добавка к напитку",
+    prices:[150],
+    icon:"🍯"
+  },
+
+  {
+    id:93,
+    category:"Добавки",
+    name:"Фисташковая паста",
+    description:"Добавка к напитку или десерту",
+    prices:[250],
+    icon:"💚"
+  }
+
+];
+
+products.push(...extras);
+
+
 let cart = [];
 let favorites = [];
 let orders = [];
+let currentCategory = "all";
+
+
+/* ==================================
+   ФОРМАТ ЦЕНЫ
+================================== */
+
+function formatPrices(prices){
+
+  if(!prices || prices.length === 0){
+    return "Цена уточняется";
+  }
+
+  if(prices.length === 1){
+    return prices[0].toLocaleString("ru-RU") + " ₸";
+  }
+
+  return prices
+    .map(price =>
+      price.toLocaleString("ru-RU") + " ₸"
+    )
+    .join(" / ");
+
+}
 
 
 /* ==================================
@@ -738,12 +1812,43 @@ function renderProducts(){
   const box =
     document.getElementById("products");
 
+  let list = products;
+
+  if(currentCategory !== "all"){
+
+    list =
+      products.filter(
+        product =>
+          product.category === currentCategory
+      );
+
+  }
+
   box.innerHTML = "";
 
-  products.forEach(product => {
+
+  if(list.length === 0){
+
+    box.innerHTML = `
+      <div class="card empty">
+        В этой категории пока нет блюд.
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  list.forEach(product => {
 
     const liked =
       favorites.includes(product.id);
+
+
+    const unavailable =
+      product.prices.length === 0;
+
 
     box.innerHTML += `
 
@@ -766,24 +1871,28 @@ function renderProducts(){
           <div class="product-bottom">
 
             <span class="price">
-              ${product.price.toLocaleString("ru-RU")} ₸
+              ${formatPrices(product.prices)}
             </span>
 
             <div>
 
               <button
                 class="favorite"
-                onclick="toggleFavorite(${product.id})"
-              >
+                onclick="toggleFavorite(${product.id})">
                 ${liked ? "♥" : "♡"}
               </button>
 
-              <button
-                class="add"
-                onclick="addToCart(${product.id})"
-              >
-                +
-              </button>
+              ${
+                unavailable
+                ? ""
+                : `
+                  <button
+                    class="add"
+                    onclick="addToCart(${product.id})">
+                    +
+                  </button>
+                `
+              }
 
             </div>
 
@@ -801,18 +1910,64 @@ function renderProducts(){
 
 
 /* ==================================
+   КАТЕГОРИИ
+================================== */
+
+function filterCategory(category, button){
+
+  currentCategory = category;
+
+  document
+    .querySelectorAll(".category")
+    .forEach(item =>
+      item.classList.remove("active")
+    );
+
+  button.classList.add("active");
+
+  renderProducts();
+
+}
+
+
+/* ==================================
    КОРЗИНА
 ================================== */
 
 function addToCart(id){
 
   const product =
-    products.find(x => x.id === id);
+    products.find(
+      x => x.id === id
+    );
 
   if(!product) return;
 
+  if(product.prices.length === 0){
+
+    alert(
+      "Цена этого товара пока уточняется."
+    );
+
+    return;
+
+  }
+
+
+  /*
+    Если у товара несколько цен,
+    пока берём первую цену.
+  */
+
+  const price =
+    product.prices[0];
+
+
   const item =
-    cart.find(x => x.id === id);
+    cart.find(
+      x => x.id === id
+    );
+
 
   if(item){
 
@@ -821,11 +1976,23 @@ function addToCart(id){
   }else{
 
     cart.push({
-      ...product,
+
+      id:product.id,
+
+      name:product.name,
+
+      category:product.category,
+
+      icon:product.icon,
+
+      price:price,
+
       quantity:1
+
     });
 
   }
+
 
   updateCart();
 
@@ -835,33 +2002,98 @@ function addToCart(id){
 function changeQuantity(id, amount){
 
   const item =
-    cart.find(x => x.id === id);
+    cart.find(
+      x => x.id === id
+    );
 
   if(!item) return;
 
+
   item.quantity += amount;
+
 
   if(item.quantity <= 0){
 
     cart =
-      cart.filter(x => x.id !== id);
+      cart.filter(
+        x => x.id !== id
+      );
 
   }
+
 
   updateCart();
 
 }
 
 
+/* ==================================
+   СУММА
+================================== */
+
+function getSubtotal(){
+
+  return cart.reduce(
+
+    (sum,item) =>
+
+      sum +
+      item.price *
+      item.quantity,
+
+    0
+
+  );
+
+}
+
+
+function getServiceFee(){
+
+  return Math.round(
+    getSubtotal() * 0.10
+  );
+
+}
+
+
+function getGrandTotal(){
+
+  return (
+    getSubtotal() +
+    getServiceFee()
+  );
+
+}
+
+
+/* ==================================
+   ОБНОВЛЕНИЕ КОРЗИНЫ
+================================== */
+
 function updateCart(){
 
   const box =
-    document.getElementById("cartItems");
+    document.getElementById(
+      "cartItems"
+    );
 
   const badge =
-    document.getElementById("badge");
+    document.getElementById(
+      "badge"
+    );
 
-  let total = 0;
+
+  const subtotal =
+    getSubtotal();
+
+  const service =
+    getServiceFee();
+
+  const total =
+    getGrandTotal();
+
+
   let count = 0;
 
 
@@ -879,29 +2111,38 @@ function updateCart(){
 
     box.innerHTML = "";
 
+
     cart.forEach(item => {
 
       const sum =
-        item.price * item.quantity;
+        item.price *
+        item.quantity;
 
-      total += sum;
 
-      count += item.quantity;
+      count +=
+        item.quantity;
+
 
       box.innerHTML += `
 
         <div class="cart-item">
 
-          <div>
+          <div class="cart-name">
+
             ${item.icon}
             ${item.name}
+
+            <div class="note">
+              ${item.price.toLocaleString("ru-RU")} ₸ / шт.
+            </div>
+
           </div>
+
 
           <div class="quantity">
 
             <button
-              onclick="changeQuantity(${item.id},-1)"
-            >
+              onclick="changeQuantity(${item.id},-1)">
               −
             </button>
 
@@ -910,12 +2151,16 @@ function updateCart(){
             </span>
 
             <button
-              onclick="changeQuantity(${item.id},1)"
-            >
+              onclick="changeQuantity(${item.id},1)">
               +
             </button>
 
           </div>
+
+
+          <strong>
+            ${sum.toLocaleString("ru-RU")} ₸
+          </strong>
 
         </div>
 
@@ -926,12 +2171,30 @@ function updateCart(){
   }
 
 
-  document.getElementById("cartTotal")
-    .textContent =
-    total.toLocaleString("ru-RU") + " ₸";
+  document.getElementById(
+    "cartSubtotal"
+  ).textContent =
+    subtotal.toLocaleString("ru-RU") +
+    " ₸";
 
 
-  badge.textContent = count;
+  document.getElementById(
+    "cartService"
+  ).textContent =
+    service.toLocaleString("ru-RU") +
+    " ₸";
+
+
+  document.getElementById(
+    "cartTotal"
+  ).textContent =
+    total.toLocaleString("ru-RU") +
+    " ₸";
+
+
+  badge.textContent =
+    count;
+
 
   updateCheckout();
 
@@ -947,13 +2210,16 @@ function toggleFavorite(id){
   if(favorites.includes(id)){
 
     favorites =
-      favorites.filter(x => x !== id);
+      favorites.filter(
+        x => x !== id
+      );
 
   }else{
 
     favorites.push(id);
 
   }
+
 
   renderProducts();
   renderFavorites();
@@ -964,11 +2230,14 @@ function toggleFavorite(id){
 function renderFavorites(){
 
   const box =
-    document.getElementById("favoriteItems");
+    document.getElementById(
+      "favoriteItems"
+    );
+
 
   const list =
-    products.filter(x =>
-      favorites.includes(x.id)
+    products.filter(
+      x => favorites.includes(x.id)
     );
 
 
@@ -988,6 +2257,7 @@ function renderFavorites(){
 
 
   box.innerHTML = "";
+
 
   list.forEach(product => {
 
@@ -1012,15 +2282,20 @@ function renderFavorites(){
           <div class="product-bottom">
 
             <span class="price">
-              ${product.price.toLocaleString("ru-RU")} ₸
+              ${formatPrices(product.prices)}
             </span>
 
-            <button
-              class="add"
-              onclick="addToCart(${product.id})"
-            >
-              +
-            </button>
+            ${
+              product.prices.length
+              ? `
+                <button
+                  class="add"
+                  onclick="addToCart(${product.id})">
+                  +
+                </button>
+              `
+              : ""
+            }
 
           </div>
 
@@ -1051,6 +2326,7 @@ function openCheckout(){
 
   }
 
+
   updateCheckout();
 
   showPage("checkout");
@@ -1061,24 +2337,41 @@ function openCheckout(){
 function updateCheckout(){
 
   const box =
-    document.getElementById("checkoutItems");
+    document.getElementById(
+      "checkoutItems"
+    );
+
+
+  const subtotalBox =
+    document.getElementById(
+      "checkoutSubtotal"
+    );
+
+
+  const serviceBox =
+    document.getElementById(
+      "checkoutService"
+    );
+
 
   const totalBox =
-    document.getElementById("checkoutTotal");
+    document.getElementById(
+      "checkoutTotal"
+    );
+
 
   if(!box) return;
 
-  box.innerHTML = "";
 
-  let total = 0;
+  box.innerHTML = "";
 
 
   cart.forEach(item => {
 
     const sum =
-      item.price * item.quantity;
+      item.price *
+      item.quantity;
 
-    total += sum;
 
     box.innerHTML += `
 
@@ -1099,8 +2392,29 @@ function updateCheckout(){
   });
 
 
+  const subtotal =
+    getSubtotal();
+
+  const service =
+    getServiceFee();
+
+  const total =
+    getGrandTotal();
+
+
+  subtotalBox.textContent =
+    subtotal.toLocaleString("ru-RU") +
+    " ₸";
+
+
+  serviceBox.textContent =
+    service.toLocaleString("ru-RU") +
+    " ₸";
+
+
   totalBox.textContent =
-    total.toLocaleString("ru-RU") + " ₸";
+    total.toLocaleString("ru-RU") +
+    " ₸";
 
 }
 
@@ -1112,19 +2426,23 @@ function updateCheckout(){
 function deliveryChanged(){
 
   const delivery =
-    document.getElementById("delivery").value;
+    document.getElementById(
+      "delivery"
+    ).value;
 
-  document.getElementById("addressField")
-    .style.display =
-      delivery === "Доставка"
-        ? "block"
-        : "none";
+
+  document.getElementById(
+    "addressField"
+  ).style.display =
+    delivery === "Доставка"
+      ? "block"
+      : "none";
 
 }
 
 
 /* ==================================
-   СОЗДАНИЕ ЗАКАЗА + KASPI
+   ОПЛАТА KASPI
 ================================== */
 
 async function payWithKaspi(){
@@ -1141,26 +2459,28 @@ async function payWithKaspi(){
 
 
   const name =
-    document.getElementById("name")
-      .value.trim();
+    document.getElementById(
+      "name"
+    ).value.trim();
 
 
   const phone =
-    document.getElementById("phone")
-      .value.trim();
+    document.getElementById(
+      "phone"
+    ).value.trim();
 
 
   const delivery =
-    document.getElementById("delivery")
-      .value;
+    document.getElementById(
+      "delivery"
+    ).value;
 
 
   const address =
-    document.getElementById("address")
-      .value.trim();
+    document.getElementById(
+      "address"
+    ).value.trim();
 
-
-  /* ПРОВЕРКИ */
 
   if(!name){
 
@@ -1198,20 +2518,22 @@ async function payWithKaspi(){
   }
 
 
-  /* СУММА */
+  const subtotal =
+    getSubtotal();
+
+
+  const serviceFee =
+    getServiceFee();
+
 
   const total =
-    cart.reduce(
-      (sum,item) =>
-        sum +
-        item.price *
-        item.quantity,
-      0
-    );
+    getGrandTotal();
 
 
   const button =
-    document.getElementById("orderButton");
+    document.getElementById(
+      "orderButton"
+    );
 
 
   button.disabled = true;
@@ -1222,12 +2544,11 @@ async function payWithKaspi(){
 
   try{
 
-    /* ОТПРАВЛЯЕМ ЗАКАЗ НА СЕРВЕР */
-
     const response =
       await fetch(
         SERVER + "/api/orders",
         {
+
           method:"POST",
 
           headers:{
@@ -1242,6 +2563,10 @@ async function payWithKaspi(){
             phone:phone,
 
             items:cart,
+
+            subtotal:subtotal,
+
+            serviceFee:serviceFee,
 
             total:total,
 
@@ -1303,13 +2628,18 @@ async function payWithKaspi(){
     }
 
 
-    /* СОХРАНЯЕМ ИСТОРИЮ */
-
     orders.push({
+
+      orderId:
+        result.orderId,
 
       name:name,
 
       phone:phone,
+
+      subtotal:subtotal,
+
+      serviceFee:serviceFee,
 
       total:total,
 
@@ -1322,18 +2652,17 @@ async function payWithKaspi(){
     });
 
 
-    /* ОЧИЩАЕМ КОРЗИНУ */
+    renderHistory();
+
 
     cart = [];
 
     updateCart();
 
-    renderHistory();
-
 
     /*
-      СНАЧАЛА ЗАКАЗ СОЗДАН,
-      ПОТОМ ОТКРЫВАЕМ KASPI
+      После успешного создания заказа
+      открываем страницу Kaspi.
     */
 
     window.location.href =
@@ -1373,18 +2702,22 @@ async function payWithKaspi(){
 function saveProfile(){
 
   const name =
-    document.getElementById("profileName")
-      .value;
+    document.getElementById(
+      "profileName"
+    ).value;
+
 
   const phone =
-    document.getElementById("profilePhone")
-      .value;
+    document.getElementById(
+      "profilePhone"
+    ).value;
 
 
   localStorage.setItem(
     "melangeName",
     name
   );
+
 
   localStorage.setItem(
     "melangePhone",
@@ -1401,18 +2734,20 @@ function saveProfile(){
 
 function loadProfile(){
 
-  document.getElementById("profileName")
-    .value =
-      localStorage.getItem(
-        "melangeName"
-      ) || "";
+  document.getElementById(
+    "profileName"
+  ).value =
+    localStorage.getItem(
+      "melangeName"
+    ) || "";
 
 
-  document.getElementById("profilePhone")
-    .value =
-      localStorage.getItem(
-        "melangePhone"
-      ) || "";
+  document.getElementById(
+    "profilePhone"
+  ).value =
+    localStorage.getItem(
+      "melangePhone"
+    ) || "";
 
 }
 
@@ -1424,7 +2759,9 @@ function loadProfile(){
 function renderHistory(){
 
   const box =
-    document.getElementById("history");
+    document.getElementById(
+      "history"
+    );
 
 
   if(orders.length === 0){
@@ -1455,8 +2792,12 @@ function renderHistory(){
         <div class="history-item">
 
           <strong>
-            ${order.total.toLocaleString("ru-RU")} ₸
+            Заказ №${order.orderId || "—"}
           </strong>
+
+          <div>
+            ${order.total.toLocaleString("ru-RU")} ₸
+          </div>
 
           <div>
             ${order.date}
@@ -1483,8 +2824,9 @@ function showPage(id){
 
   document
     .querySelectorAll(".page")
-    .forEach(page =>
-      page.classList.remove("active")
+    .forEach(
+      page =>
+        page.classList.remove("active")
     );
 
 
@@ -1497,6 +2839,14 @@ function showPage(id){
     page.classList.add("active");
 
   }
+
+
+  document
+    .querySelectorAll(".nav")
+    .forEach(
+      nav =>
+        nav.classList.remove("active")
+    );
 
 
   window.scrollTo({
