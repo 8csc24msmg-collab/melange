@@ -1,5 +1,8 @@
 const API = "https://melange-3.onrender.com";
 
+const KASPI_PAYMENT_URL =
+  "https://pay.kaspi.kz/pay/ndmk0ruy";
+
 let cart = [];
 
 
@@ -16,7 +19,6 @@ function addToCart(name, price) {
   });
 
   updateCart();
-
 }
 
 
@@ -38,18 +40,14 @@ function updateCart() {
   const checkoutTotal =
     document.getElementById("checkoutTotal");
 
-
   if (!cartElement) return;
 
-
   cartElement.innerHTML = "";
-
 
   let total = 0;
   let count = 0;
 
-
-  cart.forEach((item, index) => {
+  cart.forEach((item) => {
 
     const quantity =
       Number(item.quantity) || 1;
@@ -60,17 +58,14 @@ function updateCart() {
     const sum =
       price * quantity;
 
-
     total += sum;
     count += quantity;
-
 
     const itemElement =
       document.createElement("div");
 
     itemElement.className =
       "cart-item";
-
 
     itemElement.innerHTML = `
 
@@ -85,10 +80,7 @@ function updateCart() {
 
     `;
 
-
-    cartElement.appendChild(
-      itemElement
-    );
+    cartElement.appendChild(itemElement);
 
   });
 
@@ -137,25 +129,18 @@ function openCheckout() {
 
   }
 
-
   const checkout =
-    document.getElementById(
-      "checkout"
-    );
-
+    document.getElementById("checkout");
 
   if (checkout) {
 
-    checkout.classList.remove(
-      "hidden"
-    );
+    checkout.classList.remove("hidden");
 
     checkout.scrollIntoView({
       behavior: "smooth"
     });
 
   }
-
 
   updateCart();
 
@@ -169,19 +154,13 @@ function openCheckout() {
 function closeCheckout() {
 
   const checkout =
-    document.getElementById(
-      "checkout"
-    );
-
+    document.getElementById("checkout");
 
   if (checkout) {
 
-    checkout.classList.add(
-      "hidden"
-    );
+    checkout.classList.add("hidden");
 
   }
-
 
   window.scrollTo({
     top: 0,
@@ -192,7 +171,7 @@ function closeCheckout() {
 
 
 /* =========================
-   ОПЛАТА / СОЗДАНИЕ ЗАКАЗА
+   СОЗДАНИЕ ЗАКАЗА
 ========================= */
 
 async function payByCard() {
@@ -239,7 +218,7 @@ async function payByCard() {
       "Введите ваше имя 🤎"
     );
 
-    return;
+    return false;
 
   }
 
@@ -250,7 +229,7 @@ async function payByCard() {
       "Введите номер телефона 📱"
     );
 
-    return;
+    return false;
 
   }
 
@@ -264,7 +243,7 @@ async function payByCard() {
       "Введите адрес доставки 📍"
     );
 
-    return;
+    return false;
 
   }
 
@@ -275,7 +254,7 @@ async function payByCard() {
       "Корзина пуста ☕"
     );
 
-    return;
+    return false;
 
   }
 
@@ -356,43 +335,24 @@ async function payByCard() {
     }
 
 
-    /* Заказ успешно создан */
+    /* Заказ создан */
 
     alert(
       "Заказ №" +
       data.orderId +
-      " успешно оформлен! 🤎"
+      " создан! Сейчас откроется Kaspi 🤎"
     );
 
 
-    /* Очищаем корзину */
+    /*
+      Переходим на страницу оплаты Kaspi
+    */
 
-    cart = [];
-
-    updateCart();
-
-
-    /* Закрываем оформление */
-
-    const checkout =
-      document.getElementById(
-        "checkout"
-      );
+    window.location.href =
+      KASPI_PAYMENT_URL;
 
 
-    if (checkout) {
-
-      checkout.classList.add(
-        "hidden"
-      );
-
-    }
-
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
+    return true;
 
 
   } catch (error) {
@@ -408,14 +368,15 @@ async function payByCard() {
       error.message
     );
 
+    return false;
+
   }
 
 }
 
 
 /* =========================
-   ЕСЛИ КНОПКА НАЗЫВАЕТСЯ
-   payWithKaspi
+   ОПЛАТА KASPI
 ========================= */
 
 async function payWithKaspi() {
@@ -438,16 +399,13 @@ async function checkServer() {
         API + "/api/health"
       );
 
-
     const data =
       await response.json();
-
 
     console.log(
       "Melange server:",
       data
     );
-
 
   } catch (error) {
 
@@ -468,26 +426,11 @@ async function checkServer() {
 function escapeHTML(value) {
 
   return String(value || "")
-    .replaceAll(
-      "&",
-      "&amp;"
-    )
-    .replaceAll(
-      "<",
-      "&lt;"
-    )
-    .replaceAll(
-      ">",
-      "&gt;"
-    )
-    .replaceAll(
-      '"',
-      "&quot;"
-    )
-    .replaceAll(
-      "'",
-      "&#039;"
-    );
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 
 }
 
