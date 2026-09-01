@@ -4,324 +4,152 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Melange — Админка</title>
+<title>Melange — Заказы</title>
 
 <style>
 
-*{
-  box-sizing:border-box;
+* {
+  box-sizing: border-box;
 }
 
-body{
-  margin:0;
-  padding:20px;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-  background:#f8f1e9;
-  color:#3d2b21;
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  background: #f8f1e9;
+  color: #3d2b21;
 }
 
-.container{
-  max-width:700px;
-  margin:auto;
+.container {
+  max-width: 700px;
+  margin: auto;
 }
 
-/* =========================
-   LOGIN
-========================= */
-
-.login{
-  min-height:90vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+.header {
+  margin-bottom: 20px;
 }
 
-.login-box{
-  width:100%;
-  max-width:400px;
-  background:#fffaf5;
-  padding:28px;
-  border-radius:24px;
-  box-shadow:0 8px 30px rgba(70,45,25,.10);
+h1 {
+  color: #8b5e3c;
+  margin: 0;
 }
 
-.logo{
-  text-align:center;
-  font-family:Georgia,serif;
-  font-size:34px;
-  font-weight:bold;
-  color:#8b5e3c;
+.subtitle {
+  color: #927b6c;
+  margin-top: 5px;
 }
 
-.login-title{
-  text-align:center;
-  margin-top:5px;
-  margin-bottom:25px;
-  color:#927b6c;
+.refresh {
+  width: 100%;
+  padding: 15px;
+  border: 0;
+  border-radius: 14px;
+  background: #8b5e3c;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  cursor: pointer;
 }
 
-.input{
-  width:100%;
-  padding:14px;
-  margin-bottom:12px;
-  border:1px solid #ddcabe;
-  border-radius:13px;
-  background:white;
-  outline:none;
-  font-size:16px;
+.order {
+  background: #fffaf5;
+  border-radius: 20px;
+  padding: 18px;
+  margin-bottom: 15px;
+  box-shadow: 0 5px 20px rgba(70,45,25,.08);
 }
 
-.input:focus{
-  border-color:#8b5e3c;
+.order h2 {
+  margin-top: 0;
+  color: #8b5e3c;
 }
 
-.login-button{
-  width:100%;
-  padding:15px;
-  border:0;
-  border-radius:14px;
-  background:#8b5e3c;
-  color:white;
-  font-size:16px;
-  font-weight:bold;
+.info {
+  line-height: 1.7;
 }
 
-.login-error{
-  display:none;
-  background:#ffe4df;
-  color:#a33b2b;
-  padding:12px;
-  border-radius:12px;
-  margin-bottom:12px;
-  font-size:14px;
+.items {
+  border-top: 1px solid #ead8c5;
+  border-bottom: 1px solid #ead8c5;
+  margin: 15px 0;
+  padding: 10px 0;
 }
 
-/* =========================
-   ADMIN
-========================= */
-
-.admin{
-  display:none;
+.item {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 6px 0;
 }
 
-.header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  margin-bottom:20px;
+.total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+  font-weight: bold;
 }
 
-h1{
-  color:#8b5e3c;
-  margin:0;
+.total strong {
+  color: #8b5e3c;
 }
 
-.subtitle{
-  color:#927b6c;
-  margin-top:5px;
+.status {
+  display: inline-block;
+  background: #ead8c5;
+  color: #8b5e3c;
+  padding: 7px 10px;
+  border-radius: 10px;
+  margin-top: 10px;
 }
 
-.logout{
-  border:0;
-  background:#ead8c5;
-  color:#654b3b;
-  padding:10px 12px;
-  border-radius:11px;
-  font-weight:bold;
+.buttons {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-top: 15px;
 }
 
-.refresh{
-  width:100%;
-  padding:15px;
-  border:0;
-  border-radius:14px;
-  background:#8b5e3c;
-  color:white;
-  font-size:16px;
-  font-weight:bold;
-  margin-bottom:20px;
+.buttons button {
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: #8b5e3c;
+  color: white;
+  cursor: pointer;
 }
 
-.order{
-  background:#fffaf5;
-  border-radius:20px;
-  padding:18px;
-  margin-bottom:15px;
-  box-shadow:0 5px 20px rgba(70,45,25,.08);
+.empty {
+  text-align: center;
+  padding: 40px;
+  background: #fffaf5;
+  border-radius: 20px;
 }
 
-.order h2{
-  margin-top:0;
-  color:#8b5e3c;
-}
-
-.info{
-  line-height:1.7;
-}
-
-.items{
-  border-top:1px solid #ead8c5;
-  border-bottom:1px solid #ead8c5;
-  margin:15px 0;
-  padding:10px 0;
-}
-
-.item{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  padding:6px 0;
-}
-
-.total{
-  display:flex;
-  justify-content:space-between;
-  font-size:20px;
-  font-weight:bold;
-}
-
-.total strong{
-  color:#8b5e3c;
-}
-
-.status{
-  display:inline-block;
-  background:#ead8c5;
-  color:#8b5e3c;
-  padding:7px 10px;
-  border-radius:10px;
-  margin-top:10px;
-}
-
-.buttons{
-  display:flex;
-  gap:7px;
-  flex-wrap:wrap;
-  margin-top:15px;
-}
-
-.buttons button{
-  border:0;
-  border-radius:10px;
-  padding:10px 12px;
-  background:#8b5e3c;
-  color:white;
-}
-
-.empty{
-  text-align:center;
-  padding:40px;
-  background:#fffaf5;
-  border-radius:20px;
-}
-
-.error{
-  background:#ffe4df;
-  color:#a33b2b;
-  padding:15px;
-  border-radius:15px;
-  margin-bottom:15px;
+.error {
+  background: #ffe4df;
+  color: #a33b2b;
+  padding: 15px;
+  border-radius: 15px;
+  margin-bottom: 15px;
 }
 
 </style>
 </head>
 
-
 <body>
 
-
-<!-- =========================
-     ВХОД
-========================= -->
-
-<div
-  class="login"
-  id="loginScreen"
->
-
-  <div class="login-box">
-
-    <div class="logo">
-      Melange 🤎
-    </div>
-
-    <div class="login-title">
-      Панель сотрудника
-    </div>
-
-
-    <div
-      class="login-error"
-      id="loginError"
-    >
-      Неверный логин или пароль
-    </div>
-
-
-    <input
-      class="input"
-      id="login"
-      type="text"
-      placeholder="Логин"
-      autocomplete="username"
-    >
-
-
-    <input
-      class="input"
-      id="password"
-      type="password"
-      placeholder="Пароль"
-      autocomplete="current-password"
-    >
-
-
-    <button
-      class="login-button"
-      onclick="loginAdmin()"
-    >
-      🔐 Войти
-    </button>
-
-  </div>
-
-</div>
-
-
-<!-- =========================
-     АДМИНКА
-========================= -->
-
-<div
-  class="container admin"
-  id="adminScreen"
->
+<div class="container">
 
   <div class="header">
 
-    <div>
+    <h1>Melange 🤎</h1>
 
-      <h1>
-        Melange 🤎
-      </h1>
-
-      <div class="subtitle">
-        Панель заказов
-      </div>
-
+    <div class="subtitle">
+      Панель заказов
     </div>
 
-
-    <button
-      class="logout"
-      onclick="logoutAdmin()"
-    >
-      Выйти
-    </button>
-
   </div>
-
 
   <button
     class="refresh"
@@ -329,7 +157,6 @@ h1{
   >
     🔄 Обновить заказы
   </button>
-
 
   <div id="orders">
     Загрузка заказов...
@@ -340,203 +167,15 @@ h1{
 
 <script>
 
-/* =========================
-   НАСТРОЙКИ
-========================= */
-
 const API =
 "https://melange-3.onrender.com";
 
 
-let adminToken =
-localStorage.getItem(
-  "melange_admin_token"
-);
-
-
 /* =========================
-   ПОКАЗ ЭКРАНА
+   ЗАГРУЗКА ЗАКАЗОВ
 ========================= */
 
-function showAdmin(){
-
-  document
-    .getElementById("loginScreen")
-    .style.display="none";
-
-  document
-    .getElementById("adminScreen")
-    .style.display="block";
-
-}
-
-
-/* =========================
-   ВХОД
-========================= */
-
-async function loginAdmin(){
-
-  const login =
-    document
-      .getElementById("login")
-      .value
-      .trim();
-
-
-  const password =
-    document
-      .getElementById("password")
-      .value;
-
-
-  const errorBox =
-    document
-      .getElementById("loginError");
-
-
-  errorBox.style.display="none";
-
-
-  if(!login || !password){
-
-    errorBox.textContent =
-      "Введите логин и пароль";
-
-    errorBox.style.display="block";
-
-    return;
-
-  }
-
-
-  try{
-
-    const response =
-      await fetch(
-        API + "/api/admin/login",
-        {
-          method:"POST",
-
-          headers:{
-            "Content-Type":
-              "application/json"
-          },
-
-          body:JSON.stringify({
-            login:login,
-            password:password
-          })
-
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if(!response.ok){
-
-      throw new Error(
-        data.error ||
-        "Ошибка входа"
-      );
-
-    }
-
-
-    adminToken =
-      data.token;
-
-
-    localStorage.setItem(
-      "melange_admin_token",
-      adminToken
-    );
-
-
-    showAdmin();
-
-    loadOrders();
-
-
-  }catch(error){
-
-    errorBox.textContent =
-      error.message;
-
-    errorBox.style.display="block";
-
-  }
-
-}
-
-
-/* =========================
-   ВЫХОД
-========================= */
-
-async function logoutAdmin(){
-
-  try{
-
-    if(adminToken){
-
-      await fetch(
-        API + "/api/admin/logout",
-        {
-          method:"POST",
-
-          headers:{
-            "Authorization":
-              "Bearer " +
-              adminToken
-          }
-        }
-      );
-
-    }
-
-  }catch(error){
-
-    console.log(error);
-
-  }
-
-
-  localStorage.removeItem(
-    "melange_admin_token"
-  );
-
-
-  adminToken=null;
-
-
-  document
-    .getElementById("adminScreen")
-    .style.display="none";
-
-
-  document
-    .getElementById("loginScreen")
-    .style.display="flex";
-
-}
-
-
-/* =========================
-   ЗАКАЗЫ
-========================= */
-
-async function loadOrders(){
-
-  if(!adminToken){
-
-    return;
-
-  }
-
+async function loadOrders() {
 
   const container =
     document.getElementById("orders");
@@ -546,18 +185,11 @@ async function loadOrders(){
     "<div class='empty'>Загрузка...</div>";
 
 
-  try{
+  try {
 
     const response =
       await fetch(
-        API + "/api/orders",
-        {
-          headers:{
-            "Authorization":
-              "Bearer " +
-              adminToken
-          }
-        }
+        API + "/api/orders"
       );
 
 
@@ -565,16 +197,7 @@ async function loadOrders(){
       await response.json();
 
 
-    if(response.status===401){
-
-      logoutAdmin();
-
-      return;
-
-    }
-
-
-    if(!response.ok){
+    if (!response.ok) {
 
       throw new Error(
         data.error ||
@@ -584,12 +207,12 @@ async function loadOrders(){
     }
 
 
-    if(
+    if (
       !Array.isArray(data) ||
-      data.length===0
-    ){
+      data.length === 0
+    ) {
 
-      container.innerHTML=`
+      container.innerHTML = `
 
         <div class="empty">
 
@@ -606,31 +229,33 @@ async function loadOrders(){
     }
 
 
-    container.innerHTML="";
+    container.innerHTML = "";
 
 
-    data.forEach(order=>{
+    data.forEach(order => {
 
-      let itemsHTML="";
+      let itemsHTML = "";
 
 
-      if(Array.isArray(order.items)){
+      if (
+        Array.isArray(order.items)
+      ) {
 
-        order.items.forEach(item=>{
+        order.items.forEach(item => {
 
           const quantity =
-            Number(item.quantity)||1;
+            Number(item.quantity) || 1;
 
 
           const price =
-            Number(item.price)||0;
+            Number(item.price) || 0;
 
 
           const sum =
-            price*quantity;
+            price * quantity;
 
 
-          itemsHTML+=`
+          itemsHTML += `
 
             <div class="item">
 
@@ -647,9 +272,7 @@ async function loadOrders(){
 
               <strong>
 
-                ${sum.toLocaleString("ru-RU")}
-
-                ₸
+                ${sum.toLocaleString("ru-RU")} ₸
 
               </strong>
 
@@ -670,7 +293,7 @@ async function loadOrders(){
         : "—";
 
 
-      container.innerHTML+=`
+      container.innerHTML += `
 
         <div class="order">
 
@@ -776,9 +399,7 @@ async function loadOrders(){
                 )
               "
             >
-
               🆕 Новый
-
             </button>
 
 
@@ -790,9 +411,7 @@ async function loadOrders(){
                 )
               "
             >
-
               ☕ Готовится
-
             </button>
 
 
@@ -804,9 +423,7 @@ async function loadOrders(){
                 )
               "
             >
-
               ✅ Готов
-
             </button>
 
 
@@ -818,9 +435,7 @@ async function loadOrders(){
                 )
               "
             >
-
               🤎 Выдан
-
             </button>
 
 
@@ -833,12 +448,12 @@ async function loadOrders(){
     });
 
 
-  }catch(error){
+  } catch (error) {
 
     console.error(error);
 
 
-    container.innerHTML=`
+    container.innerHTML = `
 
       <div class="error">
 
@@ -846,7 +461,9 @@ async function loadOrders(){
 
         <br><br>
 
-        ${escapeHTML(error.message)}
+        ${escapeHTML(
+          error.message
+        )}
 
       </div>
 
@@ -858,15 +475,15 @@ async function loadOrders(){
 
 
 /* =========================
-   СТАТУС
+   ИЗМЕНЕНИЕ СТАТУСА
 ========================= */
 
 async function changeStatus(
   id,
   status
-){
+) {
 
-  try{
+  try {
 
     const response =
       await fetch(
@@ -876,21 +493,15 @@ async function changeStatus(
         "/status",
         {
 
-          method:"POST",
+          method: "POST",
 
-          headers:{
-
+          headers: {
             "Content-Type":
-              "application/json",
-
-            "Authorization":
-              "Bearer " +
-              adminToken
-
+              "application/json"
           },
 
-          body:JSON.stringify({
-            status:status
+          body: JSON.stringify({
+            status: status
           })
 
         }
@@ -901,16 +512,7 @@ async function changeStatus(
       await response.json();
 
 
-    if(response.status===401){
-
-      logoutAdmin();
-
-      return;
-
-    }
-
-
-    if(!response.ok){
+    if (!response.ok) {
 
       throw new Error(
         data.error ||
@@ -923,7 +525,7 @@ async function changeStatus(
     loadOrders();
 
 
-  }catch(error){
+  } catch (error) {
 
     alert(
       "Ошибка:\n" +
@@ -939,49 +541,31 @@ async function changeStatus(
    ЗАЩИТА HTML
 ========================= */
 
-function escapeHTML(value){
+function escapeHTML(value) {
 
   return String(value || "")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 
 }
 
 
 /* =========================
-   ENTER
+   ЗАПУСК
 ========================= */
 
-document
-  .getElementById("password")
-  .addEventListener(
-    "keydown",
-    function(event){
-
-      if(event.key==="Enter"){
-
-        loginAdmin();
-
-      }
-
-    }
-  );
+loadOrders();
 
 
-/* =========================
-   АВТОВХОД
-========================= */
+/* Автообновление каждые 10 секунд */
 
-if(adminToken){
-
-  showAdmin();
-
-  loadOrders();
-
-}
+setInterval(
+  loadOrders,
+  10000
+);
 
 </script>
 
