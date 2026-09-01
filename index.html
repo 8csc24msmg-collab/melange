@@ -4,596 +4,645 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#8b5e3c">
+
 <title>Melange</title>
 
 <style>
+
 *{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
 body{
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  background:#f8f1e9;
-  color:#3b2a20;
-  padding-bottom:95px;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    background:#f8f1e9;
+    color:#3d2b20;
+    padding-bottom:100px;
 }
 
-button,
-input{
-  font:inherit;
+button,input{
+    font:inherit;
 }
 
 button{
-  cursor:pointer;
+    cursor:pointer;
 }
 
-.header{
-  background:#8b5e3c;
-  color:#fff;
-  padding:28px 18px 22px;
-  border-radius:0 0 28px 28px;
-}
+/* HEADER */
 
-.header-inner{
-  max-width:680px;
-  margin:auto;
+header{
+    background:#8b5e3c;
+    color:white;
+    text-align:center;
+    padding:30px 18px 22px;
+    border-radius:0 0 30px 30px;
 }
 
 .logo{
-  font-family:Georgia,serif;
-  font-size:36px;
-  letter-spacing:.5px;
+    font-family:Georgia,serif;
+    font-size:37px;
+    font-weight:700;
 }
 
 .subtitle{
-  margin-top:5px;
-  font-size:13px;
-  opacity:.85;
+    margin-top:5px;
+    font-size:13px;
+    opacity:.9;
 }
 
+/* SEARCH */
+
 .search{
-  margin-top:18px;
-  position:relative;
+    max-width:650px;
+    margin:17px auto 0;
+    position:relative;
 }
 
 .search input{
-  width:100%;
-  border:0;
-  outline:0;
-  background:#fff;
-  color:#3b2a20;
-  border-radius:15px;
-  padding:13px 16px 13px 43px;
-  box-shadow:0 5px 20px rgba(0,0,0,.08);
+    width:100%;
+    border:0;
+    outline:none;
+    padding:13px 16px 13px 42px;
+    border-radius:15px;
+    background:white;
+    color:#3d2b20;
 }
 
-.search span{
-  position:absolute;
-  left:15px;
-  top:11px;
-  font-size:18px;
+.search-icon{
+    position:absolute;
+    left:15px;
+    top:11px;
+    font-size:18px;
 }
+
+/* CATEGORIES */
 
 .categories{
-  position:sticky;
-  top:0;
-  z-index:8;
-  background:#f8f1e9;
-  padding:12px 0 8px;
-  overflow-x:auto;
-  white-space:nowrap;
+    position:sticky;
+    top:0;
+    z-index:10;
+    background:#f8f1e9;
+    padding:11px 0 8px;
+    overflow-x:auto;
 }
 
 .categories::-webkit-scrollbar{
-  display:none;
+    display:none;
 }
 
-.category-scroll{
-  display:flex;
-  gap:8px;
-  width:max-content;
-  padding:0 15px;
+.category-list{
+    display:flex;
+    gap:8px;
+    width:max-content;
+    padding:0 15px;
 }
 
 .category-btn{
-  border:1px solid #dfcfc2;
-  background:#fff;
-  color:#624a3b;
-  border-radius:20px;
-  padding:8px 13px;
-  font-size:13px;
+    border:1px solid #ddcabe;
+    background:white;
+    color:#604737;
+    padding:8px 13px;
+    border-radius:20px;
+    font-size:13px;
 }
 
 .category-btn.active{
-  background:#8b5e3c;
-  color:#fff;
-  border-color:#8b5e3c;
+    background:#8b5e3c;
+    color:white;
+    border-color:#8b5e3c;
 }
+
+/* MENU */
 
 .container{
-  max-width:680px;
-  margin:auto;
-  padding:0 15px 30px;
+    max-width:650px;
+    margin:auto;
+    padding:0 15px 30px;
 }
 
-.section{
-  margin-top:22px;
+.category{
+    margin-top:23px;
 }
 
-.section-title{
-  font-family:Georgia,serif;
-  font-size:24px;
-  margin-bottom:12px;
+.category-title{
+    font-family:Georgia,serif;
+    font-size:24px;
+    margin-bottom:11px;
 }
 
-.card{
-  background:#fff;
-  border-radius:19px;
-  margin-bottom:11px;
-  overflow:hidden;
-  box-shadow:0 4px 15px rgba(65,43,28,.06);
+.item{
+    background:white;
+    border-radius:18px;
+    padding:15px;
+    margin-bottom:9px;
+    box-shadow:0 3px 12px rgba(70,45,25,.06);
 }
 
-.card-photo{
-  width:100%;
-  height:150px;
-  object-fit:cover;
-  display:block;
+.item-top{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
 }
 
-.card-body{
-  padding:14px;
-}
-
-.card-top{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-}
-
-.name{
-  font-size:16px;
-  font-weight:650;
-  line-height:1.3;
+.item-name{
+    font-size:16px;
+    font-weight:650;
+    line-height:1.35;
 }
 
 .price{
-  white-space:nowrap;
-  font-size:15px;
-  font-weight:700;
+    font-size:15px;
+    font-weight:700;
+    white-space:nowrap;
 }
 
-.description{
-  margin-top:4px;
-  color:#927e70;
-  font-size:12px;
+.cafe-note{
+    margin-top:5px;
+    color:#9a765d;
+    font-size:12px;
 }
 
 .options{
-  display:flex;
-  flex-wrap:wrap;
-  gap:7px;
-  margin-top:10px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+    margin-top:11px;
 }
 
 .option{
-  border:1px solid #ddcfc5;
-  background:#fffaf6;
-  color:#654b3b;
-  padding:7px 10px;
-  border-radius:10px;
-  font-size:12px;
+    border:1px solid #ddcabe;
+    background:#fffaf6;
+    color:#654b3b;
+    padding:8px 10px;
+    border-radius:10px;
+    font-size:12px;
 }
 
 .option.active{
-  background:#8b5e3c;
-  color:#fff;
-  border-color:#8b5e3c;
+    background:#8b5e3c;
+    color:white;
+    border-color:#8b5e3c;
 }
 
 .add{
-  width:100%;
-  margin-top:10px;
-  border:0;
-  background:#8b5e3c;
-  color:#fff;
-  border-radius:12px;
-  padding:11px;
-  font-weight:650;
+    width:100%;
+    margin-top:10px;
+    border:0;
+    background:#8b5e3c;
+    color:white;
+    padding:11px;
+    border-radius:12px;
+    font-weight:650;
 }
 
-.added{
-  animation:pop .25s ease;
-}
-
-@keyframes pop{
-  0%{transform:scale(.97)}
-  100%{transform:scale(1)}
+.add:active{
+    transform:scale(.98);
 }
 
 .no-results{
-  text-align:center;
-  padding:50px 15px;
-  color:#927e70;
+    text-align:center;
+    padding:50px 10px;
+    color:#927e70;
 }
 
 .service-note{
-  text-align:center;
-  color:#927e70;
-  font-size:12px;
-  padding:15px;
+    text-align:center;
+    color:#927e70;
+    font-size:12px;
+    padding:20px 5px;
 }
 
+/* CART BAR */
+
 .cart-bar{
-  position:fixed;
-  z-index:20;
-  left:12px;
-  right:12px;
-  bottom:12px;
-  max-width:650px;
-  margin:auto;
-  background:#3b2a20;
-  color:#fff;
-  border-radius:19px;
-  padding:12px 14px 12px 17px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  box-shadow:0 8px 28px rgba(0,0,0,.25);
+    position:fixed;
+    z-index:20;
+    left:12px;
+    right:12px;
+    bottom:12px;
+    max-width:625px;
+    margin:auto;
+    background:#3d2b20;
+    color:white;
+    padding:13px 15px;
+    border-radius:19px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 8px 30px rgba(0,0,0,.25);
 }
 
 .cart-info{
-  font-size:14px;
+    font-size:14px;
 }
 
 .cart-total{
-  font-weight:700;
-  margin-top:2px;
+    margin-top:2px;
+    font-weight:700;
 }
 
-.cart-button{
-  border:0;
-  background:#fff;
-  color:#3b2a20;
-  border-radius:12px;
-  padding:10px 15px;
-  font-weight:700;
+.cart-open{
+    border:0;
+    background:white;
+    color:#3d2b20;
+    padding:10px 16px;
+    border-radius:12px;
+    font-weight:700;
 }
+
+/* MODAL */
 
 .modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  z-index:30;
-  background:rgba(0,0,0,.5);
-  align-items:flex-end;
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:30;
+    background:rgba(0,0,0,.5);
+    align-items:flex-end;
 }
 
 .modal-content{
-  width:100%;
-  max-width:680px;
-  max-height:94vh;
-  overflow:auto;
-  margin:auto;
-  background:#f8f1e9;
-  border-radius:28px 28px 0 0;
-  padding:20px;
+    width:100%;
+    max-width:650px;
+    max-height:94vh;
+    overflow:auto;
+    margin:auto;
+    background:#f8f1e9;
+    border-radius:28px 28px 0 0;
+    padding:21px;
 }
 
 .modal-title{
-  font-family:Georgia,serif;
-  font-size:25px;
-  margin-bottom:15px;
+    font-family:Georgia,serif;
+    font-size:25px;
+    margin-bottom:14px;
 }
 
-.cart-product{
-  background:#fff;
-  border-radius:15px;
-  padding:12px;
-  margin-bottom:8px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
+/* CART ITEMS */
+
+.cart-item{
+    background:white;
+    border-radius:15px;
+    padding:12px;
+    margin-bottom:8px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
 }
 
 .cart-name{
-  font-weight:650;
-  font-size:14px;
+    font-size:14px;
+    font-weight:650;
 }
 
 .cart-price{
-  color:#927e70;
-  font-size:12px;
-  margin-top:3px;
+    color:#927e70;
+    font-size:12px;
+    margin-top:3px;
 }
 
 .quantity{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  background:#f4ebe4;
-  border-radius:11px;
-  padding:4px;
+    display:flex;
+    align-items:center;
+    gap:7px;
+    background:#f3e9e1;
+    border-radius:11px;
+    padding:4px;
 }
 
 .quantity button{
-  border:0;
-  width:28px;
-  height:28px;
-  border-radius:8px;
-  background:#fff;
-  color:#5a4030;
-  font-weight:700;
+    border:0;
+    background:white;
+    color:#5b4030;
+    width:28px;
+    height:28px;
+    border-radius:8px;
+    font-weight:700;
 }
 
 .quantity span{
-  min-width:18px;
-  text-align:center;
-  font-weight:650;
+    min-width:18px;
+    text-align:center;
+    font-weight:650;
 }
 
+/* SUMMARY */
+
 .summary{
-  background:#fff;
-  border-radius:16px;
-  padding:14px;
-  margin-top:14px;
+    background:white;
+    border-radius:16px;
+    padding:14px;
+    margin-top:13px;
 }
 
 .summary-row{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:8px;
-  font-size:14px;
-}
-
-.summary-row:last-child{
-  margin-bottom:0;
+    display:flex;
+    justify-content:space-between;
+    font-size:14px;
+    margin-bottom:8px;
 }
 
 .summary-total{
-  border-top:1px solid #eaded6;
-  margin-top:10px;
-  padding-top:11px;
-  font-size:19px;
-  font-weight:750;
+    border-top:1px solid #eaded5;
+    padding-top:11px;
+    margin-top:10px;
+    margin-bottom:0;
+    font-size:19px;
+    font-weight:700;
 }
+
+/* NOTICE */
 
 .notice{
-  background:#f0e2d6;
-  border-radius:14px;
-  padding:12px;
-  margin:12px 0;
-  font-size:13px;
-  line-height:1.45;
+    background:#f0e2d6;
+    border-radius:14px;
+    padding:12px;
+    margin:12px 0;
+    font-size:13px;
+    line-height:1.45;
 }
+
+/* INPUT */
 
 .input{
-  width:100%;
-  border:1px solid #ddcfc5;
-  border-radius:12px;
-  padding:12px;
-  background:#fff;
-  outline:0;
-  margin-top:8px;
+    width:100%;
+    border:1px solid #ddcabe;
+    background:white;
+    border-radius:12px;
+    padding:12px;
+    margin-top:8px;
+    outline:none;
 }
 
+.input:focus{
+    border-color:#8b5e3c;
+}
+
+/* BUTTONS */
+
 .whatsapp{
-  width:100%;
-  border:0;
-  background:#25d366;
-  color:#fff;
-  padding:15px;
-  border-radius:14px;
-  font-weight:700;
-  margin-top:12px;
+    width:100%;
+    border:0;
+    background:#25d366;
+    color:white;
+    padding:15px;
+    border-radius:14px;
+    margin-top:12px;
+    font-weight:700;
 }
 
 .kaspi{
-  width:100%;
-  border:0;
-  background:#e53935;
-  color:#fff;
-  padding:15px;
-  border-radius:14px;
-  font-weight:700;
-  margin-top:8px;
+    width:100%;
+    border:0;
+    background:#e53935;
+    color:white;
+    padding:15px;
+    border-radius:14px;
+    margin-top:8px;
+    font-weight:700;
 }
 
 .close{
-  width:100%;
-  border:0;
-  background:#e7dbd1;
-  color:#3b2a20;
-  padding:13px;
-  border-radius:14px;
-  font-weight:650;
-  margin-top:8px;
+    width:100%;
+    border:0;
+    background:#e7dbd1;
+    color:#3d2b20;
+    padding:13px;
+    border-radius:14px;
+    margin-top:8px;
+    font-weight:650;
 }
 
 .empty{
-  text-align:center;
-  color:#927e70;
-  padding:30px 10px;
+    text-align:center;
+    color:#927e70;
+    padding:30px 5px;
 }
 
-@media(min-width:650px){
-  .card-photo{
-    height:190px;
-  }
-}
 </style>
 </head>
 
+
 <body>
 
-<header class="header">
-  <div class="header-inner">
+<header>
 
-    <div class="logo">Melange</div>
+    <div class="logo">
+        Melange
+    </div>
 
     <div class="subtitle">
-      кафе • кофе • завтраки • кухня
+        кафе • кофе • завтраки • кухня
     </div>
 
     <div class="search">
-      <span>⌕</span>
-      <input
-        id="search"
-        type="search"
-        placeholder="Найти блюдо..."
-        oninput="searchMenu()"
-      >
+
+        <span class="search-icon">⌕</span>
+
+        <input
+            id="search"
+            type="search"
+            placeholder="Найти блюдо..."
+            oninput="searchMenu()"
+        >
+
     </div>
 
-  </div>
 </header>
 
 
+<!-- КАТЕГОРИИ -->
+
 <div class="categories">
-  <div class="category-scroll" id="categoryButtons"></div>
+
+    <div
+        class="category-list"
+        id="categoryButtons"
+    ></div>
+
 </div>
 
 
-<main class="container" id="menu"></main>
+<!-- МЕНЮ -->
 
+<main
+    class="container"
+    id="menu"
+></main>
+
+
+<!-- НИЖНЯЯ КОРЗИНА -->
 
 <div class="cart-bar">
 
-  <div class="cart-info">
-    🛒 <span id="cartCount">0</span> позиций
-    <div class="cart-total" id="barTotal">0 ₸</div>
-  </div>
+    <div class="cart-info">
 
-  <button class="cart-button" onclick="openCart()">
-    Корзина
-  </button>
+        🛒 <span id="cartCount">0</span> позиций
+
+        <div
+            class="cart-total"
+            id="barTotal"
+        >
+            0 ₸
+        </div>
+
+    </div>
+
+    <button
+        class="cart-open"
+        onclick="openCart()"
+    >
+        Корзина
+    </button>
 
 </div>
 
 
-<div class="modal" id="modal" onclick="outsideClose(event)">
+<!-- КОРЗИНА -->
 
-  <div class="modal-content" onclick="event.stopPropagation()">
+<div
+    class="modal"
+    id="modal"
+    onclick="outsideClose(event)"
+>
 
-    <div class="modal-title">
-      Ваш заказ
-    </div>
-
-    <div id="cartItems"></div>
-
-    <div class="summary">
-
-      <div class="summary-row">
-        <span>Блюда</span>
-        <span id="subtotal">0 ₸</span>
-      </div>
-
-      <div class="summary-row">
-        <span>Обслуживание 10%</span>
-        <span id="service">0 ₸</span>
-      </div>
-
-      <div class="summary-row summary-total">
-        <span>Итого</span>
-        <span id="total">0 ₸</span>
-      </div>
-
-    </div>
-
-    <div class="notice">
-      📍 <b>Только самовывоз.</b><br>
-      Сначала отправьте заказ в WhatsApp,
-      затем перейдите к оплате через Kaspi.
-    </div>
-
-    <input
-      class="input"
-      id="customerName"
-      placeholder="Ваше имя"
+    <div
+        class="modal-content"
+        onclick="event.stopPropagation()"
     >
 
-    <input
-      class="input"
-      id="customerPhone"
-      type="tel"
-      placeholder="Номер телефона"
-    >
+        <div class="modal-title">
+            Ваш заказ
+        </div>
 
-    <button class="whatsapp" onclick="sendWhatsApp()">
-      💬 Отправить заказ в WhatsApp
-    </button>
 
-    <button class="kaspi" onclick="payKaspi()">
-      💳 Оплатить через Kaspi
-    </button>
+        <div id="cartItems"></div>
 
-    <button class="close" onclick="closeCart()">
-      Закрыть
-    </button>
 
-  </div>
+        <div class="summary">
+
+            <div class="summary-row">
+
+                <span>
+                    Блюда
+                </span>
+
+                <span id="subtotal">
+                    0 ₸
+                </span>
+
+            </div>
+
+
+            <div class="summary-row">
+
+                <span>
+                    Обслуживание 10%
+                </span>
+
+                <span id="service">
+                    0 ₸
+                </span>
+
+            </div>
+
+
+            <div class="summary-row summary-total">
+
+                <span>
+                    Итого
+                </span>
+
+                <span id="total">
+                    0 ₸
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="notice">
+
+            📍 <b>Только самовывоз.</b>
+
+            <br>
+
+            Сначала отправьте заказ в WhatsApp,
+            затем перейдите к оплате через Kaspi.
+
+        </div>
+
+
+        <input
+            class="input"
+            id="customerName"
+            placeholder="Ваше имя"
+        >
+
+
+        <input
+            class="input"
+            id="customerPhone"
+            type="tel"
+            placeholder="Номер телефона"
+        >
+
+
+        <button
+            class="whatsapp"
+            onclick="sendWhatsApp()"
+        >
+            💬 Отправить заказ в WhatsApp
+        </button>
+
+
+        <button
+            class="kaspi"
+            onclick="payKaspi()"
+        >
+            💳 Оплатить через Kaspi
+        </button>
+
+
+        <button
+            class="close"
+            onclick="closeCart()"
+        >
+            Закрыть
+        </button>
+
+    </div>
 
 </div>
 
 
 <script>
 
-/* ==================================
+/* =====================================
    НАСТРОЙКИ
-================================== */
+===================================== */
 
-const WHATSAPP_NUMBER = "77712787999";
+const WHATSAPP_NUMBER =
+"77712787999";
 
 const KASPI_LINK =
 "https://pay.kaspi.kz/pay/ndmk0ruy";
 
 
-/* ==================================
-   ФОТО
-================================== */
-
-const photos = {
-
-  coffee:
-  "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=80",
-
-  breakfast:
-  "https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?auto=format&fit=crop&w=900&q=80",
-
-  soup:
-  "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=80",
-
-  salad:
-  "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=900&q=80",
-
-  pasta:
-  "https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=900&q=80",
-
-  pizza:
-  "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=900&q=80",
-
-  burger:
-  "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=80",
-
-  dessert:
-  "https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=900&q=80"
-
-};
-
-
-/* ==================================
+/* =====================================
    МЕНЮ
-================================== */
+===================================== */
 
 const menu = [
 
 {
 id:"coffee",
-title:"☕ Кофе",
-photo:photos.coffee,
+title:"☕ КОФЕ",
+
 items:[
 ["Эспрессо",[450,900]],
 ["Американо",[900,1100]],
@@ -603,12 +652,13 @@ items:[
 ["Раф",[1250,1400]],
 ["Моккачино",[1250,1400]]
 ]
+
 },
 
 {
 id:"cold",
-title:"🧊 Холодный кофе",
-photo:photos.coffee,
+title:"🧊 ХОЛОДНЫЙ КОФЕ",
+
 items:[
 ["Айс Американо",[850]],
 ["Айс Латте",[1850]],
@@ -616,12 +666,15 @@ items:[
 ["Фраппучино",[1650]],
 ["Эспрессо-тоник",[1450]]
 ]
+
 },
 
 {
 id:"tea",
-title:"🍵 Чай",
-photo:photos.coffee,
+title:"🍵 ЧАЙ",
+
+cafeLarge:true,
+
 items:[
 ["Чёрный",[350,1250]],
 ["Зелёный",[350,1250]],
@@ -631,57 +684,64 @@ items:[
 ["Малиновый",[850,1650]],
 ["Королевский",[850,1650]]
 ]
+
 },
 
 {
 id:"lemonade",
-title:"🍋 Лимонад",
-photo:photos.coffee,
+title:"🍋 ЛИМОНАД",
+
+cafeLarge:true,
+
 items:[
 ["Гранатовый",[1100,2350]],
 ["Персиковый",[1100,2350]],
 ["Цитрусовый",[1100,2350]],
 ["Манго-маракуйя",[1100,2350]]
 ]
+
 },
 
 {
 id:"cocktails",
-title:"🥤 Коктейли",
-photo:photos.coffee,
+title:"🥤 КОКТЕЙЛИ",
+
 items:[
 ["Шоколадный",[1250]],
 ["Молочный",[1250]],
 ["Клубничный",[1350]],
 ["Банановый",[1350]]
 ]
+
 },
 
 {
 id:"noncoffee",
-title:"🍫 Не кофе",
-photo:photos.coffee,
+title:"🍫 НЕ КОФЕ",
+
 items:[
 ["Горячий шоколад",[1250,1400]],
 ["Матча",[1250]]
 ]
+
 },
 
 {
 id:"extras",
-title:"➕ Добавки",
-photo:photos.coffee,
+title:"➕ ДОБАВКИ",
+
 items:[
 ["Альтернативное молоко",[400]],
 ["Сироп",[150]],
 ["Лимонная нарезка",[200]]
 ]
+
 },
 
 {
 id:"breakfast",
-title:"🍳 Завтраки",
-photo:photos.breakfast,
+title:"🍳 ЗАВТРАКИ",
+
 items:[
 ["Сырники — сметана",[1550]],
 ["Сырники — сгущёнка",[1750]],
@@ -700,12 +760,13 @@ items:[
 ["Блины с курицей и грибами",[1300]],
 ["Блины с мясом",[1500]]
 ]
+
 },
 
 {
 id:"soups",
-title:"🍲 Супы",
-photo:photos.soup,
+title:"🍲 СУПЫ",
+
 items:[
 ["Рамен с говядиной",[2450]],
 ["Рамен с курицей",[2350]],
@@ -717,24 +778,26 @@ items:[
 ["Суп с фрикадельками",[1100]],
 ["Лапша домашняя",[1100]]
 ]
+
 },
 
 {
 id:"salads",
-title:"🥗 Салаты",
-photo:photos.salad,
+title:"🥗 САЛАТЫ",
+
 items:[
 ["Греческий",[1450]],
 ["Цезарь с курицей",[2100]],
 ["Цезарь с сёмгой",[2500]],
 ["Хрустящие баклажаны",[2450]]
 ]
+
 },
 
 {
 id:"hot",
-title:"🍖 Горячие блюда",
-photo:photos.burger,
+title:"🍖 ГОРЯЧИЕ БЛЮДА",
+
 items:[
 ["Бараньи рёбра",[3450]],
 ["Турецкие котлетки",[3150]],
@@ -746,35 +809,38 @@ items:[
 ["Вареники — картофель",[1650]],
 ["Пельмени — говядина",[1500]]
 ]
+
 },
 
 {
 id:"pasta",
-title:"🍝 Паста",
-photo:photos.pasta,
+title:"🍝 ПАСТА",
+
 items:[
 ["Фетучини с курицей и грибами",[2400]],
 ["Болоньезе",[2300]],
 ["Цуккини с ветчиной",[2100]],
 ["С сёмгой",[2800]]
 ]
+
 },
 
 {
 id:"pizza",
-title:"🍕 Пицца",
-photo:photos.pizza,
+title:"🍕 ПИЦЦА",
+
 items:[
 ["Маргарита — 30 см",[2300]],
 ["Пепперони — 30 см",[2600]],
 ["4 сезона — 30 см",[2700]]
 ]
+
 },
 
 {
 id:"fastfood",
-title:"🍔 Фастфуд",
-photo:photos.burger,
+title:"🍔 ФАСТФУД",
+
 items:[
 ["Гамбургер",[1600]],
 ["Чикенбургер",[1550]],
@@ -788,706 +854,821 @@ items:[
 ["Чебуречки — 7 шт",[1650]],
 ["Жареные пельмени — 15 шт",[1500]]
 ]
+
 },
 
 {
 id:"dessert",
-title:"🍰 Десерты",
-photo:photos.dessert,
+title:"🍰 ДЕСЕРТЫ",
+
 items:[
 ["В ассортименте — уточнять у официанта",[0]]
 ]
+
 }
 
 ];
 
 
-/* ==================================
+/* =====================================
    КОРЗИНА
-================================== */
+===================================== */
 
 let cart=[];
 
 
-/* ==================================
+/* =====================================
    ФОРМАТ ЦЕНЫ
-================================== */
+===================================== */
 
 function money(value){
-  return Number(value).toLocaleString("ru-RU")+" ₸";
+
+return Number(value)
+.toLocaleString("ru-RU")+" ₸";
+
 }
 
 
-/* ==================================
+/* =====================================
    КАТЕГОРИИ
-================================== */
+===================================== */
 
 function renderCategories(){
 
-  const box =
-  document.getElementById("categoryButtons");
+const box =
+document.getElementById("categoryButtons");
 
-  box.innerHTML="";
+box.innerHTML="";
 
-  menu.forEach((cat,index)=>{
+menu.forEach((category,index)=>{
 
-    const button =
-    document.createElement("button");
+const button =
+document.createElement("button");
 
-    button.className =
-    "category-btn"+
-    (index===0 ? " active" : "");
+button.className=
+"category-btn"+
+(index===0 ? " active" : "");
 
-    button.textContent =
-    cat.title;
+button.textContent=
+category.title;
 
-    button.onclick=()=>{
+button.onclick=()=>{
 
-      document
-      .querySelectorAll(".category-btn")
-      .forEach(x=>x.classList.remove("active"));
+document
+.querySelectorAll(".category-btn")
+.forEach(x=>{
+x.classList.remove("active");
+});
 
-      button.classList.add("active");
+button.classList.add("active");
 
-      document
-      .getElementById(cat.id)
-      .scrollIntoView({
-        behavior:"smooth",
-        block:"start"
-      });
+document
+.getElementById(category.id)
+.scrollIntoView({
+behavior:"smooth",
+block:"start"
+});
 
-    };
+};
 
-    box.appendChild(button);
+box.appendChild(button);
 
-  });
+});
 
 }
 
 
-/* ==================================
+/* =====================================
    РЕНДЕР МЕНЮ
-================================== */
+===================================== */
 
 function renderMenu(filter=""){
 
-  const container =
-  document.getElementById("menu");
+const container =
+document.getElementById("menu");
 
-  container.innerHTML="";
+container.innerHTML="";
 
-  let found=false;
-
-  menu.forEach(cat=>{
-
-    const matching =
-    cat.items.filter(item=>
-      item[0]
-      .toLowerCase()
-      .includes(filter.toLowerCase())
-    );
-
-    if(!matching.length) return;
-
-    found=true;
-
-    const section =
-    document.createElement("section");
-
-    section.className="section";
-    section.id=cat.id;
-
-    section.innerHTML=
-    `<div class="section-title">${cat.title}</div>`;
-
-    matching.forEach(item=>{
-
-      const name=item[0];
-      const prices=item[1];
-
-      const card =
-      document.createElement("div");
-
-      card.className="card";
-
-      let options="";
-
-      if(prices.length>1){
-
-        options=`
-        <div class="options">
-        ${prices.map((p,i)=>`
-          <button
-            class="option ${i===0?"active":""}"
-            data-price="${p}"
-            onclick="chooseOption(this)"
-          >
-            ${money(p)}
-          </button>
-        `).join("")}
-        </div>
-        `;
-
-      }
-
-      let addButton="";
-
-      if(prices.length===1){
-
-        if(prices[0]===0){
-
-          addButton=`
-          <button
-            class="add"
-            onclick="alert('Стоимость уточняется у официанта.')"
-          >
-            Уточнить стоимость
-          </button>
-          `;
-
-        }else{
-
-          addButton=`
-          <button
-            class="add"
-            onclick="addToCart('${escapeAttr(name)}',${prices[0]},this)"
-          >
-            Добавить
-          </button>
-          `;
-
-        }
-
-      }else{
-
-        addButton=`
-        <button
-          class="add"
-          onclick="addSelected('${escapeAttr(name)}',this)"
-        >
-          Добавить
-        </button>
-        `;
-
-      }
-
-      card.innerHTML=`
-
-        <img
-          class="card-photo"
-          src="${cat.photo}"
-          alt="${escapeAttr(name)}"
-          loading="lazy"
-        >
-
-        <div class="card-body">
-
-          <div class="card-top">
-
-            <div class="name">
-              ${name}
-            </div>
-
-            <div class="price">
-              ${prices.length>1
-                ? money(prices[0])+" / "+money(prices[1])
-                : money(prices[0])
-              }
-            </div>
-
-          </div>
-
-          ${options}
-
-          ${addButton}
-
-        </div>
-      `;
-
-      section.appendChild(card);
-
-    });
-
-    container.appendChild(section);
-
-  });
+let found=false;
 
 
-  if(!found){
+menu.forEach(category=>{
 
-    container.innerHTML=
-    `<div class="no-results">
-      Ничего не нашли 😔
-    </div>`;
+const matching =
+category.items.filter(item=>
+item[0]
+.toLowerCase()
+.includes(filter.toLowerCase())
+);
 
-  }
+if(!matching.length){
+return;
+}
+
+found=true;
+
+
+const section =
+document.createElement("section");
+
+section.className="category";
+
+section.id=category.id;
+
+
+const title =
+document.createElement("div");
+
+title.className="category-title";
+
+title.textContent=
+category.title;
+
+section.appendChild(title);
+
+
+matching.forEach(item=>{
+
+const name=item[0];
+
+const prices=item[1];
+
+
+const card =
+document.createElement("div");
+
+card.className="item";
+
+
+const top =
+document.createElement("div");
+
+top.className="item-top";
+
+
+const nameEl =
+document.createElement("div");
+
+nameEl.className="item-name";
+
+nameEl.textContent=name;
+
+
+const priceEl =
+document.createElement("div");
+
+priceEl.className="price";
+
+
+if(prices.length===1){
+
+priceEl.textContent=
+prices[0]===0
+? "Цена уточняется"
+: money(prices[0]);
+
+}else{
+
+priceEl.textContent=
+money(prices[0])+
+" / "+
+money(prices[1]);
 
 }
 
 
-/* ==================================
-   ВЫБОР ВАРИАНТА
-================================== */
+top.appendChild(nameEl);
+top.appendChild(priceEl);
 
-function chooseOption(button){
+card.appendChild(top);
 
-  button
-  .parentElement
-  .querySelectorAll(".option")
-  .forEach(x=>x.classList.remove("active"));
 
-  button.classList.add("active");
+/* БОЛЬШОЙ РАЗМЕР */
+
+if(
+category.cafeLarge &&
+prices.length>1
+){
+
+const note =
+document.createElement("div");
+
+note.className="cafe-note";
+
+note.textContent=
+"Большой размер — только в кафе";
+
+card.appendChild(note);
 
 }
 
 
-/* ==================================
+/* ВАРИАНТЫ */
+
+if(prices.length>1){
+
+const options =
+document.createElement("div");
+
+options.className="options";
+
+
+prices.forEach((price,index)=>{
+
+const option =
+document.createElement("button");
+
+option.className=
+"option"+
+(index===0 ? " active" : "");
+
+option.textContent=
+money(price);
+
+option.dataset.price=price;
+
+option.onclick=()=>{
+
+options
+.querySelectorAll(".option")
+.forEach(x=>{
+x.classList.remove("active");
+});
+
+option.classList.add("active");
+
+};
+
+options.appendChild(option);
+
+});
+
+
+card.appendChild(options);
+
+}
+
+
+/* КНОПКА */
+
+const add =
+document.createElement("button");
+
+add.className="add";
+
+if(prices[0]===0){
+
+add.textContent=
+"Уточнить стоимость";
+
+add.onclick=()=>{
+alert(
+"Стоимость десерта уточняется у официанта."
+);
+};
+
+}else{
+
+add.textContent="Добавить";
+
+add.onclick=()=>{
+
+let selectedPrice;
+
+if(prices.length>1){
+
+selectedPrice=
+Number(
+card
+.querySelector(".option.active")
+.dataset.price
+);
+
+}else{
+
+selectedPrice=
+prices[0];
+
+}
+
+addToCart(
+name,
+selectedPrice
+);
+
+};
+
+}
+
+
+card.appendChild(add);
+
+section.appendChild(card);
+
+});
+
+
+container.appendChild(section);
+
+});
+
+
+if(!found){
+
+container.innerHTML=
+'<div class="no-results">Ничего не нашли 😔</div>';
+
+}
+
+
+const note =
+document.createElement("div");
+
+note.className="service-note";
+
+note.textContent=
+"Обслуживание — 10%";
+
+container.appendChild(note);
+
+}
+
+
+/* =====================================
    ДОБАВИТЬ
-================================== */
+===================================== */
 
-function addToCart(name,price,button){
+function addToCart(name,price){
 
-  cart.push({
-    name:name,
-    price:Number(price),
-    quantity:1
-  });
+const existing =
+cart.find(item=>
+item.name===name &&
+item.price===price
+);
 
-  button.classList.add("added");
+if(existing){
 
-  setTimeout(()=>{
-    button.classList.remove("added");
-  },250);
+existing.quantity++;
 
-  updateCart();
+}else{
+
+cart.push({
+name:name,
+price:Number(price),
+quantity:1
+});
+
+}
+
+updateCart();
 
 }
 
 
-/* ==================================
-   ДОБАВИТЬ ВЫБРАННЫЙ
-================================== */
-
-function addSelected(name,button){
-
-  const options =
-  button
-  .parentElement
-  .querySelector(".options");
-
-  const selected =
-  options.querySelector(".active");
-
-  const price =
-  Number(selected.dataset.price);
-
-  addToCart(name,price,button);
-
-}
-
-
-/* ==================================
-   ПОИСК
-================================== */
-
-function searchMenu(){
-
-  const value =
-  document
-  .getElementById("search")
-  .value
-  .trim();
-
-  renderMenu(value);
-
-}
-
-
-/* ==================================
-   ИТОГИ
-================================== */
-
-function calculate(){
-
-  let subtotal=0;
-
-  cart.forEach(item=>{
-    subtotal +=
-    item.price * item.quantity;
-  });
-
-  const service =
-  Math.round(subtotal*0.10);
-
-  return {
-    subtotal,
-    service,
-    total:subtotal+service
-  };
-
-}
-
-
-/* ==================================
-   ОБНОВИТЬ КОРЗИНУ
-================================== */
-
-function updateCart(){
-
-  const count =
-  cart.reduce(
-    (sum,item)=>sum+item.quantity,
-    0
-  );
-
-  const totals=calculate();
-
-  document
-  .getElementById("cartCount")
-  .textContent=count;
-
-  document
-  .getElementById("barTotal")
-  .textContent=money(totals.total);
-
-  renderCart();
-
-}
-
-
-/* ==================================
-   КОРЗИНА
-================================== */
-
-function renderCart(){
-
-  const box =
-  document.getElementById("cartItems");
-
-  if(!cart.length){
-
-    box.innerHTML=
-    `<div class="empty">
-      Корзина пока пустая 🛒
-    </div>`;
-
-  }else{
-
-    box.innerHTML="";
-
-    cart.forEach((item,index)=>{
-
-      const row =
-      document.createElement("div");
-
-      row.className="cart-product";
-
-      row.innerHTML=`
-
-        <div style="flex:1">
-
-          <div class="cart-name">
-            ${escapeHTML(item.name)}
-          </div>
-
-          <div class="cart-price">
-            ${money(item.price)} за шт.
-          </div>
-
-        </div>
-
-        <div class="quantity">
-
-          <button onclick="changeQuantity(${index},-1)">
-            −
-          </button>
-
-          <span>
-            ${item.quantity}
-          </span>
-
-          <button onclick="changeQuantity(${index},1)">
-            +
-          </button>
-
-        </div>
-
-      `;
-
-      box.appendChild(row);
-
-    });
-
-  }
-
-  const totals=calculate();
-
-  document
-  .getElementById("subtotal")
-  .textContent=money(totals.subtotal);
-
-  document
-  .getElementById("service")
-  .textContent=money(totals.service);
-
-  document
-  .getElementById("total")
-  .textContent=money(totals.total);
-
-}
-
-
-/* ==================================
+/* =====================================
    КОЛИЧЕСТВО
-================================== */
+===================================== */
 
 function changeQuantity(index,change){
 
-  cart[index].quantity += change;
+cart[index].quantity+=change;
 
-  if(cart[index].quantity<=0){
+if(cart[index].quantity<=0){
 
-    cart.splice(index,1);
+cart.splice(index,1);
 
-  }
+}
 
-  updateCart();
+updateCart();
 
 }
 
 
-/* ==================================
+/* =====================================
+   ИТОГИ
+===================================== */
+
+function calculate(){
+
+let subtotal=0;
+
+cart.forEach(item=>{
+
+subtotal+=
+item.price*
+item.quantity;
+
+});
+
+const service=
+Math.round(subtotal*0.10);
+
+return{
+subtotal:subtotal,
+service:service,
+total:subtotal+service
+};
+
+}
+
+
+/* =====================================
+   КОРЗИНА
+===================================== */
+
+function renderCart(){
+
+const box =
+document.getElementById("cartItems");
+
+
+if(cart.length===0){
+
+box.innerHTML=
+'<div class="empty">Корзина пока пустая 🛒</div>';
+
+}else{
+
+box.innerHTML="";
+
+
+cart.forEach((item,index)=>{
+
+const row =
+document.createElement("div");
+
+row.className="cart-item";
+
+
+row.innerHTML=`
+
+<div style="flex:1">
+
+<div class="cart-name">
+${escapeHTML(item.name)}
+</div>
+
+<div class="cart-price">
+${money(item.price)} за шт.
+</div>
+
+</div>
+
+<div class="quantity">
+
+<button onclick="changeQuantity(${index},-1)">
+−
+</button>
+
+<span>
+${item.quantity}
+</span>
+
+<button onclick="changeQuantity(${index},1)">
++
+</button>
+
+</div>
+
+`;
+
+
+box.appendChild(row);
+
+});
+
+}
+
+
+const totals=calculate();
+
+
+document
+.getElementById("subtotal")
+.textContent=
+money(totals.subtotal);
+
+
+document
+.getElementById("service")
+.textContent=
+money(totals.service);
+
+
+document
+.getElementById("total")
+.textContent=
+money(totals.total);
+
+}
+
+
+/* =====================================
+   ОБНОВИТЬ
+===================================== */
+
+function updateCart(){
+
+const count =
+cart.reduce(
+(sum,item)=>sum+item.quantity,
+0
+);
+
+const totals=calculate();
+
+
+document
+.getElementById("cartCount")
+.textContent=count;
+
+
+document
+.getElementById("barTotal")
+.textContent=
+money(totals.total);
+
+
+renderCart();
+
+}
+
+
+/* =====================================
+   ПОИСК
+===================================== */
+
+function searchMenu(){
+
+const value =
+document
+.getElementById("search")
+.value
+.trim();
+
+renderMenu(value);
+
+}
+
+
+/* =====================================
    ОТКРЫТЬ
-================================== */
+===================================== */
 
 function openCart(){
 
-  document
-  .getElementById("modal")
-  .style.display="flex";
+document
+.getElementById("modal")
+.style.display="flex";
 
-  renderCart();
+renderCart();
 
 }
 
 
-/* ==================================
+/* =====================================
    ЗАКРЫТЬ
-================================== */
+===================================== */
 
 function closeCart(){
 
-  document
-  .getElementById("modal")
-  .style.display="none";
+document
+.getElementById("modal")
+.style.display="none";
 
 }
 
 
-/* ==================================
+/* =====================================
    ФОН
-================================== */
+===================================== */
 
 function outsideClose(event){
 
-  if(event.target.id==="modal"){
-    closeCart();
-  }
+if(event.target.id==="modal"){
+
+closeCart();
+
+}
 
 }
 
 
-/* ==================================
+/* =====================================
    ПРОВЕРКА
-================================== */
+===================================== */
 
 function validateOrder(){
 
-  if(!cart.length){
+if(!cart.length){
 
-    alert("Добавьте что-нибудь в корзину.");
+alert("Корзина пустая.");
 
-    return false;
-
-  }
-
-  const name =
-  document
-  .getElementById("customerName")
-  .value
-  .trim();
-
-  const phone =
-  document
-  .getElementById("customerPhone")
-  .value
-  .trim();
-
-  if(!name){
-
-    alert("Введите ваше имя.");
-
-    return false;
-
-  }
-
-  if(!phone){
-
-    alert("Введите номер телефона.");
-
-    return false;
-
-  }
-
-  return true;
+return false;
 
 }
 
 
-/* ==================================
+const name =
+document
+.getElementById("customerName")
+.value
+.trim();
+
+
+const phone =
+document
+.getElementById("customerPhone")
+.value
+.trim();
+
+
+if(!name){
+
+alert("Введите ваше имя.");
+
+return false;
+
+}
+
+
+if(!phone){
+
+alert("Введите номер телефона.");
+
+return false;
+
+}
+
+
+return true;
+
+}
+
+
+/* =====================================
    WHATSAPP
-================================== */
+===================================== */
 
 function sendWhatsApp(){
 
-  if(!validateOrder()) return;
+if(!validateOrder()) return;
 
-  const name =
-  document
-  .getElementById("customerName")
-  .value
-  .trim();
 
-  const phone =
-  document
-  .getElementById("customerPhone")
-  .value
-  .trim();
+const name =
+document
+.getElementById("customerName")
+.value
+.trim();
 
-  const totals=calculate();
 
-  let message=
-  "🍽️ НОВЫЙ ЗАКАЗ MELANGE\n\n";
+const phone =
+document
+.getElementById("customerPhone")
+.value
+.trim();
 
-  cart.forEach(item=>{
 
-    message +=
-    "• "+
-    item.name+
-    " × "+
-    item.quantity+
-    " — "+
-    money(item.price*item.quantity)+
-    "\n";
+const totals=calculate();
 
-  });
 
-  message +=
-  "\nБлюда: "+
-  money(totals.subtotal);
+let message=
+"🍽️ НОВЫЙ ЗАКАЗ MELANGE\n\n";
 
-  message +=
-  "\nОбслуживание 10%: "+
-  money(totals.service);
 
-  message +=
-  "\n💰 ИТОГО: "+
-  money(totals.total);
+cart.forEach(item=>{
 
-  message +=
-  "\n\n👤 Имя: "+
-  name;
+message+=
+"• "+
+item.name+
+" × "+
+item.quantity+
+" — "+
+money(item.price*item.quantity)+
+"\n";
 
-  message +=
-  "\n📞 Телефон: "+
-  phone;
+});
 
-  message +=
-  "\n📍 Получение: самовывоз";
 
-  const url=
-  "https://wa.me/"+
-  WHATSAPP_NUMBER+
-  "?text="+
-  encodeURIComponent(message);
+message+=
+"\nБлюда: "+
+money(totals.subtotal);
 
-  window.open(url,"_blank");
+
+message+=
+"\nОбслуживание 10%: "+
+money(totals.service);
+
+
+message+=
+"\n💰 ИТОГО: "+
+money(totals.total);
+
+
+message+=
+"\n\n👤 Имя: "+
+name;
+
+
+message+=
+"\n📞 Телефон: "+
+phone;
+
+
+message+=
+"\n📍 Самовывоз";
+
+
+const url=
+"https://wa.me/"+
+WHATSAPP_NUMBER+
+"?text="+
+encodeURIComponent(message);
+
+
+window.open(url,"_blank");
 
 }
 
 
-/* ==================================
+/* =====================================
    KASPI
-================================== */
+===================================== */
 
 function payKaspi(){
 
-  if(!validateOrder()) return;
+if(!validateOrder()) return;
 
-  const totals=calculate();
 
-  localStorage.setItem(
-    "melange_order",
-    JSON.stringify({
-      customer:
-      document
-      .getElementById("customerName")
-      .value
-      .trim(),
+const totals=calculate();
 
-      phone:
-      document
-      .getElementById("customerPhone")
-      .value
-      .trim(),
 
-      items:cart,
+const order={
 
-      subtotal:totals.subtotal,
+name:
+document
+.getElementById("customerName")
+.value
+.trim(),
 
-      service:totals.service,
+phone:
+document
+.getElementById("customerPhone")
+.value
+.trim(),
 
-      total:totals.total,
+items:cart,
 
-      createdAt:new Date().toISOString()
-    })
-  );
+subtotal:totals.subtotal,
 
-  window.open(KASPI_LINK,"_blank");
+service:totals.service,
+
+total:totals.total,
+
+createdAt:
+new Date().toISOString()
+
+};
+
+
+localStorage.setItem(
+"melange_order",
+JSON.stringify(order)
+);
+
+
+window.open(
+KASPI_LINK,
+"_blank"
+);
 
 }
 
 
-/* ==================================
-   БЕЗОПАСНЫЙ ТЕКСТ
-================================== */
+/* =====================================
+   ЗАЩИТА
+===================================== */
 
 function escapeHTML(text){
 
-  return String(text)
-  .replace(/&/g,"&amp;")
-  .replace(/</g,"&lt;")
-  .replace(/>/g,"&gt;")
-  .replace(/"/g,"&quot;")
-  .replace(/'/g,"&#039;");
-
-}
-
-function escapeAttr(text){
-
-  return String(text)
-  .replace(/\\/g,"\\\\")
-  .replace(/'/g,"\\'");
+return String(text)
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
 
 }
 
 
-/* ==================================
-   СТАРТ
-================================== */
+/* =====================================
+   ЗАПУСК
+===================================== */
 
 renderCategories();
+
 renderMenu();
+
 updateCart();
 
 </script>
