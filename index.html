@@ -2,203 +2,524 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#8b5e3c">
+
 <title>Melange</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-
-body{
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-background:#f8f1e9;
-color:#3d2b21;
-padding-bottom:100px
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
-button,input{font:inherit}
-button{border:0;cursor:pointer}
+body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    background:#f8f1e9;
+    color:#3d2b20;
+    padding-bottom:90px;
+}
 
-.header{
-background:#8b5e3c;
-color:white;
-padding:30px 20px;
-border-radius:0 0 30px 30px
+header{
+    background:#8b5e3c;
+    color:white;
+    padding:28px 20px 24px;
+    text-align:center;
+    border-radius:0 0 28px 28px;
 }
 
 .logo{
-font-family:Georgia,serif;
-font-size:40px;
-font-weight:bold
+    font-size:32px;
+    font-weight:700;
+    letter-spacing:1px;
 }
 
-.header p{
-margin-top:6px;
-opacity:.85
+.subtitle{
+    margin-top:6px;
+    opacity:.9;
+    font-size:14px;
 }
 
-main{
-max-width:650px;
-margin:auto;
-padding:22px 16px
-}
-
-.page{display:none}
-.page.active{display:block}
-
-h2{
-font-family:Georgia,serif;
-margin-bottom:16px
-}
-
-.welcome{margin-bottom:22px}
-
-.welcome p{
-color:#8b5e3c;
-font-weight:600;
-margin-bottom:5px
-}
-
-.categories{
-display:flex;
-gap:8px;
-overflow-x:auto;
-margin-bottom:25px;
-padding-bottom:5px
+.container{
+    max-width:600px;
+    margin:auto;
+    padding:20px 15px;
 }
 
 .category{
-white-space:nowrap;
-padding:10px 15px;
-border-radius:25px;
-background:#fffaf5;
-color:#8b5e3c;
-border:1px solid #ead8c5
+    margin-top:22px;
 }
 
-.category.active{
-background:#8b5e3c;
-color:white
+.category h2{
+    font-size:21px;
+    margin-bottom:12px;
 }
 
-.menu-section{
-margin-bottom:30px
+.item{
+    background:white;
+    border-radius:18px;
+    padding:16px;
+    margin-bottom:10px;
+    box-shadow:0 3px 12px rgba(70,45,25,.07);
 }
 
-.menu-title{
-font-family:Georgia,serif;
-font-size:24px;
-margin-bottom:12px;
-color:#5b3825
+.item-top{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
 }
 
-.products{
-display:flex;
-flex-direction:column;
-gap:10px
+.item-name{
+    font-weight:600;
+    font-size:16px;
 }
 
-.product{
-background:#fffaf5;
-border-radius:18px;
-padding:14px;
-box-shadow:0 5px 20px rgba(70,45,25,.06)
+.price{
+    font-weight:700;
+    white-space:nowrap;
 }
 
-.product-top{
-display:flex;
-justify-content:space-between;
-gap:10px
+.item-desc{
+    color:#8b7769;
+    font-size:13px;
+    margin-top:5px;
 }
 
-.product-name{
-font-family:Georgia,serif;
-font-size:17px;
-font-weight:bold
+.add-btn{
+    margin-top:12px;
+    width:100%;
+    border:none;
+    background:#8b5e3c;
+    color:white;
+    padding:11px;
+    border-radius:12px;
+    font-size:14px;
+    font-weight:600;
 }
 
-.product-price{
-color:#8b5e3c;
-font-weight:bold;
-white-space:nowrap
-}
-
-.product-actions{
-display:flex;
-align-items:flex-end;
-justify-content:space-between;
-margin-top:10px
-}
-
-.size-buttons{
-display:flex;
-gap:6px;
-flex-wrap:wrap
-}
-
-.size-btn,
-.syrup-btn{
-padding:7px 11px;
-border-radius:10px;
-background:#ead8c5;
-color:#6b4936;
-font-size:12px
-}
-
-.size-btn.active,
-.syrup-btn.active{
-background:#8b5e3c;
-color:white
+.add-btn:active{
+    transform:scale(.98);
 }
 
 .syrup-box{
-margin-top:9px
+    display:none;
+    margin-top:12px;
 }
 
-.syrup-title{
-font-size:12px;
-color:#765c49;
-margin-bottom:6px
+.syrup-box select{
+    width:100%;
+    padding:11px;
+    border:1px solid #dccbbd;
+    border-radius:12px;
+    background:#fff;
+    color:#3d2b20;
 }
 
-.syrups{
-display:flex;
-gap:5px;
-flex-wrap:wrap
+.cart-bar{
+    position:fixed;
+    bottom:15px;
+    left:15px;
+    right:15px;
+    max-width:570px;
+    margin:auto;
+    background:#3d2b20;
+    color:white;
+    padding:15px 18px;
+    border-radius:18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 8px 30px rgba(0,0,0,.2);
+    z-index:10;
 }
 
-.add{
-width:40px;
-height:40px;
-border-radius:13px;
-background:#8b5e3c;
-color:white;
-font-size:24px
+.cart-bar button{
+    background:#fff;
+    color:#3d2b20;
+    border:none;
+    padding:10px 15px;
+    border-radius:12px;
+    font-weight:700;
 }
 
-.favorite{
-background:transparent;
-color:#8b5e3c;
-font-size:23px;
-margin-right:8px
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.45);
+    display:none;
+    align-items:flex-end;
+    z-index:20;
 }
 
-.card{
-background:#fffaf5;
-border-radius:22px;
-padding:19px;
-margin-bottom:16px;
-box-shadow:0 5px 20px rgba(70,45,25,.06)
+.modal-content{
+    width:100%;
+    max-width:600px;
+    margin:auto;
+    background:#f8f1e9;
+    border-radius:28px 28px 0 0;
+    padding:22px;
+    max-height:90vh;
+    overflow:auto;
 }
 
-.cart-item,
-.order-item{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:10px;
-padding:12px 0;
-border-bottom:1px solid #eee2d8
+.modal h2{
+    margin-bottom:15px;
 }
 
-.cart
+.cart-item{
+    background:white;
+    border-radius:14px;
+    padding:12px;
+    margin-bottom:8px;
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.remove{
+    border:none;
+    background:#eee0d5;
+    color:#6b4430;
+    border-radius:8px;
+    padding:5px 9px;
+}
+
+.total{
+    font-size:20px;
+    font-weight:700;
+    margin:18px 0;
+}
+
+.delivery{
+    background:white;
+    padding:15px;
+    border-radius:16px;
+    margin-bottom:15px;
+}
+
+.delivery strong{
+    display:block;
+    margin-bottom:5px;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin-top:8px;
+    border:1px solid #dccbbd;
+    border-radius:12px;
+    font-size:14px;
+}
+
+.pay-btn{
+    width:100%;
+    border:none;
+    background:#8b5e3c;
+    color:white;
+    padding:15px;
+    border-radius:14px;
+    font-size:16px;
+    font-weight:700;
+}
+
+.close-btn{
+    width:100%;
+    margin-top:9px;
+    border:none;
+    background:#e8dbd0;
+    color:#3d2b20;
+    padding:13px;
+    border-radius:14px;
+    font-weight:600;
+}
+
+.empty{
+    text-align:center;
+    padding:25px;
+    color:#8b7769;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">Melange</div>
+    <div class="subtitle">Вкусно. Просто. По-домашнему.</div>
+</header>
+
+<div class="container">
+
+    <div class="category">
+        <h2>☕ Напитки</h2>
+
+        <div class="item">
+            <div class="item-top">
+                <div class="item-name">Капучино</div>
+                <div class="price">900 ₸</div>
+            </div>
+            <div class="item-desc">Нежный кофе с молочной пенкой</div>
+            <button class="add-btn" onclick="addItem('Капучино',900)">Добавить</button>
+        </div>
+
+        <div class="item">
+            <div class="item-top">
+                <div class="item-name">Латте</div>
+                <div class="price">950 ₸</div>
+            </div>
+            <div class="item-desc">Мягкий молочный кофе</div>
+            <button class="add-btn" onclick="addItem('Латте',950)">Добавить</button>
+        </div>
+
+        <div class="item">
+            <div class="item-top">
+                <div class="item-name">Американо</div>
+                <div class="price">750 ₸</div>
+            </div>
+            <button class="add-btn" onclick="addItem('Американо',750)">Добавить</button>
+        </div>
+
+        <div class="item">
+            <div class="item-top">
+                <div class="item-name">Милкшейк</div>
+                <div class="price">1200 ₸</div>
+            </div>
+
+            <div class="syrup-box" id="syrupBox">
+                <select id="syrupSelect">
+                    <option value="Кокос">Кокос</option>
+                    <option value="Шоколад">Шоколад</option>
+                    <option value="Лесной орех">Лесной орех</option>
+                    <option value="Персик">Персик</option>
+                </select>
+            </div>
+
+            <button class="add-btn" onclick="addMilkshake()">Выбрать сироп и добавить</button>
+        </div>
+    </div>
+
+
+    <div class="category">
+        <h2>🍳 Завтраки</h2>
+
+        <div class="item">
+            <div class="item-top">
+                <div class="item-name">Домашний завтрак</div>
+                <div class="price">1800 ₸</div>
+            </div>
+            <div class="item-desc">Сытный домашний завтрак</div>
+            <button class="add-btn" onclick="addItem('Домашний завтрак',1800)">Добавить</button>
+        </div>
+    </div>
+
+
+    <div class="category">
+        <h2>🍔 Основное меню</h2>
+
+        <div class="item">
+            <div class="item-top">
+                <div class="item-name">Мини-бургеры</div>
+                <div class="price">2550 ₸</div>
+            </div>
+            <div class="item-desc">Сет мини-бургеров</div>
+            <button class="add-btn" onclick="addItem('Мини-бургеры',2550)">Добавить</button>
+        </div>
+
+        <div class="item">
+            <div class="item-top">
+                <div class="item-name">Лапша домашняя</div>
+                <div class="price">2200 ₸</div>
+            </div>
+            <div class="item-desc">Домашняя лапша</div>
+            <button class="add-btn" onclick="addItem('Лапша домашняя',2200)">Добавить</button>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="cart-bar">
+    <div>
+        🛒 Корзина: <span id="cartCount">0</span>
+    </div>
+    <button onclick="openCart()">Открыть</button>
+</div>
+
+
+<div class="modal" id="cartModal">
+
+    <div class="modal-content">
+
+        <h2>🛒 Ваш заказ</h2>
+
+        <div id="cartItems"></div>
+
+        <div class="total">
+            Итого: <span id="totalPrice">0</span> ₸
+        </div>
+
+        <div class="delivery">
+            <strong>📍 Получение</strong>
+            Только самовывоз
+            <input id="customerName" placeholder="Ваше имя">
+            <input id="customerPhone" placeholder="Номер телефона">
+        </div>
+
+        <button class="pay-btn" onclick="payKaspi()">
+            Оплатить через Kaspi
+        </button>
+
+        <button class="close-btn" onclick="closeCart()">
+            Закрыть
+        </button>
+
+    </div>
+</div>
+
+
+<script>
+
+let cart = [];
+
+const KASPI_LINK = "https://pay.kaspi.kz/pay/ndmk0ruy";
+
+
+function addItem(name, price){
+
+    cart.push({
+        name:name,
+        price:price
+    });
+
+    updateCart();
+
+}
+
+
+function addMilkshake(){
+
+    const syrup = document.getElementById("syrupSelect").value;
+
+    cart.push({
+        name:"Милкшейк (" + syrup + ")",
+        price:1200
+    });
+
+    updateCart();
+
+}
+
+
+function removeItem(index){
+
+    cart.splice(index,1);
+
+    updateCart();
+
+}
+
+
+function updateCart(){
+
+    document.getElementById("cartCount").textContent = cart.length;
+
+    const container = document.getElementById("cartItems");
+
+    if(cart.length === 0){
+
+        container.innerHTML =
+        '<div class="empty">Корзина пока пустая</div>';
+
+        document.getElementById("totalPrice").textContent = "0";
+
+        return;
+    }
+
+    let total = 0;
+
+    container.innerHTML = "";
+
+    cart.forEach((item,index)=>{
+
+        total += item.price;
+
+        const div = document.createElement("div");
+
+        div.className = "cart-item";
+
+        div.innerHTML = `
+            <div>
+                <strong>${item.name}</strong><br>
+                ${item.price} ₸
+            </div>
+
+            <button class="remove"
+                onclick="removeItem(${index})">
+                Удалить
+            </button>
+        `;
+
+        container.appendChild(div);
+
+    });
+
+    document.getElementById("totalPrice").textContent = total;
+
+}
+
+
+function openCart(){
+
+    document.getElementById("cartModal").style.display = "flex";
+
+    updateCart();
+
+}
+
+
+function closeCart(){
+
+    document.getElementById("cartModal").style.display = "none";
+
+}
+
+
+function payKaspi(){
+
+    if(cart.length === 0){
+
+        alert("Добавьте товары в корзину.");
+
+        return;
+    }
+
+    const name =
+        document.getElementById("customerName").value.trim();
+
+    const phone =
+        document.getElementById("customerPhone").value.trim();
+
+    if(!name || !phone){
+
+        alert("Пожалуйста, укажите имя и номер телефона.");
+
+        return;
+    }
+
+    /*
+       Перед оплатой можно сохранить заказ
+       или отправить его на сервер.
+
+       Сейчас кнопка просто открывает
+       вашу ссылку Kaspi.
+    */
+
+    window.location.href = KASPI_LINK;
+
+}
+
+</script>
+
+</body>
+</html>
