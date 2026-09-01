@@ -8,169 +8,427 @@
 
 <style>
 
-* {
-  box-sizing: border-box;
+*{
+  box-sizing:border-box;
 }
 
-body {
-  margin: 0;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  background: #f8f1e9;
-  color: #3d2b21;
+body{
+  margin:0;
+  padding:20px;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  background:#f8f1e9;
+  color:#3d2b21;
 }
 
-.container {
-  max-width: 700px;
-  margin: auto;
+.container{
+  max-width:700px;
+  margin:auto;
 }
 
-h1 {
-  color: #8b5e3c;
-  margin-bottom: 5px;
+/* =========================
+   LOGIN
+========================= */
+
+.login{
+  min-height:90vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
-.subtitle {
-  color: #927b6c;
-  margin-bottom: 20px;
+.login-box{
+  width:100%;
+  max-width:400px;
+  background:#fffaf5;
+  padding:28px;
+  border-radius:24px;
+  box-shadow:0 8px 30px rgba(70,45,25,.10);
 }
 
-.refresh {
-  width: 100%;
-  padding: 15px;
-  border: 0;
-  border-radius: 14px;
-  background: #8b5e3c;
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 20px;
+.logo{
+  text-align:center;
+  font-family:Georgia,serif;
+  font-size:34px;
+  font-weight:bold;
+  color:#8b5e3c;
 }
 
-.order {
-  background: #fffaf5;
-  border-radius: 20px;
-  padding: 18px;
-  margin-bottom: 15px;
-  box-shadow: 0 5px 20px rgba(70,45,25,.08);
+.login-title{
+  text-align:center;
+  margin-top:5px;
+  margin-bottom:25px;
+  color:#927b6c;
 }
 
-.order h2 {
-  margin-top: 0;
-  color: #8b5e3c;
+.input{
+  width:100%;
+  padding:14px;
+  margin-bottom:12px;
+  border:1px solid #ddcabe;
+  border-radius:13px;
+  background:white;
+  outline:none;
+  font-size:16px;
 }
 
-.info {
-  line-height: 1.7;
+.input:focus{
+  border-color:#8b5e3c;
 }
 
-.items {
-  border-top: 1px solid #ead8c5;
-  border-bottom: 1px solid #ead8c5;
-  margin: 15px 0;
-  padding: 10px 0;
+.login-button{
+  width:100%;
+  padding:15px;
+  border:0;
+  border-radius:14px;
+  background:#8b5e3c;
+  color:white;
+  font-size:16px;
+  font-weight:bold;
 }
 
-.item {
-  display: flex;
-  justify-content: space-between;
-  padding: 6px 0;
+.login-error{
+  display:none;
+  background:#ffe4df;
+  color:#a33b2b;
+  padding:12px;
+  border-radius:12px;
+  margin-bottom:12px;
+  font-size:14px;
 }
 
-.total {
-  display: flex;
-  justify-content: space-between;
-  font-size: 20px;
-  font-weight: bold;
+/* =========================
+   ADMIN
+========================= */
+
+.admin{
+  display:none;
 }
 
-.total strong {
-  color: #8b5e3c;
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:20px;
 }
 
-.status {
-  display: inline-block;
-  background: #ead8c5;
-  color: #8b5e3c;
-  padding: 7px 10px;
-  border-radius: 10px;
-  margin-top: 10px;
+h1{
+  color:#8b5e3c;
+  margin:0;
 }
 
-.buttons {
-  display: flex;
-  gap: 7px;
-  flex-wrap: wrap;
-  margin-top: 15px;
+.subtitle{
+  color:#927b6c;
+  margin-top:5px;
 }
 
-.buttons button {
-  border: 0;
-  border-radius: 10px;
-  padding: 10px 12px;
-  background: #8b5e3c;
-  color: white;
+.logout{
+  border:0;
+  background:#ead8c5;
+  color:#654b3b;
+  padding:10px 12px;
+  border-radius:11px;
+  font-weight:bold;
 }
 
-.empty {
-  text-align: center;
-  padding: 40px;
-  background: #fffaf5;
-  border-radius: 20px;
+.refresh{
+  width:100%;
+  padding:15px;
+  border:0;
+  border-radius:14px;
+  background:#8b5e3c;
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+  margin-bottom:20px;
 }
 
-.error {
-  background: #ffe4df;
-  color: #a33b2b;
-  padding: 15px;
-  border-radius: 15px;
-  margin-bottom: 15px;
+.order{
+  background:#fffaf5;
+  border-radius:20px;
+  padding:18px;
+  margin-bottom:15px;
+  box-shadow:0 5px 20px rgba(70,45,25,.08);
+}
+
+.order h2{
+  margin-top:0;
+  color:#8b5e3c;
+}
+
+.info{
+  line-height:1.7;
+}
+
+.items{
+  border-top:1px solid #ead8c5;
+  border-bottom:1px solid #ead8c5;
+  margin:15px 0;
+  padding:10px 0;
+}
+
+.item{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:6px 0;
+}
+
+.total{
+  display:flex;
+  justify-content:space-between;
+  font-size:20px;
+  font-weight:bold;
+}
+
+.total strong{
+  color:#8b5e3c;
+}
+
+.status{
+  display:inline-block;
+  background:#ead8c5;
+  color:#8b5e3c;
+  padding:7px 10px;
+  border-radius:10px;
+  margin-top:10px;
+}
+
+.buttons{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+  margin-top:15px;
+}
+
+.buttons button{
+  border:0;
+  border-radius:10px;
+  padding:10px 12px;
+  background:#8b5e3c;
+  color:white;
+}
+
+.empty{
+  text-align:center;
+  padding:40px;
+  background:#fffaf5;
+  border-radius:20px;
+}
+
+.error{
+  background:#ffe4df;
+  color:#a33b2b;
+  padding:15px;
+  border-radius:15px;
+  margin-bottom:15px;
 }
 
 </style>
 </head>
 
+
 <body>
 
-<div class="container">
 
-<h1>Melange 🤎</h1>
+<!-- =========================
+     ВХОД
+========================= -->
 
-<div class="subtitle">
-Панель заказов
+<div
+  class="login"
+  id="loginScreen"
+>
+
+  <div class="login-box">
+
+    <div class="logo">
+      Melange 🤎
+    </div>
+
+    <div class="login-title">
+      Панель сотрудника
+    </div>
+
+
+    <div
+      class="login-error"
+      id="loginError"
+    >
+      Неверный логин или пароль
+    </div>
+
+
+    <input
+      class="input"
+      id="login"
+      type="text"
+      placeholder="Логин"
+      autocomplete="username"
+    >
+
+
+    <input
+      class="input"
+      id="password"
+      type="password"
+      placeholder="Пароль"
+      autocomplete="current-password"
+    >
+
+
+    <button
+      class="login-button"
+      onclick="loginAdmin()"
+    >
+      🔐 Войти
+    </button>
+
+  </div>
+
 </div>
 
-<button class="refresh" onclick="loadOrders()">
-🔄 Обновить заказы
-</button>
 
-<div id="orders">
-Загрузка заказов...
-</div>
+<!-- =========================
+     АДМИНКА
+========================= -->
+
+<div
+  class="container admin"
+  id="adminScreen"
+>
+
+  <div class="header">
+
+    <div>
+
+      <h1>
+        Melange 🤎
+      </h1>
+
+      <div class="subtitle">
+        Панель заказов
+      </div>
+
+    </div>
+
+
+    <button
+      class="logout"
+      onclick="logoutAdmin()"
+    >
+      Выйти
+    </button>
+
+  </div>
+
+
+  <button
+    class="refresh"
+    onclick="loadOrders()"
+  >
+    🔄 Обновить заказы
+  </button>
+
+
+  <div id="orders">
+    Загрузка заказов...
+  </div>
 
 </div>
 
 
 <script>
 
+/* =========================
+   НАСТРОЙКИ
+========================= */
+
 const API =
 "https://melange-3.onrender.com";
 
 
-async function loadOrders() {
-
-  const container =
-    document.getElementById("orders");
-
-  container.innerHTML =
-    "<div class='empty'>Загрузка...</div>";
+let adminToken =
+localStorage.getItem(
+  "melange_admin_token"
+);
 
 
-  try {
+/* =========================
+   ПОКАЗ ЭКРАНА
+========================= */
+
+function showAdmin(){
+
+  document
+    .getElementById("loginScreen")
+    .style.display="none";
+
+  document
+    .getElementById("adminScreen")
+    .style.display="block";
+
+}
+
+
+/* =========================
+   ВХОД
+========================= */
+
+async function loginAdmin(){
+
+  const login =
+    document
+      .getElementById("login")
+      .value
+      .trim();
+
+
+  const password =
+    document
+      .getElementById("password")
+      .value;
+
+
+  const errorBox =
+    document
+      .getElementById("loginError");
+
+
+  errorBox.style.display="none";
+
+
+  if(!login || !password){
+
+    errorBox.textContent =
+      "Введите логин и пароль";
+
+    errorBox.style.display="block";
+
+    return;
+
+  }
+
+
+  try{
 
     const response =
       await fetch(
-        API + "/api/orders"
+        API + "/api/admin/login",
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
+
+          body:JSON.stringify({
+            login:login,
+            password:password
+          })
+
+        }
       );
 
 
@@ -178,25 +436,169 @@ async function loadOrders() {
       await response.json();
 
 
-    if (!response.ok) {
+    if(!response.ok){
 
       throw new Error(
-        data.error || "Ошибка сервера"
+        data.error ||
+        "Ошибка входа"
       );
 
     }
 
 
-    if (
-      !Array.isArray(data) ||
-      data.length === 0
-    ) {
+    adminToken =
+      data.token;
 
-      container.innerHTML = `
+
+    localStorage.setItem(
+      "melange_admin_token",
+      adminToken
+    );
+
+
+    showAdmin();
+
+    loadOrders();
+
+
+  }catch(error){
+
+    errorBox.textContent =
+      error.message;
+
+    errorBox.style.display="block";
+
+  }
+
+}
+
+
+/* =========================
+   ВЫХОД
+========================= */
+
+async function logoutAdmin(){
+
+  try{
+
+    if(adminToken){
+
+      await fetch(
+        API + "/api/admin/logout",
+        {
+          method:"POST",
+
+          headers:{
+            "Authorization":
+              "Bearer " +
+              adminToken
+          }
+        }
+      );
+
+    }
+
+  }catch(error){
+
+    console.log(error);
+
+  }
+
+
+  localStorage.removeItem(
+    "melange_admin_token"
+  );
+
+
+  adminToken=null;
+
+
+  document
+    .getElementById("adminScreen")
+    .style.display="none";
+
+
+  document
+    .getElementById("loginScreen")
+    .style.display="flex";
+
+}
+
+
+/* =========================
+   ЗАКАЗЫ
+========================= */
+
+async function loadOrders(){
+
+  if(!adminToken){
+
+    return;
+
+  }
+
+
+  const container =
+    document.getElementById("orders");
+
+
+  container.innerHTML =
+    "<div class='empty'>Загрузка...</div>";
+
+
+  try{
+
+    const response =
+      await fetch(
+        API + "/api/orders",
+        {
+          headers:{
+            "Authorization":
+              "Bearer " +
+              adminToken
+          }
+        }
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if(response.status===401){
+
+      logoutAdmin();
+
+      return;
+
+    }
+
+
+    if(!response.ok){
+
+      throw new Error(
+        data.error ||
+        "Ошибка сервера"
+      );
+
+    }
+
+
+    if(
+      !Array.isArray(data) ||
+      data.length===0
+    ){
+
+      container.innerHTML=`
+
         <div class="empty">
+
           🛒<br><br>
+
           Заказов пока нет
+
         </div>
+
       `;
 
       return;
@@ -204,42 +606,51 @@ async function loadOrders() {
     }
 
 
-    container.innerHTML = "";
+    container.innerHTML="";
 
 
-    data.forEach(order => {
+    data.forEach(order=>{
 
-      let itemsHTML = "";
+      let itemsHTML="";
 
 
-      if (
-        Array.isArray(order.items)
-      ) {
+      if(Array.isArray(order.items)){
 
-        order.items.forEach(item => {
+        order.items.forEach(item=>{
 
           const quantity =
-            Number(item.quantity) || 1;
+            Number(item.quantity)||1;
+
 
           const price =
-            Number(item.price) || 0;
+            Number(item.price)||0;
+
 
           const sum =
-            price * quantity;
+            price*quantity;
 
 
-          itemsHTML += `
+          itemsHTML+=`
 
             <div class="item">
 
               <span>
+
                 ${item.icon || "☕"}
+
                 ${escapeHTML(item.name)}
+
                 × ${quantity}
+
               </span>
 
+
               <strong>
-                ${sum.toLocaleString("ru-RU")} ₸
+
+                ${sum.toLocaleString("ru-RU")}
+
+                ₸
+
               </strong>
 
             </div>
@@ -259,43 +670,59 @@ async function loadOrders() {
         : "—";
 
 
-      container.innerHTML += `
+      container.innerHTML+=`
 
         <div class="order">
 
           <h2>
+
             Заказ №${order.id}
+
           </h2>
 
 
           <div class="info">
 
             👤 <b>Имя:</b>
+
             ${escapeHTML(order.name)}
 
             <br>
 
+
             📱 <b>Телефон:</b>
+
             ${escapeHTML(order.phone)}
 
             <br>
 
+
             🚚 <b>Получение:</b>
+
             ${escapeHTML(order.delivery)}
+
 
             ${
               order.address
               ? `
+
                 <br>
+
                 📍 <b>Адрес:</b>
-                ${escapeHTML(order.address)}
+
+                ${escapeHTML(
+                  order.address
+                )}
+
               `
               : ""
             }
 
+
             <br>
 
             🕐 <b>Дата:</b>
+
             ${date}
 
           </div>
@@ -314,9 +741,14 @@ async function loadOrders() {
               Итого
             </span>
 
+
             <strong>
+
               ${Number(order.total)
-                .toLocaleString("ru-RU")} ₸
+                .toLocaleString("ru-RU")}
+
+              ₸
+
             </strong>
 
           </div>
@@ -325,6 +757,7 @@ async function loadOrders() {
           <div class="status">
 
             Статус:
+
             ${escapeHTML(
               order.status || "Новый"
             )}
@@ -334,14 +767,18 @@ async function loadOrders() {
 
           <div class="buttons">
 
+
             <button
               onclick="
                 changeStatus(
                   ${order.id},
                   'Новый'
                 )
-              ">
+              "
+            >
+
               🆕 Новый
+
             </button>
 
 
@@ -351,8 +788,11 @@ async function loadOrders() {
                   ${order.id},
                   'Готовится'
                 )
-              ">
+              "
+            >
+
               ☕ Готовится
+
             </button>
 
 
@@ -362,8 +802,11 @@ async function loadOrders() {
                   ${order.id},
                   'Готов'
                 )
-              ">
+              "
+            >
+
               ✅ Готов
+
             </button>
 
 
@@ -373,9 +816,13 @@ async function loadOrders() {
                   ${order.id},
                   'Выдан'
                 )
-              ">
+              "
+            >
+
               🤎 Выдан
+
             </button>
+
 
           </div>
 
@@ -386,12 +833,12 @@ async function loadOrders() {
     });
 
 
-  } catch (error) {
+  }catch(error){
 
     console.error(error);
 
 
-    container.innerHTML = `
+    container.innerHTML=`
 
       <div class="error">
 
@@ -410,12 +857,16 @@ async function loadOrders() {
 }
 
 
+/* =========================
+   СТАТУС
+========================= */
+
 async function changeStatus(
   id,
   status
-) {
+){
 
-  try {
+  try{
 
     const response =
       await fetch(
@@ -424,16 +875,24 @@ async function changeStatus(
         id +
         "/status",
         {
-          method: "POST",
 
-          headers: {
+          method:"POST",
+
+          headers:{
+
             "Content-Type":
-              "application/json"
+              "application/json",
+
+            "Authorization":
+              "Bearer " +
+              adminToken
+
           },
 
-          body: JSON.stringify({
-            status: status
+          body:JSON.stringify({
+            status:status
           })
+
         }
       );
 
@@ -442,7 +901,16 @@ async function changeStatus(
       await response.json();
 
 
-    if (!response.ok) {
+    if(response.status===401){
+
+      logoutAdmin();
+
+      return;
+
+    }
+
+
+    if(!response.ok){
 
       throw new Error(
         data.error ||
@@ -455,7 +923,7 @@ async function changeStatus(
     loadOrders();
 
 
-  } catch (error) {
+  }catch(error){
 
     alert(
       "Ошибка:\n" +
@@ -467,25 +935,53 @@ async function changeStatus(
 }
 
 
-function escapeHTML(value) {
+/* =========================
+   ЗАЩИТА HTML
+========================= */
+
+function escapeHTML(value){
 
   return String(value || "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 
 }
 
 
-loadOrders();
+/* =========================
+   ENTER
+========================= */
+
+document
+  .getElementById("password")
+  .addEventListener(
+    "keydown",
+    function(event){
+
+      if(event.key==="Enter"){
+
+        loginAdmin();
+
+      }
+
+    }
+  );
 
 
-setInterval(
-  loadOrders,
-  10000
-);
+/* =========================
+   АВТОВХОД
+========================= */
+
+if(adminToken){
+
+  showAdmin();
+
+  loadOrders();
+
+}
 
 </script>
 
