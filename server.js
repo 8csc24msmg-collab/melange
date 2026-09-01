@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const Database = require("better-sqlite3");
 const path = require("path");
+const crypto = require("crypto");
 
 const app = express();
 
@@ -18,15 +19,156 @@ app.use(cors({
 
 app.use(express.json());
 
-/* Раздаём HTML-файлы из папки проекта */
 app.use(express.static(__dirname));
+
+
+/* =========================
+   АВТОРИЗАЦИЯ
+========================= */
+
+const ADMIN_LOGIN =
+  process.env.ADMIN_LOGIN || "employee";
+
+const ADMIN_PASSWORD =
+  process.env.ADMIN_PASSWORD;
+
+if (!ADMIN_PASSWORD) {
+  console.warn(
+    "⚠️ ADMIN_PASSWORD не задан в Render Environment Variables"
+  );
+}
+
+
+/*
+  Временные токены авторизации.
+  После перезапуска сервера они автоматически исчезают.
+*/
+
+const sessions = new Map();
+
+const SESSION_TIME =
+  12 * 60 * 60 * 1000;
+
+
+/* Вход */
+
+app.post("/api/admin/login", (req, res) => {
+
+  const {
+    login,
+    password
+  } = req.body;
+
+
+  if (
+    !ADMIN_PASSWORD ||
+    login !== ADMIN_LOGIN ||
+    password !== ADMIN_PASSWORD
+  ) {
+
+    return res.status(401).json({
+      success: false,
+      error: "Неверный логин или пароль"
+    });
+
+  }
+
+
+  const token =
+    crypto.randomBytes(32).toString("hex");
+
+
+  sessions.set(token, {
+    createdAt: Date.now()
+  });
+
+
+  res.json({
+    success: true,
+    token
+  });
+
+});
+
+
+/* Проверка авторизации */
+
+function requireAdmin(req, res, next) {
+
+  const header =
+    req.headers.authorization || "";
+
+
+  if (!header.startsWith("Bearer ")) {
+
+    return res.status(401).json({
+      success: false,
+      error: "Требуется авторизация"
+    });
+
+  }
+
+
+  const token =
+    header.substring(7);
+
+
+  const session =
+    sessions.get(token);
+
+
+  if (!session) {
+
+    return res.status(401).json({
+      success: false,
+      error: "Сессия недействительна"
+    });
+
+  }
+
+
+  if (
+    Date.now() - session.createdAt >
+    SESSION_TIME
+  ) {
+
+    sessions.delete(token);
+
+    return res.status(401).json({
+      success: false,
+      error: "Сессия истекла"
+    });
+
+  }
+
+
+  next();
+
+}
+
+
+/* Выход */
+
+app.post("/api/admin/logout", requireAdmin, (req, res) => {
+
+  const token =
+    req.headers.authorization.substring(7);
+
+  sessions.delete(token);
+
+  res.json({
+    success: true
+  });
+
+});
 
 
 /* =========================
    БАЗА ДАННЫХ
 ========================= */
 
-const db = new Database(DB_FILE);
+const db =
+  new Database(DB_FILE);
 
 db.pragma("journal_mode = WAL");
 
@@ -91,60 +233,86 @@ app.get("/api/health", (req, res) => {
    ПОЛУЧИТЬ ЗАКАЗЫ
 ========================= */
 
-app.get("/api/orders", (req, res) => {
+app.get(
+  "/api/orders",
+  requireAdmin,
+  (req, res) => {
 
-  try {
+    try {
 
-    const orders = db.prepare(`
-      SELECT *
-      FROM orders
-      ORDER BY id DESC
-    `).all();
-
-
-    const result = orders.map(order => {
-
-      let items = [];
-
-      try {
-        items = JSON.parse(order.items);
-      } catch (error) {
-        items = [];
-      }
+      const orders =
+        db.prepare(`
+          SELECT *
+          FROM orders
+          ORDER BY id DESC
+        `).all();
 
 
-      return {
-        id: order.id,
-        name: order.name,
-        phone: order.phone,
-        items: items,
-        total: order.total,
-        delivery: order.delivery,
-        address: order.address,
-        status: order.status,
-        created_at: order.created_at
-      };
+      const result =
+        orders.map(order => {
 
-    });
+          let items = [];
+
+          try {
+
+            items =
+              JSON.parse(order.items);
+
+          } catch (error) {
+
+            items = [];
+
+          }
 
 
-    res.json(result);
+          return {
 
-  } catch (error) {
+            id: order.id,
 
-    console.error(
-      "Ошибка получения заказов:",
-      error
-    );
+            name: order.name,
 
-    res.status(500).json({
-      success: false,
-      error: "Не удалось получить заказы"
-    });
+            phone: order.phone,
+
+            items: items,
+
+            total: order.total,
+
+            delivery: order.delivery,
+
+            address: order.address,
+
+            status: order.status,
+
+            created_at:
+              order.created_at
+
+          };
+
+        });
+
+
+      res.json(result);
+
+    } catch (error) {
+
+      console.error(
+        "Ошибка получения заказов:",
+        error
+      );
+
+      res.status(500).json({
+
+        success: false,
+
+        error:
+          "Не удалось получить заказы"
+
+      });
+
+    }
 
   }
-
-});
+);
 
 
 /* =========================
@@ -165,8 +333,6 @@ app.post("/api/orders", (req, res) => {
     } = req.body;
 
 
-    /* Проверяем имя */
-
     if (
       !name ||
       String(name).trim() === ""
@@ -179,8 +345,6 @@ app.post("/api/orders", (req, res) => {
 
     }
 
-
-    /* Проверяем телефон */
 
     if (
       !phone ||
@@ -195,8 +359,6 @@ app.post("/api/orders", (req, res) => {
     }
 
 
-    /* Проверяем товары */
-
     if (
       !Array.isArray(items) ||
       items.length === 0
@@ -210,10 +372,9 @@ app.post("/api/orders", (req, res) => {
     }
 
 
-    /* Проверяем сумму */
-
     const numericTotal =
       Number(total);
+
 
     if (
       !Number.isFinite(numericTotal) ||
@@ -227,8 +388,6 @@ app.post("/api/orders", (req, res) => {
 
     }
 
-
-    /* Проверяем получение */
 
     if (
       !delivery ||
@@ -247,41 +406,40 @@ app.post("/api/orders", (req, res) => {
       new Date().toISOString();
 
 
-    /* Сохраняем заказ */
+    const result =
+      db.prepare(`
+        INSERT INTO orders (
+          name,
+          phone,
+          items,
+          total,
+          delivery,
+          address,
+          status,
+          created_at
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+      `).run(
 
-    const result = db.prepare(`
-      INSERT INTO orders (
-        name,
-        phone,
-        items,
-        total,
-        delivery,
-        address,
-        status,
-        created_at
-      )
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-    `).run(
+        String(name).trim(),
 
-      String(name).trim(),
+        String(phone).trim(),
 
-      String(phone).trim(),
+        JSON.stringify(items),
 
-      JSON.stringify(items),
+        numericTotal,
 
-      numericTotal,
+        String(delivery).trim(),
 
-      String(delivery).trim(),
+        address
+          ? String(address).trim()
+          : "",
 
-      address
-        ? String(address).trim()
-        : "",
+        "Новый",
 
-      "Новый",
+        createdAt
 
-      createdAt
-
-    );
+      );
 
 
     const orderId =
@@ -299,7 +457,8 @@ app.post("/api/orders", (req, res) => {
 
       orderId: orderId,
 
-      message: "Заказ успешно создан"
+      message:
+        "Заказ успешно создан"
 
     });
 
@@ -329,6 +488,7 @@ app.post("/api/orders", (req, res) => {
 
 app.post(
   "/api/orders/:id/status",
+  requireAdmin,
   (req, res) => {
 
     try {
@@ -349,23 +509,32 @@ app.post(
 
           success: false,
 
-          error: "Неверный номер заказа"
+          error:
+            "Неверный номер заказа"
 
         });
 
       }
 
 
+      const allowedStatuses = [
+        "Новый",
+        "Готовится",
+        "Готов",
+        "Выдан"
+      ];
+
+
       if (
-        !status ||
-        String(status).trim() === ""
+        !allowedStatuses.includes(status)
       ) {
 
         return res.status(400).json({
 
           success: false,
 
-          error: "Не указан статус"
+          error:
+            "Недопустимый статус"
 
         });
 
@@ -379,7 +548,7 @@ app.post(
           WHERE id = ?
         `).run(
 
-          String(status),
+          status,
 
           id
 
@@ -392,7 +561,8 @@ app.post(
 
           success: false,
 
-          error: "Заказ не найден"
+          error:
+            "Заказ не найден"
 
         });
 
@@ -403,7 +573,8 @@ app.post(
 
         success: true,
 
-        message: "Статус изменён"
+        message:
+          "Статус изменён"
 
       });
 
@@ -460,10 +631,6 @@ app.listen(
 
     console.log(
       `Melange server запущен на порту ${PORT}`
-    );
-
-    console.log(
-      `Папка проекта: ${__dirname}`
     );
 
   }
