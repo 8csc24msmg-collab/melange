@@ -18,33 +18,34 @@ body{
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
     background:#f8f1e9;
     color:#3d2b20;
-    padding-bottom:90px;
+    padding-bottom:100px;
 }
 
 header{
     background:#8b5e3c;
     color:white;
-    padding:28px 20px 24px;
+    padding:30px 20px 25px;
     text-align:center;
     border-radius:0 0 28px 28px;
 }
 
 .logo{
-    font-size:32px;
+    font-size:34px;
     font-weight:700;
     letter-spacing:1px;
 }
 
 .subtitle{
     margin-top:6px;
-    opacity:.9;
     font-size:14px;
+    opacity:.9;
 }
 
 .container{
+    width:100%;
     max-width:600px;
     margin:auto;
-    padding:20px 15px;
+    padding:18px 15px;
 }
 
 .category{
@@ -57,7 +58,7 @@ header{
 }
 
 .item{
-    background:white;
+    background:#fff;
     border-radius:18px;
     padding:16px;
     margin-bottom:10px;
@@ -71,11 +72,12 @@ header{
 }
 
 .item-name{
-    font-weight:600;
     font-size:16px;
+    font-weight:600;
 }
 
 .price{
+    font-size:16px;
     font-weight:700;
     white-space:nowrap;
 }
@@ -87,15 +89,16 @@ header{
 }
 
 .add-btn{
-    margin-top:12px;
     width:100%;
-    border:none;
-    background:#8b5e3c;
-    color:white;
+    border:0;
+    margin-top:12px;
     padding:11px;
     border-radius:12px;
+    background:#8b5e3c;
+    color:white;
     font-size:14px;
     font-weight:600;
+    cursor:pointer;
 }
 
 .add-btn:active{
@@ -103,7 +106,6 @@ header{
 }
 
 .syrup-box{
-    display:none;
     margin-top:12px;
 }
 
@@ -112,33 +114,34 @@ header{
     padding:11px;
     border:1px solid #dccbbd;
     border-radius:12px;
-    background:#fff;
+    background:white;
     color:#3d2b20;
+    font-size:14px;
 }
 
 .cart-bar{
     position:fixed;
-    bottom:15px;
+    z-index:10;
     left:15px;
     right:15px;
+    bottom:15px;
     max-width:570px;
     margin:auto;
+    padding:14px 16px;
+    border-radius:18px;
     background:#3d2b20;
     color:white;
-    padding:15px 18px;
-    border-radius:18px;
     display:flex;
-    justify-content:space-between;
     align-items:center;
-    box-shadow:0 8px 30px rgba(0,0,0,.2);
-    z-index:10;
+    justify-content:space-between;
+    box-shadow:0 8px 30px rgba(0,0,0,.22);
 }
 
 .cart-bar button{
-    background:#fff;
+    border:0;
+    background:white;
     color:#3d2b20;
-    border:none;
-    padding:10px 15px;
+    padding:10px 16px;
     border-radius:12px;
     font-weight:700;
 }
@@ -146,21 +149,21 @@ header{
 .modal{
     position:fixed;
     inset:0;
+    z-index:20;
     background:rgba(0,0,0,.45);
     display:none;
     align-items:flex-end;
-    z-index:20;
 }
 
 .modal-content{
     width:100%;
     max-width:600px;
+    max-height:92vh;
+    overflow-y:auto;
     margin:auto;
+    padding:22px;
     background:#f8f1e9;
     border-radius:28px 28px 0 0;
-    padding:22px;
-    max-height:90vh;
-    overflow:auto;
 }
 
 .modal h2{
@@ -174,51 +177,94 @@ header{
     margin-bottom:8px;
     display:flex;
     justify-content:space-between;
+    align-items:center;
     gap:10px;
 }
 
+.cart-item-info{
+    flex:1;
+}
+
+.cart-item-name{
+    font-weight:600;
+}
+
+.cart-item-price{
+    margin-top:4px;
+    color:#8b7769;
+    font-size:13px;
+}
+
 .remove{
-    border:none;
+    border:0;
     background:#eee0d5;
     color:#6b4430;
-    border-radius:8px;
-    padding:5px 9px;
+    padding:7px 9px;
+    border-radius:9px;
 }
 
 .total{
+    margin:18px 0;
     font-size:20px;
     font-weight:700;
-    margin:18px 0;
 }
 
 .delivery{
     background:white;
     padding:15px;
     border-radius:16px;
-    margin-bottom:15px;
+    margin-bottom:12px;
 }
 
-.delivery strong{
-    display:block;
+.delivery-title{
+    font-weight:700;
     margin-bottom:5px;
+}
+
+.delivery-text{
+    color:#766358;
+    font-size:14px;
 }
 
 input{
     width:100%;
     padding:12px;
-    margin-top:8px;
+    margin-top:9px;
     border:1px solid #dccbbd;
     border-radius:12px;
+    background:white;
     font-size:14px;
+    outline:none;
 }
 
-.pay-btn{
+input:focus{
+    border-color:#8b5e3c;
+}
+
+.action-buttons{
+    display:flex;
+    flex-direction:column;
+    gap:9px;
+}
+
+.whatsapp-btn{
     width:100%;
-    border:none;
-    background:#8b5e3c;
-    color:white;
+    border:0;
     padding:15px;
     border-radius:14px;
+    background:#25D366;
+    color:white;
+    font-size:16px;
+    font-weight:700;
+}
+
+.kaspi-btn{
+    width:100%;
+    border:0;
+    padding:15px;
+    border-radius:14px;
+    background:#e53935;
+    color:white;
     font-size:16px;
     font-weight:700;
 }
@@ -226,7 +272,7 @@ input{
 .close-btn{
     width:100%;
     margin-top:9px;
-    border:none;
+    border:0;
     background:#e8dbd0;
     color:#3d2b20;
     padding:13px;
@@ -236,8 +282,18 @@ input{
 
 .empty{
     text-align:center;
-    padding:25px;
+    padding:25px 10px;
     color:#8b7769;
+}
+
+.notice{
+    background:#f0e3d7;
+    border-radius:14px;
+    padding:12px;
+    margin-bottom:14px;
+    font-size:13px;
+    line-height:1.4;
+    color:#6e5748;
 }
 </style>
 </head>
@@ -249,9 +305,12 @@ input{
     <div class="subtitle">Вкусно. Просто. По-домашнему.</div>
 </header>
 
+
 <div class="container">
 
+    <!-- НАПИТКИ -->
     <div class="category">
+
         <h2>☕ Напитки</h2>
 
         <div class="item">
@@ -259,131 +318,314 @@ input{
                 <div class="item-name">Капучино</div>
                 <div class="price">900 ₸</div>
             </div>
-            <div class="item-desc">Нежный кофе с молочной пенкой</div>
-            <button class="add-btn" onclick="addItem('Капучино',900)">Добавить</button>
+
+            <div class="item-desc">
+                Нежный кофе с молочной пенкой
+            </div>
+
+            <button
+                class="add-btn"
+                onclick="addItem('Капучино',900)">
+                Добавить
+            </button>
         </div>
+
 
         <div class="item">
             <div class="item-top">
                 <div class="item-name">Латте</div>
                 <div class="price">950 ₸</div>
             </div>
-            <div class="item-desc">Мягкий молочный кофе</div>
-            <button class="add-btn" onclick="addItem('Латте',950)">Добавить</button>
+
+            <div class="item-desc">
+                Мягкий молочный кофе
+            </div>
+
+            <button
+                class="add-btn"
+                onclick="addItem('Латте',950)">
+                Добавить
+            </button>
         </div>
+
 
         <div class="item">
             <div class="item-top">
                 <div class="item-name">Американо</div>
                 <div class="price">750 ₸</div>
             </div>
-            <button class="add-btn" onclick="addItem('Американо',750)">Добавить</button>
+
+            <button
+                class="add-btn"
+                onclick="addItem('Американо',750)">
+                Добавить
+            </button>
         </div>
 
+
         <div class="item">
+
             <div class="item-top">
                 <div class="item-name">Милкшейк</div>
                 <div class="price">1200 ₸</div>
             </div>
 
-            <div class="syrup-box" id="syrupBox">
-                <select id="syrupSelect">
-                    <option value="Кокос">Кокос</option>
-                    <option value="Шоколад">Шоколад</option>
-                    <option value="Лесной орех">Лесной орех</option>
-                    <option value="Персик">Персик</option>
-                </select>
+            <div class="item-desc">
+                Выберите вкус сиропа
             </div>
 
-            <button class="add-btn" onclick="addMilkshake()">Выбрать сироп и добавить</button>
+            <div class="syrup-box">
+
+                <select id="syrupSelect">
+
+                    <option value="Кокос">
+                        Кокос
+                    </option>
+
+                    <option value="Шоколад">
+                        Шоколад
+                    </option>
+
+                    <option value="Лесной орех">
+                        Лесной орех
+                    </option>
+
+                    <option value="Персик">
+                        Персик
+                    </option>
+
+                </select>
+
+            </div>
+
+            <button
+                class="add-btn"
+                onclick="addMilkshake()">
+                Добавить
+            </button>
+
         </div>
+
     </div>
 
 
+    <!-- ЗАВТРАКИ -->
     <div class="category">
+
         <h2>🍳 Завтраки</h2>
 
         <div class="item">
+
             <div class="item-top">
-                <div class="item-name">Домашний завтрак</div>
-                <div class="price">1800 ₸</div>
+                <div class="item-name">
+                    Домашний завтрак
+                </div>
+
+                <div class="price">
+                    1800 ₸
+                </div>
             </div>
-            <div class="item-desc">Сытный домашний завтрак</div>
-            <button class="add-btn" onclick="addItem('Домашний завтрак',1800)">Добавить</button>
+
+            <div class="item-desc">
+                Сытный домашний завтрак
+            </div>
+
+            <button
+                class="add-btn"
+                onclick="addItem('Домашний завтрак',1800)">
+                Добавить
+            </button>
+
         </div>
+
     </div>
 
 
+    <!-- ОСНОВНОЕ МЕНЮ -->
     <div class="category">
+
         <h2>🍔 Основное меню</h2>
 
         <div class="item">
+
             <div class="item-top">
-                <div class="item-name">Мини-бургеры</div>
-                <div class="price">2550 ₸</div>
+                <div class="item-name">
+                    Мини-бургеры
+                </div>
+
+                <div class="price">
+                    2550 ₸
+                </div>
             </div>
-            <div class="item-desc">Сет мини-бургеров</div>
-            <button class="add-btn" onclick="addItem('Мини-бургеры',2550)">Добавить</button>
+
+            <div class="item-desc">
+                Сет мини-бургеров
+            </div>
+
+            <button
+                class="add-btn"
+                onclick="addItem('Мини-бургеры',2550)">
+                Добавить
+            </button>
+
         </div>
+
 
         <div class="item">
+
             <div class="item-top">
-                <div class="item-name">Лапша домашняя</div>
-                <div class="price">2200 ₸</div>
+                <div class="item-name">
+                    Лапша домашняя
+                </div>
+
+                <div class="price">
+                    2200 ₸
+                </div>
             </div>
-            <div class="item-desc">Домашняя лапша</div>
-            <button class="add-btn" onclick="addItem('Лапша домашняя',2200)">Добавить</button>
+
+            <div class="item-desc">
+                Домашняя лапша
+            </div>
+
+            <button
+                class="add-btn"
+                onclick="addItem('Лапша домашняя',2200)">
+                Добавить
+            </button>
+
         </div>
+
     </div>
 
 </div>
 
 
+<!-- КОРЗИНА -->
 <div class="cart-bar">
+
     <div>
-        🛒 Корзина: <span id="cartCount">0</span>
+        🛒 Корзина:
+        <span id="cartCount">0</span>
     </div>
-    <button onclick="openCart()">Открыть</button>
+
+    <button onclick="openCart()">
+        Открыть
+    </button>
+
 </div>
 
 
-<div class="modal" id="cartModal">
+<!-- МОДАЛЬНОЕ ОКНО -->
+<div
+    class="modal"
+    id="cartModal"
+    onclick="outsideClose(event)"
+>
 
-    <div class="modal-content">
+    <div
+        class="modal-content"
+        onclick="event.stopPropagation()"
+    >
 
         <h2>🛒 Ваш заказ</h2>
 
+        <div
+            class="notice"
+        >
+            📍 Заказы принимаются только на самовывоз.
+            После оформления отправьте заказ в WhatsApp,
+            затем оплатите через Kaspi.
+        </div>
+
+
         <div id="cartItems"></div>
 
+
         <div class="total">
-            Итого: <span id="totalPrice">0</span> ₸
+            Итого:
+            <span id="totalPrice">0</span> ₸
         </div>
+
 
         <div class="delivery">
-            <strong>📍 Получение</strong>
-            Только самовывоз
-            <input id="customerName" placeholder="Ваше имя">
-            <input id="customerPhone" placeholder="Номер телефона">
+
+            <div class="delivery-title">
+                📍 Самовывоз
+            </div>
+
+            <div class="delivery-text">
+                Укажите данные для заказа
+            </div>
+
+            <input
+                id="customerName"
+                type="text"
+                placeholder="Ваше имя"
+            >
+
+            <input
+                id="customerPhone"
+                type="tel"
+                placeholder="Номер телефона"
+            >
+
         </div>
 
-        <button class="pay-btn" onclick="payKaspi()">
-            Оплатить через Kaspi
-        </button>
 
-        <button class="close-btn" onclick="closeCart()">
+        <div class="action-buttons">
+
+            <button
+                class="whatsapp-btn"
+                onclick="sendWhatsApp()"
+            >
+                💬 Отправить заказ в WhatsApp
+            </button>
+
+
+            <button
+                class="kaspi-btn"
+                onclick="payKaspi()"
+            >
+                💳 Оплатить через Kaspi
+            </button>
+
+        </div>
+
+
+        <button
+            class="close-btn"
+            onclick="closeCart()"
+        >
             Закрыть
         </button>
 
     </div>
+
 </div>
 
 
 <script>
 
+/* =========================
+   НАСТРОЙКИ
+========================= */
+
+const WHATSAPP_NUMBER = "77712787999";
+
+const KASPI_LINK =
+    "https://pay.kaspi.kz/pay/ndmk0ruy";
+
+
+/* =========================
+   КОРЗИНА
+========================= */
+
 let cart = [];
 
-const KASPI_LINK = "https://pay.kaspi.kz/pay/ndmk0ruy";
 
+/* =========================
+   ДОБАВЛЕНИЕ ТОВАРА
+========================= */
 
 function addItem(name, price){
 
@@ -397,12 +639,19 @@ function addItem(name, price){
 }
 
 
+/* =========================
+   МИЛКШЕЙК
+========================= */
+
 function addMilkshake(){
 
-    const syrup = document.getElementById("syrupSelect").value;
+    const syrup =
+        document
+        .getElementById("syrupSelect")
+        .value;
 
     cart.push({
-        name:"Милкшейк (" + syrup + ")",
+        name:"Милкшейк — " + syrup,
         price:1200
     });
 
@@ -410,6 +659,10 @@ function addMilkshake(){
 
 }
 
+
+/* =========================
+   УДАЛЕНИЕ
+========================= */
 
 function removeItem(index){
 
@@ -420,104 +673,344 @@ function removeItem(index){
 }
 
 
+/* =========================
+   ОБНОВЛЕНИЕ КОРЗИНЫ
+========================= */
+
 function updateCart(){
 
-    document.getElementById("cartCount").textContent = cart.length;
+    const count =
+        document.getElementById("cartCount");
 
-    const container = document.getElementById("cartItems");
+    const container =
+        document.getElementById("cartItems");
+
+    const totalElement =
+        document.getElementById("totalPrice");
+
+
+    count.textContent = cart.length;
+
 
     if(cart.length === 0){
 
         container.innerHTML =
-        '<div class="empty">Корзина пока пустая</div>';
+            '<div class="empty">Корзина пока пустая</div>';
 
-        document.getElementById("totalPrice").textContent = "0";
+        totalElement.textContent = "0";
 
         return;
+
     }
+
 
     let total = 0;
 
     container.innerHTML = "";
 
+
     cart.forEach((item,index)=>{
 
         total += item.price;
 
-        const div = document.createElement("div");
+
+        const div =
+            document.createElement("div");
 
         div.className = "cart-item";
 
+
         div.innerHTML = `
-            <div>
-                <strong>${item.name}</strong><br>
-                ${item.price} ₸
+
+            <div class="cart-item-info">
+
+                <div class="cart-item-name">
+                    ${escapeHTML(item.name)}
+                </div>
+
+                <div class="cart-item-price">
+                    ${item.price} ₸
+                </div>
+
             </div>
 
-            <button class="remove"
-                onclick="removeItem(${index})">
+            <button
+                class="remove"
+                onclick="removeItem(${index})"
+            >
                 Удалить
             </button>
+
         `;
+
 
         container.appendChild(div);
 
     });
 
-    document.getElementById("totalPrice").textContent = total;
+
+    totalElement.textContent = total;
 
 }
 
 
+/* =========================
+   ОТКРЫТЬ КОРЗИНУ
+========================= */
+
 function openCart(){
 
-    document.getElementById("cartModal").style.display = "flex";
+    document
+        .getElementById("cartModal")
+        .style.display = "flex";
 
     updateCart();
 
 }
 
 
+/* =========================
+   ЗАКРЫТЬ КОРЗИНУ
+========================= */
+
 function closeCart(){
 
-    document.getElementById("cartModal").style.display = "none";
+    document
+        .getElementById("cartModal")
+        .style.display = "none";
 
 }
 
 
-function payKaspi(){
+/* =========================
+   ЗАКРЫТИЕ ПО ФОНУ
+========================= */
+
+function outsideClose(event){
+
+    if(event.target.id === "cartModal"){
+        closeCart();
+    }
+
+}
+
+
+/* =========================
+   ПОЛУЧИТЬ ИТОГО
+========================= */
+
+function getTotal(){
+
+    return cart.reduce(
+        (sum,item) => sum + item.price,
+        0
+    );
+
+}
+
+
+/* =========================
+   ПРОВЕРКА ДАННЫХ
+========================= */
+
+function validateOrder(){
 
     if(cart.length === 0){
 
         alert("Добавьте товары в корзину.");
 
-        return;
+        return false;
+
     }
+
 
     const name =
-        document.getElementById("customerName").value.trim();
+        document
+        .getElementById("customerName")
+        .value
+        .trim();
+
 
     const phone =
-        document.getElementById("customerPhone").value.trim();
+        document
+        .getElementById("customerPhone")
+        .value
+        .trim();
 
-    if(!name || !phone){
 
-        alert("Пожалуйста, укажите имя и номер телефона.");
+    if(!name){
 
+        alert("Введите ваше имя.");
+
+        return false;
+
+    }
+
+
+    if(!phone){
+
+        alert("Введите номер телефона.");
+
+        return false;
+
+    }
+
+
+    return true;
+
+}
+
+
+/* =========================
+   WHATSAPP
+========================= */
+
+function sendWhatsApp(){
+
+    if(!validateOrder()){
         return;
     }
 
-    /*
-       Перед оплатой можно сохранить заказ
-       или отправить его на сервер.
 
-       Сейчас кнопка просто открывает
-       вашу ссылку Kaspi.
-    */
+    const name =
+        document
+        .getElementById("customerName")
+        .value
+        .trim();
 
-    window.location.href = KASPI_LINK;
+
+    const phone =
+        document
+        .getElementById("customerPhone")
+        .value
+        .trim();
+
+
+    let message =
+        "🍽️ НОВЫЙ ЗАКАЗ MELANGE\n\n";
+
+
+    message +=
+        "Заказ:\n";
+
+
+    cart.forEach(item => {
+
+        message +=
+            "• " +
+            item.name +
+            " — " +
+            item.price +
+            " ₸\n";
+
+    });
+
+
+    message +=
+        "\n💰 Итого: " +
+        getTotal() +
+        " ₸";
+
+
+    message +=
+        "\n\n👤 Имя: " +
+        name;
+
+
+    message +=
+        "\n📞 Телефон: " +
+        phone;
+
+
+    message +=
+        "\n📍 Получение: самовывоз";
+
+
+    const url =
+        "https://wa.me/" +
+        WHATSAPP_NUMBER +
+        "?text=" +
+        encodeURIComponent(message);
+
+
+    window.open(url,"_blank");
 
 }
+
+
+/* =========================
+   KASPI
+========================= */
+
+function payKaspi(){
+
+    if(!validateOrder()){
+        return;
+    }
+
+
+    /*
+       Сначала сохраняем данные заказа
+       в браузере, чтобы после возвращения
+       они не потерялись.
+    */
+
+    const order = {
+
+        name:
+            document
+            .getElementById("customerName")
+            .value
+            .trim(),
+
+        phone:
+            document
+            .getElementById("customerPhone")
+            .value
+            .trim(),
+
+        items:cart,
+
+        total:getTotal()
+
+    };
+
+
+    localStorage.setItem(
+        "melange_last_order",
+        JSON.stringify(order)
+    );
+
+
+    window.open(
+        KASPI_LINK,
+        "_blank"
+    );
+
+}
+
+
+/* =========================
+   ЗАЩИТА ТЕКСТА
+========================= */
+
+function escapeHTML(text){
+
+    return text
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================
+   ЗАГРУЗКА
+========================= */
+
+updateCart();
 
 </script>
 
